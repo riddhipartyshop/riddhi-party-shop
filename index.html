@@ -551,7 +551,7 @@ Home
 </button>
 
 <button class="nav"
-onclick="showAll()">
+onclick="openCategoriesPage()"
 <b>▦</b>
 Categories
 </button>
@@ -579,7 +579,26 @@ onclick="closeModal(event)">
 
 </div>
 
+function openCategoriesPage(){
+  document.querySelector('main').style.display = 'none';
+  document.getElementById('categoryPage').style.display = 'block';
+}
 
+function goHome(){
+  document.getElementById('categoryPage').style.display = 'none';
+  document.querySelector('main').style.display = 'block';
+}
+function selectCategoryPage(cat){
+  document.getElementById('categoryPage').style.display = 'none';
+  document.querySelector('main').style.display = 'block';
+
+  setCat(cat);
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 <script>
 
 const products=[
@@ -1256,6 +1275,38 @@ window.addEventListener(
 }
 
 </script>
+<section id="categoryPage" style="display:none; padding:16px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+    <button onclick="goHome()" style="border:0;background:#f0e8ff;border-radius:12px;padding:10px 14px;font-size:20px;">←</button>
+    <h2 style="margin:0;">Shop by Category</h2>
+  </div>
 
+  <div class="categoryGrid">
+    <button onclick="selectCategoryPage('Decoration')">
+      🎈
+      <span>Birthday Decoration</span>
+    </button>
+
+    <button onclick="selectCategoryPage('Gifts')">
+      🎁
+      <span>Gifts</span>
+    </button>
+
+    <button onclick="selectCategoryPage('Toys')">
+      🧸
+      <span>Toys</span>
+    </button>
+
+    <button onclick="selectCategoryPage('Party Supplies')">
+      🎉
+      <span>Party Supplies</span>
+    </button>
+
+    <button onclick="selectCategoryPage('Combos')">
+      📦
+      <span>Combos</span>
+    </button>
+  </div>
+</section>
 </body>
 </html>
