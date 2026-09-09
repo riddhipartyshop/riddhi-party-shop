@@ -3,20 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#7c3aed">
 <title>Riddhi Party Shop</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
   background:#f7f7f8;
   color:#222;
+  padding-bottom:75px;
 }
-button{font:inherit;cursor:pointer}
+
+button{
+  font:inherit;
+  cursor:pointer;
+}
+
 header{
   background:#fff;
   position:sticky;
@@ -24,27 +30,32 @@ header{
   z-index:20;
   box-shadow:0 2px 10px #0001;
 }
+
 .top{
-  padding:14px 16px 8px;
+  padding:14px 16px 10px;
 }
+
 .logo{
-  font-size:21px;
+  font-size:22px;
   font-weight:800;
   color:#7c3aed;
 }
+
 .location{
   font-size:12px;
   color:#777;
   margin-top:3px;
 }
+
 .search{
   margin-top:10px;
   display:flex;
+  align-items:center;
   background:#f1f1f3;
   border-radius:12px;
   padding:0 12px;
-  align-items:center;
 }
+
 .search input{
   width:100%;
   border:0;
@@ -53,50 +64,57 @@ header{
   padding:13px 8px;
   font-size:15px;
 }
+
 .hero{
   margin:14px 16px;
   padding:20px;
   border-radius:18px;
   background:linear-gradient(135deg,#7c3aed,#9333ea);
-  color:white;
+  color:#fff;
 }
-.hero h1{margin:0 0 7px;font-size:25px}
-.hero p{margin:0 0 14px;font-size:14px}
+
+.hero h1{
+  margin:0 0 7px;
+  font-size:25px;
+}
+
+.hero p{
+  margin:0 0 14px;
+  font-size:14px;
+}
+
 .hero button{
   border:0;
-  background:white;
+  background:#fff;
   color:#7c3aed;
   padding:10px 16px;
   border-radius:10px;
   font-weight:700;
 }
+
 .section{
   padding:8px 16px;
 }
+
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:10px;
 }
+
 .section-head h2{
   font-size:18px;
   margin:0;
 }
-.view{
-  color:#7c3aed;
-  font-size:13px;
-  font-weight:700;
-  border:0;
-  background:none;
-}
+
 .categories{
   display:flex;
   gap:10px;
   overflow-x:auto;
   padding-bottom:5px;
 }
-.categories::-webkit-scrollbar{display:none}
+
 .cat{
   min-width:92px;
   background:#fff;
@@ -104,8 +122,8 @@ header{
   border-radius:14px;
   padding:12px 8px;
   text-align:center;
-  box-shadow:0 2px 8px #00000008;
 }
+
 .cat-icon{
   width:52px;
   height:52px;
@@ -117,23 +135,27 @@ header{
   justify-content:center;
   font-size:28px;
 }
+
 .cat span{
   display:block;
   font-size:12px;
   font-weight:700;
   margin-top:7px;
 }
+
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
+
 .card{
-  background:white;
+  background:#fff;
   border-radius:15px;
   overflow:hidden;
   box-shadow:0 2px 8px #0000000c;
 }
+
 .pic{
   height:170px;
   background:#f4f4f5;
@@ -141,31 +163,40 @@ header{
   align-items:center;
   justify-content:center;
 }
+
 .pic img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
+
 .noimg{
   font-size:48px;
 }
-.info{padding:10px}
+
+.info{
+  padding:10px;
+}
+
 .name{
   font-size:14px;
   font-weight:700;
   min-height:35px;
 }
+
 .price{
   margin-top:6px;
   font-weight:800;
   font-size:17px;
 }
+
 .mrp{
   color:#999;
   text-decoration:line-through;
   font-size:12px;
   margin-left:5px;
 }
+
 .add{
   width:100%;
   margin-top:9px;
@@ -176,6 +207,7 @@ header{
   padding:8px;
   font-weight:800;
 }
+
 .qty{
   display:flex;
   align-items:center;
@@ -186,6 +218,7 @@ header{
   border-radius:9px;
   overflow:hidden;
 }
+
 .qty button{
   width:35px;
   height:34px;
@@ -194,52 +227,34 @@ header{
   color:#fff;
   font-size:20px;
 }
-.qty span{font-weight:800}
+
 .empty{
+  grid-column:1/-1;
   text-align:center;
-  padding:40px 15px;
+  padding:35px 15px;
   color:#777;
+  background:#fff;
+  border-radius:15px;
 }
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:65px;
-  background:white;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  border-top:1px solid #ddd;
-  z-index:30;
-}
-.nav{
-  border:0;
-  background:none;
+
+.loading{
+  grid-column:1/-1;
+  text-align:center;
+  padding:40px;
   color:#777;
-  font-size:11px;
+  background:#fff;
+  border-radius:15px;
 }
-.nav b{
-  display:block;
-  font-size:22px;
-  line-height:22px;
-}
-.nav.active{color:#7c3aed}
-.badge{
-  position:absolute;
-  margin-left:-7px;
-  margin-top:-3px;
-  background:#ef4444;
-  color:#fff;
-  border-radius:20px;
-  font-size:10px;
-  padding:2px 5px;
-}
+
 .page{
   display:none;
   padding:15px 16px 85px;
 }
-.page.active{display:block}
+
+.page.active{
+  display:block;
+}
+
 .back{
   border:0;
   background:none;
@@ -247,31 +262,38 @@ header{
   font-weight:700;
   padding:0 0 14px;
 }
+
 .cat-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
+
 .cat-big{
-  background:white;
+  background:#fff;
+  border:0;
   border-radius:17px;
   padding:20px 10px;
   text-align:center;
   box-shadow:0 2px 8px #0001;
 }
+
 .cat-big div{
   font-size:42px;
 }
+
 .cat-big strong{
   display:block;
   margin-top:8px;
 }
+
 .cart-box{
   background:#fff;
   border-radius:15px;
   padding:14px;
   margin-bottom:12px;
 }
+
 .cart-row{
   display:flex;
   gap:10px;
@@ -279,7 +301,7 @@ header{
   padding:10px 0;
   border-bottom:1px solid #eee;
 }
-.cart-row:last-child{border-bottom:0}
+
 .cart-img{
   width:58px;
   height:58px;
@@ -287,12 +309,19 @@ header{
   object-fit:cover;
   background:#f3f3f3;
 }
-.cart-name{flex:1;font-weight:700;font-size:13px}
+
+.cart-name{
+  flex:1;
+  font-weight:700;
+  font-size:13px;
+}
+
 .smallqty{
   display:flex;
   align-items:center;
   gap:8px;
 }
+
 .smallqty button{
   border:0;
   background:#eee;
@@ -300,12 +329,14 @@ header{
   width:28px;
   height:28px;
 }
+
 .total{
   font-size:20px;
   font-weight:800;
   text-align:right;
   margin-top:12px;
 }
+
 .checkout input,
 .checkout textarea,
 .checkout select{
@@ -317,7 +348,12 @@ header{
   outline:none;
   font-size:14px;
 }
-.checkout textarea{height:80px;resize:none}
+
+.checkout textarea{
+  height:80px;
+  resize:none;
+}
+
 .primary{
   width:100%;
   border:0;
@@ -327,57 +363,63 @@ header{
   padding:13px;
   font-weight:800;
 }
-.order{
-  background:white;
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
-}
-.status{
-  display:inline-block;
-  background:#f1eaff;
-  color:#7c3aed;
-  border-radius:20px;
-  padding:4px 9px;
-  font-size:11px;
-  font-weight:700;
-}
-.modal{
-  display:none;
+
+.bottom{
   position:fixed;
-  inset:0;
-  background:#0008;
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.modal.show{display:flex}
-.modal-box{
+  bottom:0;
+  left:0;
+  right:0;
+  height:65px;
   background:#fff;
-  border-radius:18px;
-  width:100%;
-  max-width:400px;
-  padding:20px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid #ddd;
+  z-index:30;
 }
-.modal-box h2{margin-top:0}
-.close{
-  float:right;
+
+.nav{
   border:0;
-  background:#eee;
-  border-radius:50%;
-  width:30px;
-  height:30px;
-}
-.loading{
-  text-align:center;
-  padding:40px;
+  background:none;
   color:#777;
+  font-size:11px;
 }
+
+.nav b{
+  display:block;
+  font-size:22px;
+  line-height:22px;
+}
+
+.nav.active{
+  color:#7c3aed;
+}
+
+.badge{
+  position:absolute;
+  margin-left:-7px;
+  margin-top:-3px;
+  background:#ef4444;
+  color:#fff;
+  border-radius:20px;
+  font-size:10px;
+  padding:2px 5px;
+}
+
 @media(min-width:700px){
-  .products{grid-template-columns:repeat(4,1fr)}
-  .cat-grid{grid-template-columns:repeat(4,1fr)}
-  main,.page{max-width:1100px;margin:auto}
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .cat-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  main,
+  .page{
+    max-width:1100px;
+    margin:auto;
+  }
 }
 </style>
 </head>
@@ -386,31 +428,50 @@ header{
 
 <header>
   <div class="top">
+
     <div class="logo">🪷 Riddhi Party Shop</div>
-    <div class="location">📍 Kalyanpur, Kanpur</div>
+
+    <div class="location">
+      📍 4B Shukla Market, Panki Road, Kalyanpur
+    </div>
 
     <div class="search">
       🔍
-      <input id="searchInput" placeholder="Search balloons, gifts, toys..." oninput="searchProducts()">
+      <input
+        id="searchInput"
+        placeholder="Search balloons, gifts, toys..."
+        oninput="renderProducts()"
+      >
     </div>
+
   </div>
 </header>
+
+
+<!-- HOME -->
 
 <main id="homePage">
 
   <section class="hero">
     <h1>Great Prices 🎉</h1>
-    <p>Birthday, Gifts & Party Decoration — sab ek jagah!</p>
-    <button onclick="openCategories()">Shop Now</button>
+    <p>
+      Birthday, Gifts & Party Decoration — sab ek jagah!
+    </p>
+
+    <button onclick="openCategories()">
+      Shop Now
+    </button>
   </section>
 
+
   <section class="section">
+
     <div class="section-head">
       <h2>Shop by Category</h2>
-      <button class="view" onclick="openCategories()">View All</button>
     </div>
 
     <div class="categories">
+
       <button class="cat" onclick="selectCategory('Decoration')">
         <div class="cat-icon">🎈</div>
         <span>Decoration</span>
@@ -430,24 +491,38 @@ header{
         <div class="cat-icon">🥳</div>
         <span>Party</span>
       </button>
+
     </div>
+
   </section>
 
+
   <section class="section">
+
     <div class="section-head">
       <h2 id="productTitle">All Products</h2>
     </div>
+
     <div id="products" class="products">
-      <div class="loading">Products load ho rahe hain...</div>
+
+      <div class="loading">
+        Products load ho rahe hain...
+      </div>
+
     </div>
+
   </section>
 
 </main>
 
-<!-- CATEGORY PAGE -->
+
+<!-- CATEGORY -->
+
 <section id="categoryPage" class="page">
 
-  <button class="back" onclick="goHome()">← Home</button>
+  <button class="back" onclick="goHome()">
+    ← Home
+  </button>
 
   <h2>Shop by Category</h2>
 
@@ -473,49 +548,80 @@ header{
       <strong>Party Supplies</strong>
     </button>
 
-    <button class="cat-big" onclick="selectCategory('Combos')">
-      <div>🎉</div>
-      <strong>Combos</strong>
-    </button>
-
   </div>
+
 </section>
 
-<!-- CART PAGE -->
+
+<!-- CART -->
+
 <section id="cartPage" class="page">
 
-  <button class="back" onclick="goHome()">← Continue Shopping</button>
+  <button class="back" onclick="goHome()">
+    ← Continue Shopping
+  </button>
 
   <h2>Your Cart 🛒</h2>
 
   <div id="cartItems"></div>
 
-  <div id="cartCheckout" class="cart-box checkout">
-    <div class="total" id="cartTotal">Total ₹0</div>
+  <div class="cart-box checkout">
+
+    <div class="total" id="cartTotal">
+      Total ₹0
+    </div>
 
     <h3>Delivery Details</h3>
 
-    <input id="customerName" placeholder="Your Name">
-    <input id="customerMobile" placeholder="Mobile Number" type="tel">
-    <textarea id="customerAddress" placeholder="Full Delivery Address"></textarea>
+    <input
+      id="customerName"
+      placeholder="Your Name"
+    >
+
+    <input
+      id="customerMobile"
+      placeholder="Mobile Number"
+      type="tel"
+    >
+
+    <textarea
+      id="customerAddress"
+      placeholder="Full Delivery Address"
+    ></textarea>
 
     <select id="paymentMethod">
-      <option value="COD">Cash on Delivery</option>
-      <option value="PICKUP">Pay at Shop / Pickup</option>
-      <option value="UPI">UPI</option>
+      <option value="COD">
+        Cash on Delivery
+      </option>
+
+      <option value="PICKUP">
+        Pay at Shop / Pickup
+      </option>
+
+      <option value="UPI">
+        UPI
+      </option>
     </select>
 
-    <button class="primary" onclick="placeOrder()">
+    <button
+      class="primary"
+      onclick="placeOrder()"
+    >
       Place Order
     </button>
+
   </div>
 
 </section>
 
-<!-- ORDERS PAGE -->
+
+<!-- ORDERS -->
+
 <section id="ordersPage" class="page">
 
-  <button class="back" onclick="goHome()">← Home</button>
+  <button class="back" onclick="goHome()">
+    ← Home
+  </button>
 
   <h2>My Orders 📦</h2>
 
@@ -523,17 +629,8 @@ header{
 
 </section>
 
-<!-- GREAT PRICES MODAL -->
-<div id="priceModal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal()">×</button>
-    <h2>🎉 Great Prices</h2>
-    <p>Riddhi Party Shop par birthday decoration, gifts aur toys ke best prices milenge.</p>
-    <button class="primary" onclick="openCategories();closeModal()">
-      Shop Now
-    </button>
-  </div>
-</div>
+
+<!-- NAVIGATION -->
 
 <nav class="bottom">
 
@@ -559,19 +656,25 @@ header{
 
 </nav>
 
+
 <script>
 
 /* =====================================================
-   SUPABASE SETTINGS
+   SUPABASE
    ===================================================== */
 
-const SUPABASE_URL = "https://vngxyvgtboinxuzxchey.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_YjdwhsuPIv0XLcA5mKWuXA_Czk6GFpD";
+const SUPABASE_URL =
+  "https://vngxyvgtboinxuzxchey.supabase.co";
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const SUPABASE_ANON_KEY =
+  "sb_publishable_YjdwhsuPIv0XLcA5mKWuXA_Czk6GFpD";
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 
 
 /* =====================================================
@@ -579,8 +682,13 @@ const supabaseClient = window.supabase.createClient(
    ===================================================== */
 
 let products = [];
+
 let currentCategory = "";
-let cart = JSON.parse(localStorage.getItem("rps_cart") || "[]");
+
+let cart =
+  JSON.parse(
+    localStorage.getItem("rps_cart") || "[]"
+  );
 
 
 /* =====================================================
@@ -589,44 +697,85 @@ let cart = JSON.parse(localStorage.getItem("rps_cart") || "[]");
 
 async function loadProducts(){
 
-  const box = document.getElementById("products");
+  const box =
+    document.getElementById("products");
 
-  if(
-    SUPABASE_URL.includes("PASTE_") ||
-    SUPABASE_ANON_KEY.includes("PASTE_")
-  ){
-    box.innerHTML = `
-      <div class="empty">
-        <h3>Supabase connect nahi hua</h3>
-        <p>Code mein Project URL aur Publishable Key paste karo.</p>
-      </div>
-    `;
-    return;
-  }
+  box.innerHTML =
+    '<div class="loading">Products load ho rahe hain...</div>';
 
-  const {data,error} = await supabaseClient
-    .from("products")
-    .select("*")
-    .eq("active",true)
-    .order("created_at",{ascending:false});
+  try{
 
-  if(error){
+    const result =
+      await supabaseClient
+        .from("products")
+        .select("*")
+        .order("created_at", {
+          ascending:false
+        });
+
+    if(result.error){
+
+      console.error(
+        "Supabase error:",
+        result.error
+      );
+
+      box.innerHTML = `
+        <div class="empty">
+          <h3>Products load nahi hue</h3>
+          <p>${result.error.message}</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    products =
+      result.data || [];
+
+
+    /*
+      Agar active column available hai
+      aur product active=false hai,
+      to usse hide karenge.
+    */
+
+    products =
+      products.filter(function(p){
+
+        if(
+          Object.prototype.hasOwnProperty.call(
+            p,
+            "active"
+          )
+        ){
+          return p.active !== false;
+        }
+
+        return true;
+
+      });
+
+
+    renderProducts();
+
+    updateCartBadge();
+
+
+  }catch(error){
+
     console.error(error);
 
     box.innerHTML = `
       <div class="empty">
-        <h3>Products load nahi hue</h3>
-        <p>Supabase connection check karo.</p>
+        <h3>Website database error</h3>
+        <p>Database se connection nahi ho pa raha.</p>
       </div>
     `;
 
-    return;
   }
 
-  products = data || [];
-
-  renderProducts();
-  updateCartBadge();
 }
 
 
@@ -636,43 +785,68 @@ async function loadProducts(){
 
 function renderProducts(){
 
-  const box = document.getElementById("products");
+  const box =
+    document.getElementById("products");
 
-  let list = products.filter(p => {
-
-    const text = (
-      (p.name || "") + " " +
-      (p.category || "") + " " +
-      (p.description || "")
+  const search =
+    (
+      document.getElementById("searchInput")
+        ?.value || ""
     ).toLowerCase();
 
-    const q = (
-      document.getElementById("searchInput").value || ""
-    ).toLowerCase();
 
-    return (
-      (!currentCategory || p.category === currentCategory) &&
-      (!q || text.includes(q))
-    );
+  let list =
+    products.filter(function(p){
 
-  });
+      const text =
+        (
+          (p.name || "") +
+          " " +
+          (p.category || "") +
+          " " +
+          (p.description || "")
+        ).toLowerCase();
 
-  document.getElementById("productTitle").textContent =
+
+      const categoryOK =
+        !currentCategory ||
+        (p.category || "").toLowerCase()
+        === currentCategory.toLowerCase();
+
+
+      const searchOK =
+        !search ||
+        text.includes(search);
+
+
+      return categoryOK && searchOK;
+
+    });
+
+
+  document.getElementById(
+    "productTitle"
+  ).textContent =
     currentCategory || "All Products";
+
 
   if(!list.length){
 
     box.innerHTML = `
       <div class="empty">
         <h3>Product nahi mila 😔</h3>
-        <p>Dusra product ya category search karo.</p>
+        <p>Abhi products available nahi hain.</p>
       </div>
     `;
 
     return;
+
   }
 
-  box.innerHTML = list.map(productCard).join("");
+
+  box.innerHTML =
+    list.map(productCard).join("");
+
 }
 
 
@@ -682,149 +856,122 @@ function renderProducts(){
 
 function productCard(p){
 
-  const item = cart.find(x => x.id === p.id);
-  const qty = item ? item.qty : 0;
+  const id =
+    p.id;
 
-  const image = p.image_url
-    ? `<img src="${escapeHtml(p.image_url)}" alt="${escapeHtml(p.name)}">`
-    : `<div class="noimg">🎁</div>`;
+  const name =
+    p.name || "Product";
 
-  let button = "";
 
-  if(qty === 0){
+  const price =
+    Number(p.price || 0);
 
-    button = `
-      <button class="add" onclick="addToCart('${p.id}')">
-        ADD
-      </button>
-    `;
 
-  }else{
+  const mrp =
+    Number(p.mrp || 0);
 
-    button = `
-      <div class="qty">
-        <button onclick="changeQty('${p.id}',-1)">−</button>
-        <span>${qty}</span>
-        <button onclick="changeQty('${p.id}',1)">+</button>
-      </div>
-    `;
-  }
+
+  const image =
+    p.image_url ||
+    p.image ||
+    p.photo ||
+    "";
+
+
+  const existing =
+    cart.find(function(item){
+      return String(item.id) === String(id);
+    });
+
+
+  const qty =
+    existing ? existing.qty : 0;
+
 
   return `
+
     <div class="card">
 
       <div class="pic">
-        ${image}
+
+        ${
+          image
+          ?
+          `<img
+            src="${escapeHtml(image)}"
+            alt="${escapeHtml(name)}"
+            onerror="this.style.display='none';this.parentElement.innerHTML='<div class=noimg>🎁</div>'"
+          >`
+          :
+          `<div class="noimg">🎁</div>`
+        }
+
       </div>
+
 
       <div class="info">
 
         <div class="name">
-          ${escapeHtml(p.name)}
+          ${escapeHtml(name)}
         </div>
 
+
         <div class="price">
-          ₹${Number(p.price).toFixed(0)}
+
+          ₹${price}
 
           ${
-            p.mrp
-            ? `<span class="mrp">₹${Number(p.mrp).toFixed(0)}</span>`
-            : ""
+            mrp > price
+            ?
+            `<span class="mrp">
+              ₹${mrp}
+            </span>`
+            :
+            ""
           }
 
         </div>
 
-        ${button}
+
+        ${
+          qty === 0
+
+          ?
+
+          `<button
+            class="add"
+            onclick="addToCart('${escapeJs(id)}')"
+          >
+            Add to Cart
+          </button>`
+
+          :
+
+          `<div class="qty">
+
+            <button
+              onclick="changeQty('${escapeJs(id)}',-1)"
+            >
+              −
+            </button>
+
+            <span>${qty}</span>
+
+            <button
+              onclick="changeQty('${escapeJs(id)}',1)"
+            >
+              +
+            </button>
+
+          </div>`
+        }
 
       </div>
 
     </div>
+
   `;
-}
 
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
-
-function searchProducts(){
-  renderProducts();
-}
-
-
-/* =====================================================
-   CATEGORY
-   ===================================================== */
-
-function openCategories(){
-
-  document.getElementById("homePage").style.display = "none";
-
-  document
-    .getElementById("categoryPage")
-    .classList.add("active");
-
-  document
-    .getElementById("cartPage")
-    .classList.remove("active");
-
-  document
-    .getElementById("ordersPage")
-    .classList.remove("active");
-
-  window.scrollTo(0,0);
-}
-
-
-function selectCategory(cat){
-
-  currentCategory = cat;
-
-  document.getElementById("categoryPage")
-    .classList.remove("active");
-
-  document.getElementById("cartPage")
-    .classList.remove("active");
-
-  document.getElementById("ordersPage")
-    .classList.remove("active");
-
-  document.getElementById("homePage").style.display = "block";
-
-  renderProducts();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-}
-
-
-/* =====================================================
-   HOME
-   ===================================================== */
-
-function goHome(){
-
-  currentCategory = "";
-
-  document.getElementById("categoryPage")
-    .classList.remove("active");
-
-  document.getElementById("cartPage")
-    .classList.remove("active");
-
-  document.getElementById("ordersPage")
-    .classList.remove("active");
-
-  document.getElementById("homePage").style.display = "block";
-
-  renderProducts();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
 }
 
 
@@ -834,44 +981,86 @@ function goHome(){
 
 function addToCart(id){
 
-  const product = products.find(p => p.id === id);
-
-  if(!product) return;
-
-  const existing = cart.find(x => x.id === id);
-
-  if(existing){
-    existing.qty++;
-  }else{
-    cart.push({
-      id:id,
-      qty:1
+  const product =
+    products.find(function(p){
+      return String(p.id) === String(id);
     });
+
+
+  if(!product){
+    return;
   }
 
+
+  const existing =
+    cart.find(function(item){
+      return String(item.id) === String(id);
+    });
+
+
+  if(existing){
+
+    existing.qty++;
+
+  }else{
+
+    cart.push({
+      id:product.id,
+      name:product.name,
+      price:Number(product.price || 0),
+      image:product.image_url || product.image || "",
+      qty:1
+    });
+
+  }
+
+
   saveCart();
+
   renderProducts();
-  updateCartBadge();
+
 }
 
 
-function changeQty(id,change){
+function changeQty(id, amount){
 
-  const item = cart.find(x => x.id === id);
+  const item =
+    cart.find(function(item){
+      return String(item.id) === String(id);
+    });
 
-  if(!item) return;
 
-  item.qty += change;
+  if(!item){
+    return;
+  }
+
+
+  item.qty += amount;
+
 
   if(item.qty <= 0){
-    cart = cart.filter(x => x.id !== id);
+
+    cart =
+      cart.filter(function(x){
+        return String(x.id) !== String(id);
+      });
+
   }
+
 
   saveCart();
 
   renderProducts();
-  renderCart();
-  updateCartBadge();
+
+  if(
+    document.getElementById("cartPage")
+      .classList.contains("active")
+  ){
+
+    renderCart();
+
+  }
+
 }
 
 
@@ -881,166 +1070,501 @@ function saveCart(){
     "rps_cart",
     JSON.stringify(cart)
   );
+
+  updateCartBadge();
+
 }
 
 
 function updateCartBadge(){
 
-  const count = cart.reduce(
-    (sum,x)=>sum+x.qty,
-    0
-  );
+  const total =
+    cart.reduce(
+      function(sum,item){
+        return sum + item.qty;
+      },
+      0
+    );
 
-  const badge = document.getElementById("cartBadge");
 
-  badge.textContent = count;
+  document.getElementById(
+    "cartBadge"
+  ).textContent = total;
 
-  badge.style.display =
-    count ? "inline-block" : "none";
 }
 
 
 /* =====================================================
-   OPEN CART
-   ===================================================== */
-
-function openCart(){
-
-  document.getElementById("homePage").style.display = "none";
-
-  document.getElementById("categoryPage")
-    .classList.remove("active");
-
-  document.getElementById("ordersPage")
-    .classList.remove("active");
-
-  document.getElementById("cartPage")
-    .classList.add("active");
-
-  renderCart();
-
-  window.scrollTo(0,0);
-}
-
-
-/* =====================================================
-   RENDER CART
+   CART PAGE
    ===================================================== */
 
 function renderCart(){
 
-  const box = document.getElementById("cartItems");
+  const box =
+    document.getElementById("cartItems");
+
 
   if(!cart.length){
 
     box.innerHTML = `
-      <div class="cart-box empty">
-        <h3>Cart empty hai 🛒</h3>
-        <p>Products add karo.</p>
-
-        <button class="primary" onclick="goHome()">
-          Start Shopping
-        </button>
+      <div class="cart-box">
+        <div class="empty">
+          <h3>Cart empty hai 🛒</h3>
+          <p>Products add kijiye.</p>
+        </div>
       </div>
     `;
 
-    document.getElementById("cartCheckout").style.display = "none";
+    document.getElementById(
+      "cartTotal"
+    ).textContent =
+      "Total ₹0";
 
     return;
+
   }
 
-  document.getElementById("cartCheckout").style.display = "block";
 
-  let total = 0;
+  box.innerHTML =
+    cart.map(function(item){
 
-  box.innerHTML = `
-    <div class="cart-box">
+      return `
 
-      ${cart.map(item => {
+        <div class="cart-box">
 
-        const p = products.find(x => x.id === item.id);
-
-        if(!p) return "";
-
-        total += Number(p.price) * item.qty;
-
-        return `
           <div class="cart-row">
 
             ${
-              p.image_url
-              ? `<img class="cart-img" src="${escapeHtml(p.image_url)}">`
-              : `<div class="cart-img" style="display:flex;align-items:center;justify-content:center;font-size:28px">🎁</div>`
+              item.image
+              ?
+              `<img
+                class="cart-img"
+                src="${escapeHtml(item.image)}"
+              >`
+              :
+              `<div class="cart-img"
+                style="display:flex;align-items:center;justify-content:center;font-size:28px">
+                🎁
+              </div>`
             }
 
+
             <div class="cart-name">
-              ${escapeHtml(p.name)}
+              ${escapeHtml(item.name)}
               <br>
-              ₹${Number(p.price).toFixed(0)}
+              ₹${item.price}
             </div>
 
+
             <div class="smallqty">
-              <button onclick="changeQty('${p.id}',-1)">−</button>
+
+              <button
+                onclick="changeQty('${escapeJs(item.id)}',-1)"
+              >
+                −
+              </button>
+
               <b>${item.qty}</b>
-              <button onclick="changeQty('${p.id}',1)">+</button>
+
+              <button
+                onclick="changeQty('${escapeJs(item.id)}',1)"
+              >
+                +
+              </button>
+
             </div>
 
           </div>
-        `;
 
-      }).join("")}
+        </div>
 
-    </div>
-  `;
+      `;
 
-  document.getElementById("cartTotal").textContent =
-    "Total ₹" + total.toFixed(0);
+    }).join("");
+
+
+  const total =
+    cart.reduce(
+      function(sum,item){
+        return sum +
+          Number(item.price || 0) *
+          item.qty;
+      },
+      0
+    );
+
+
+  document.getElementById(
+    "cartTotal"
+  ).textContent =
+    "Total ₹" + total;
+
 }
 
 
 /* =====================================================
-   PLACE ORDER
+   ORDER
    ===================================================== */
 
 async function placeOrder(){
 
   if(!cart.length){
+
     alert("Cart empty hai.");
+
     return;
+
   }
+
 
   const name =
-    document.getElementById("customerName").value.trim();
+    document.getElementById(
+      "customerName"
+    ).value.trim();
+
 
   const mobile =
-    document.getElementById("customerMobile").value.trim();
+    document.getElementById(
+      "customerMobile"
+    ).value.trim();
+
 
   const address =
-    document.getElementById("customerAddress").value.trim();
+    document.getElementById(
+      "customerAddress"
+    ).value.trim();
+
 
   const payment =
-    document.getElementById("paymentMethod").value;
+    document.getElementById(
+      "paymentMethod"
+    ).value;
 
-  if(!name || !mobile || !address){
 
-    alert("Name, mobile aur address bharna zaroori hai.");
+  if(!name || !mobile){
+
+    alert(
+      "Name aur mobile number bhariye."
+    );
 
     return;
+
   }
 
-  const items = cart.map(item => {
 
-    const p = products.find(x => x.id === item.id);
+  const total =
+    cart.reduce(
+      function(sum,item){
+        return sum +
+          Number(item.price || 0) *
+          item.qty;
+      },
+      0
+    );
 
-    return {
-      id:p.id,
-      name:p.name,
-      price:p.price,
-      qty:item.qty,
-      image_url:p.image_url || ""
-    };
+
+  const orderData = {
+
+    customer_name:name,
+
+    mobile:mobile,
+
+    address:address,
+
+    payment_method:payment,
+
+    items:cart,
+
+    total:total,
+
+    status:"New"
+
+  };
+
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("orders")
+        .insert([orderData]);
+
+
+    if(result.error){
+
+      console.error(result.error);
+
+      alert(
+        "Order save nahi hua: " +
+        result.error.message
+      );
+
+      return;
+
+    }
+
+
+    alert(
+      "Order successfully place ho gaya 🎉"
+    );
+
+
+    cart = [];
+
+    saveCart();
+
+    renderCart();
+
+    goHome();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Order place karte waqt error aa gaya."
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+function hidePages(){
+
+  document.getElementById(
+    "homePage"
+  ).style.display = "none";
+
+
+  document.querySelectorAll(
+    ".page"
+  ).forEach(function(page){
+
+    page.classList.remove("active");
 
   });
 
-  const total = items.reduce(
-    (sum,x)=>sum+(
+}
+
+
+function goHome(){
+
+  hidePages();
+
+  document.getElementById(
+    "homePage"
+  ).style.display = "block";
+
+  currentCategory = "";
+
+  renderProducts();
+
+}
+
+
+function openCategories(){
+
+  hidePages();
+
+  document.getElementById(
+    "categoryPage"
+  ).classList.add("active");
+
+}
+
+
+function openCart(){
+
+  hidePages();
+
+  document.getElementById(
+    "cartPage"
+  ).classList.add("active");
+
+  renderCart();
+
+}
+
+
+function openOrders(){
+
+  hidePages();
+
+  document.getElementById(
+    "ordersPage"
+  ).classList.add("active");
+
+  loadOrders();
+
+}
+
+
+function selectCategory(category){
+
+  currentCategory =
+    category;
+
+  hidePages();
+
+  document.getElementById(
+    "homePage"
+  ).style.display = "block";
+
+  renderProducts();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =====================================================
+   ORDERS
+   ===================================================== */
+
+async function loadOrders(){
+
+  const box =
+    document.getElementById(
+      "ordersList"
+    );
+
+
+  box.innerHTML =
+    '<div class="loading">Orders load ho rahe hain...</div>';
+
+
+  try{
+
+    const result =
+      await supabaseClient
+        .from("orders")
+        .select("*")
+        .order("created_at", {
+          ascending:false
+        });
+
+
+    if(result.error){
+
+      box.innerHTML = `
+        <div class="cart-box">
+          Orders load nahi hue.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const orders =
+      result.data || [];
+
+
+    if(!orders.length){
+
+      box.innerHTML = `
+        <div class="cart-box">
+          <div class="empty">
+            Abhi koi order nahi hai.
+          </div>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      orders.map(function(order){
+
+        return `
+
+          <div class="cart-box">
+
+            <b>
+              Order #${order.id || ""}
+            </b>
+
+            <p>
+              ₹${order.total || 0}
+            </p>
+
+            <p>
+              ${escapeHtml(
+                order.customer_name || ""
+              )}
+            </p>
+
+            <span>
+              ${escapeHtml(
+                order.status || "New"
+              )}
+            </span>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      '<div class="cart-box">Orders load nahi hue.</div>';
+
+  }
+
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
+   ===================================================== */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeJs(value){
+
+  return String(value ?? "")
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'");
+
+}
+
+
+/* =====================================================
+   START WEBSITE
+   ===================================================== */
+
+updateCartBadge();
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
