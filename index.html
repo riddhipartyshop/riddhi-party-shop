@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ff4f81"><meta name="description" content="Riddhi Party Shop - Party Supplies, Toys & Gifts">
+<link rel="manifest" href="manifest.json">
+<title>Riddhi Party Shop</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#fff8fb;color:#222}
+header{background:linear-gradient(135deg,#ff4f81,#ff9a3d);color:white;padding:22px 16px;border-radius:0 0 24px 24px}
+header h1{margin:0;font-size:28px}header p{margin:6px 0 0}
+.wrap{max-width:900px;margin:auto;padding:16px}.search{width:100%;padding:14px;border:1px solid #ddd;border-radius:14px;font-size:16px;margin:14px 0}
+.cats{display:flex;gap:8px;overflow:auto}.cat{border:0;background:white;padding:10px 15px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px #ddd}.cat.active{background:#ff4f81;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}.card{background:white;border-radius:18px;padding:12px;box-shadow:0 3px 12px #eadde2}.pic{height:120px;border-radius:14px;background:#fff0f5;display:grid;place-items:center;font-size:55px}.card h3{font-size:16px;margin:10px 0 5px}.price{font-weight:bold;color:#e83d70}.btn{width:100%;border:0;border-radius:12px;padding:11px;background:#ff4f81;color:white;margin-top:9px;font-weight:bold}
+.cart{position:fixed;right:16px;bottom:18px;background:#222;color:white;padding:14px 18px;border-radius:30px;box-shadow:0 5px 18px #999}
+footer{text-align:center;padding:30px 10px;color:#777}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style></head>
+<body>
+<header><div class="wrap"><h1>🎈 RIDDHI PARTY SHOP</h1><p>Party Supplies • Toys • Gifts</p></div></header>
+<main class="wrap">
+<input id="search" class="search" placeholder="🔎 Product search...">
+<div class="cats">
+<button class="cat active" data-cat="All">All</button><button class="cat" data-cat="Party">🎈 Party</button>
+<button class="cat" data-cat="Toys">🧸 Toys</button><button class="cat" data-cat="Gifts">🎁 Gifts</button>
+</div>
+<div id="products" class="grid"></div>
+</main>
+<button class="cart" onclick="checkout()">🛒 Cart (<span id="count">0</span>)</button>
+<footer>Riddhi Party Shop • Your local party, toys & gifts store</footer>
+<script>
+const products=[
+{id:1,name:"Birthday Balloons",price:99,cat:"Party",icon:"🎈"},
+{id:2,name:"Party Decoration Set",price:199,cat:"Party",icon:"🎉"},
+{id:3,name:"Birthday Banner",price:79,cat:"Party",icon:"🎊"},
+{id:4,name:"Kids Toy",price:149,cat:"Toys",icon:"🧸"},
+{id:5,name:"Cute Gift Item",price:199,cat:"Gifts",icon:"🎁"},
+{id:6,name:"Return Gift Pack",price:249,cat:"Gifts",icon:"🎀"},
+{id:7,name:"Foil Balloon",price:129,cat:"Party",icon:"🎈"},
+{id:8,name:"Fun Toy",price:299,cat:"Toys",icon:"🚗"}];
+let cart=[],cat="All";
+function render(){
+let q=document.getElementById("search").value.toLowerCase();
+let list=products.filter(p=>(cat==="All"||p.cat===cat)&&p.name.toLowerCase().includes(q));
+document.getElementById("products").innerHTML=list.map(p=>`<div class="card"><div class="pic">${p.icon}</div><h3>${p.name}</h3><div class="price">₹${p.price}</div><button class="btn" onclick="add(${p.id})">Add to Cart</button></div>`).join("");
+document.getElementById("count").textContent=cart.reduce((a,b)=>a+b.qty,0)}
+function add(id){let p=cart.find(x=>x.id===id);p?p.qty++:cart.push({...products.find(x=>x.id===id),qty:1});render()}
+function checkout(){
+if(!cart.length)return alert("Cart is empty");
+let msg="Namaste Riddhi Party Shop!%0A%0AMujhe ye items chahiye:%0A"+cart.map(x=>`${x.name} x ${x.qty} = ₹${x.price*x.qty}`).join("%0A")+
+"%0A%0ATotal: ₹"+cart.reduce((s,x)=>s+x.price*x.qty,0)+"%0A%0AName:%0AAddress:";
+let phone="919999999999";
+location.href="https://wa.me/"+phone+"?text="+msg;
+}
+document.querySelectorAll(".cat").forEach(b=>b.onclick=()=>{document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));b.classList.add("active");cat=b.dataset.cat;render()});
+document.getElementById("search").oninput=render;render();
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body></html>
