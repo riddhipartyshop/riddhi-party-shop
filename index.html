@@ -12,12 +12,14 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f7f5ff;
   color:#222;
 }
+
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 
@@ -30,21 +32,25 @@ header{
   padding:12px 14px;
   box-shadow:0 2px 10px #0002;
 }
+
 .header-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:10px;
 }
+
 .logo{
   font-size:20px;
   font-weight:800;
 }
+
 .location{
   font-size:12px;
   opacity:.9;
   margin-top:3px;
 }
+
 .account-btn{
   background:white;
   color:#5b21b6;
@@ -53,9 +59,11 @@ header{
   padding:8px 12px;
   font-weight:bold;
 }
+
 .search{
   margin-top:10px;
 }
+
 .search input{
   width:100%;
   padding:12px 15px;
@@ -64,9 +72,18 @@ header{
   outline:none;
 }
 
-main{padding-bottom:80px}
-.page{display:none;padding:15px}
-.page.active{display:block}
+main{
+  padding-bottom:80px;
+}
+
+.page{
+  display:none;
+  padding:15px;
+}
+
+.page.active{
+  display:block;
+}
 
 .hero{
   margin:5px 0 18px;
@@ -75,8 +92,16 @@ main{padding-bottom:80px}
   border-radius:18px;
   padding:24px 18px;
 }
-.hero h1{margin:0 0 8px;font-size:27px}
-.hero p{margin:0 0 15px}
+
+.hero h1{
+  margin:0 0 8px;
+  font-size:27px;
+}
+
+.hero p{
+  margin:0 0 15px;
+}
+
 .hero button{
   border:0;
   background:white;
@@ -92,13 +117,18 @@ main{padding-bottom:80px}
   align-items:center;
   margin:18px 0 12px;
 }
-.section-title h2{font-size:20px;margin:0}
+
+.section-title h2{
+  font-size:20px;
+  margin:0;
+}
 
 .categories{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:8px;
 }
+
 .category{
   border:0;
   background:white;
@@ -108,6 +138,7 @@ main{padding-bottom:80px}
   color:#5b21b6;
   font-weight:bold;
 }
+
 .category span{
   display:block;
   font-size:25px;
@@ -119,34 +150,43 @@ main{padding-bottom:80px}
   grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
+
 .card{
   background:white;
   border-radius:15px;
   overflow:hidden;
   box-shadow:0 2px 9px #0001;
 }
+
 .card img{
   width:100%;
   height:150px;
   object-fit:cover;
   background:#eee;
 }
-.card-body{padding:10px}
+
+.card-body{
+  padding:10px;
+}
+
 .card h3{
   margin:0 0 5px;
   font-size:15px;
 }
+
 .price{
   color:#5b21b6;
   font-size:18px;
   font-weight:bold;
 }
+
 .old-price{
   color:#999;
   text-decoration:line-through;
   font-size:12px;
   margin-left:5px;
 }
+
 .add-btn{
   width:100%;
   margin-top:8px;
@@ -175,18 +215,25 @@ main{padding-bottom:80px}
   border-radius:12px;
   align-items:center;
 }
+
 .cart-item img{
   width:60px;
   height:60px;
   object-fit:cover;
   border-radius:8px;
 }
-.cart-info{flex:1}
+
+.cart-info{
+  flex:1;
+}
+
 .qty{
   display:flex;
   align-items:center;
   gap:8px;
+  margin-top:5px;
 }
+
 .qty button{
   border:0;
   background:#ede9fe;
@@ -203,16 +250,22 @@ main{padding-bottom:80px}
   padding:15px;
   margin-top:15px;
 }
-.checkout h3{margin-top:0}
+
+.checkout h3{
+  margin-top:0;
+}
+
 .field{
   margin-bottom:11px;
 }
+
 .field label{
   display:block;
   font-size:13px;
   font-weight:bold;
   margin-bottom:5px;
 }
+
 .field input,
 .field textarea,
 .field select{
@@ -222,7 +275,10 @@ main{padding-bottom:80px}
   border-radius:9px;
   outline:none;
 }
-textarea{resize:vertical}
+
+textarea{
+  resize:vertical;
+}
 
 .location-btn{
   width:100%;
@@ -253,11 +309,13 @@ textarea{resize:vertical}
   margin-bottom:10px;
   box-shadow:0 2px 7px #0001;
 }
+
 .order-head{
   display:flex;
   justify-content:space-between;
   gap:10px;
 }
+
 .status{
   background:#ede9fe;
   color:#5b21b6;
@@ -278,6 +336,7 @@ textarea{resize:vertical}
   grid-template-columns:repeat(4,1fr);
   box-shadow:0 -2px 10px #0002;
 }
+
 .bottom-nav button{
   border:0;
   background:white;
@@ -285,10 +344,12 @@ textarea{resize:vertical}
   color:#666;
   font-size:12px;
 }
+
 .bottom-nav button.active{
   color:#5b21b6;
   font-weight:bold;
 }
+
 .nav-icon{
   display:block;
   font-size:20px;
@@ -304,7 +365,11 @@ textarea{resize:vertical}
   justify-content:center;
   padding:18px;
 }
-.modal-bg.show{display:flex}
+
+.modal-bg.show{
+  display:flex;
+}
+
 .modal{
   width:100%;
   max-width:420px;
@@ -314,12 +379,17 @@ textarea{resize:vertical}
   max-height:90vh;
   overflow:auto;
 }
+
 .modal-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.modal-top h2{margin:0}
+
+.modal-top h2{
+  margin:0;
+}
+
 .close{
   border:0;
   background:#f3f4f6;
@@ -327,11 +397,13 @@ textarea{resize:vertical}
   height:34px;
   border-radius:50%;
 }
+
 .auth-tabs{
   display:flex;
   gap:8px;
   margin:15px 0;
 }
+
 .auth-tabs button{
   flex:1;
   padding:9px;
@@ -339,10 +411,12 @@ textarea{resize:vertical}
   border-radius:9px;
   background:#eee;
 }
+
 .auth-tabs button.active{
   background:#5b21b6;
   color:white;
 }
+
 .auth-submit{
   width:100%;
   border:0;
@@ -352,6 +426,7 @@ textarea{resize:vertical}
   border-radius:10px;
   font-weight:bold;
 }
+
 .logout{
   width:100%;
   border:0;
@@ -361,6 +436,7 @@ textarea{resize:vertical}
   border-radius:10px;
   font-weight:bold;
 }
+
 .account-info{
   background:#f5f3ff;
   padding:12px;
@@ -373,6 +449,7 @@ textarea{resize:vertical}
   padding:35px 15px;
   color:#777;
 }
+
 .loading{
   text-align:center;
   padding:30px;
@@ -380,7 +457,9 @@ textarea{resize:vertical}
 }
 
 @media(max-width:400px){
-  .categories{grid-template-columns:repeat(2,1fr)}
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 </style>
 </head>
@@ -388,453 +467,922 @@ textarea{resize:vertical}
 <body>
 
 <header>
+
   <div class="header-top">
+
     <div>
       <div class="logo">🎉 RIDDHI PARTY SHOP</div>
       <div class="location">📍 Kalyanpur, Kanpur</div>
     </div>
-    <button class="account-btn" onclick="openAccount()">👤 Login</button>
+
+    <button class="account-btn" onclick="openAccount()">
+      👤 Login
+    </button>
+
   </div>
 
   <div class="search">
-    <input id="searchInput"
-           type="search"
-           placeholder="Search balloons, toys, gifts..."
-           oninput="renderProducts()">
+
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search balloons, toys, gifts..."
+      oninput="renderProducts()">
+
   </div>
+
 </header>
+
 
 <main>
 
   <!-- HOME -->
+
   <section id="homePage" class="page active">
 
     <div class="hero">
+
       <h1>Great Prices 🎉</h1>
-      <p>Gifts • Toys • Balloons • Birthday Decoration</p>
-      <button onclick="openCategories()">Shop by Category →</button>
+
+      <p>
+        Gifts • Toys • Balloons • Birthday Decoration
+      </p>
+
+      <button onclick="openCategories()">
+        Shop by Category →
+      </button>
+
     </div>
 
+
     <div class="section-title">
+
       <h2>Shop by Category</h2>
-      <button onclick="openCategories()" style="border:0;background:none;color:#5b21b6;font-weight:bold">
+
+      <button
+        onclick="openCategories()"
+        style="border:0;background:none;color:#5b21b6;font-weight:bold">
+
         View all
+
       </button>
+
     </div>
+
 
     <div class="categories">
-      <button class="category" onclick="selectCategory('Decoration')">
-        <span>🎈</span>Decoration
+
+      <button
+        class="category"
+        onclick="selectCategory('Decoration')">
+
+        <span>🎈</span>
+        Decoration
+
       </button>
-      <button class="category" onclick="selectCategory('Gifts')">
-        <span>🎁</span>Gifts
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Gifts')">
+
+        <span>🎁</span>
+        Gifts
+
       </button>
-      <button class="category" onclick="selectCategory('Toys')">
-        <span>🧸</span>Toys
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Toys')">
+
+        <span>🧸</span>
+        Toys
+
       </button>
-      <button class="category" onclick="selectCategory('Party Supplies')">
-        <span>🎊</span>Party
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Party Supplies')">
+
+        <span>🎊</span>
+        Party
+
       </button>
+
     </div>
+
 
     <div class="section-title">
+
       <h2>Products</h2>
+
     </div>
 
+
     <div id="products" class="products">
-      <div class="loading">Products load ho rahe hain...</div>
+
+      <div class="loading">
+        Products load ho rahe hain...
+      </div>
+
     </div>
+
   </section>
 
 
   <!-- CATEGORY -->
+
   <section id="categoryPage" class="page">
-    <button class="back" onclick="goHome()">← Back</button>
+
+    <button
+      class="back"
+      onclick="goHome()">
+
+      ← Back
+
+    </button>
+
 
     <h2>Categories</h2>
 
+
     <div class="categories">
-      <button class="category" onclick="selectCategory('Decoration')">
-        <span>🎈</span>Decoration
+
+      <button
+        class="category"
+        onclick="selectCategory('Decoration')">
+
+        <span>🎈</span>
+        Decoration
+
       </button>
-      <button class="category" onclick="selectCategory('Gifts')">
-        <span>🎁</span>Gifts
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Gifts')">
+
+        <span>🎁</span>
+        Gifts
+
       </button>
-      <button class="category" onclick="selectCategory('Toys')">
-        <span>🧸</span>Toys
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Toys')">
+
+        <span>🧸</span>
+        Toys
+
       </button>
-      <button class="category" onclick="selectCategory('Party Supplies')">
-        <span>🎊</span>Party Supplies
+
+
+      <button
+        class="category"
+        onclick="selectCategory('Party Supplies')">
+
+        <span>🎊</span>
+        Party Supplies
+
       </button>
+
     </div>
+
   </section>
 
 
   <!-- CART -->
+
   <section id="cartPage" class="page">
-    <button class="back" onclick="goHome()">← Continue Shopping</button>
+
+    <button
+      class="back"
+      onclick="goHome()">
+
+      ← Continue Shopping
+
+    </button>
+
 
     <h2>Your Cart 🛒</h2>
 
+
     <div id="cartItems"></div>
 
-    <div id="checkoutBox" class="checkout" style="display:none">
+
+    <div
+      id="checkoutBox"
+      class="checkout"
+      style="display:none">
+
 
       <h3>Delivery Details</h3>
 
+
       <div class="field">
+
         <label>Name</label>
-        <input id="customerName" placeholder="Your name">
+
+        <input
+          id="customerName"
+          placeholder="Your name">
+
       </div>
 
+
       <div class="field">
+
         <label>Mobile Number</label>
-        <input id="customerMobile"
-               type="tel"
-               maxlength="10"
-               placeholder="10 digit mobile number">
+
+        <input
+          id="customerMobile"
+          type="tel"
+          maxlength="10"
+          placeholder="10 digit mobile number">
+
       </div>
 
+
       <div class="field">
+
         <label>Delivery Address</label>
 
-        <button class="location-btn" onclick="getCurrentLocation()">
+
+        <button
+          class="location-btn"
+          onclick="getCurrentLocation()">
+
           📍 Use My Current Location
+
         </button>
 
-        <textarea id="customerAddress"
-                  rows="3"
-                  placeholder="Your complete address"></textarea>
 
-        <small id="locationStatus" style="color:#666"></small>
+        <textarea
+          id="customerAddress"
+          rows="3"
+          placeholder="Your complete address"></textarea>
+
+
+        <small
+          id="locationStatus"
+          style="color:#666"></small>
+
       </div>
+
 
       <div class="field">
+
         <label>Payment Method</label>
-        <select id="paymentMethod" onchange="paymentMethodChanged()">
-          <option value="COD">Cash on Delivery</option>
-          <option value="PICKUP">Shop Pickup</option>
-          <option value="UPI">UPI Payment</option>
+
+        <select
+          id="paymentMethod"
+          onchange="paymentMethodChanged()">
+
+          <option value="COD">
+            Cash on Delivery
+          </option>
+
+          <option value="PICKUP">
+            Shop Pickup
+          </option>
+
+          <option value="UPI">
+            UPI Payment
+          </option>
+
         </select>
+
       </div>
 
-      <div id="upiBox"
-           style="display:none;background:#f5f3ff;padding:12px;border-radius:10px;margin-bottom:12px">
+
+      <div
+        id="upiBox"
+        style="display:none;background:#f5f3ff;padding:12px;border-radius:10px;margin-bottom:12px">
 
         <b>UPI Payment</b>
 
-        <p style="font-size:13px;margin-bottom:8px">
+        <p
+          style="font-size:13px;margin-bottom:8px">
+
           Payment will be made to:
+
         </p>
 
-        <div style="font-weight:bold;color:#5b21b6">
+
+        <div
+          style="font-weight:bold;color:#5b21b6">
+
           pinelabs.stq4104058@pineaxis
+
         </div>
 
-        <button onclick="payViaUPI()"
-                style="margin-top:10px;width:100%;border:0;background:#5b21b6;color:white;padding:11px;border-radius:9px;font-weight:bold">
+
+        <button
+          onclick="payViaUPI()"
+          style="margin-top:10px;width:100%;border:0;background:#5b21b6;color:white;padding:11px;border-radius:9px;font-weight:bold">
+
           💳 Pay with UPI App
+
         </button>
 
-        <small style="display:block;margin-top:8px;color:#777">
+
+        <small
+          style="display:block;margin-top:8px;color:#777">
+
           After payment, come back and tap Place Order.
+
         </small>
+
       </div>
 
-      <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:bold;margin:15px 0">
+
+      <div
+        style="display:flex;justify-content:space-between;font-size:18px;font-weight:bold;margin:15px 0">
+
         <span>Total</span>
-        <span id="cartTotal">₹0</span>
+
+        <span id="cartTotal">
+          ₹0
+        </span>
+
       </div>
 
-      <button class="place-order" onclick="placeOrder()">
+
+      <button
+        class="place-order"
+        onclick="placeOrder()">
+
         Place Order
+
       </button>
 
     </div>
+
   </section>
 
 
   <!-- ORDERS -->
+
   <section id="ordersPage" class="page">
+
     <h2>My Orders 📦</h2>
+
     <div id="ordersList">
-      <div class="empty">Please login to see your orders.</div>
+
+      <div class="empty">
+        Please login to see your orders.
+      </div>
+
     </div>
+
   </section>
 
 </main>
 
 
 <!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
-  <button id="navHome" class="active" onclick="goHome()">
+
+  <button
+    id="navHome"
+    class="active"
+    onclick="goHome()">
+
     <span class="nav-icon">🏠</span>
     Home
+
   </button>
 
-  <button id="navCategories" onclick="openCategories()">
+
+  <button
+    id="navCategories"
+    onclick="openCategories()">
+
     <span class="nav-icon">📂</span>
     Categories
+
   </button>
 
-  <button id="navCart" onclick="openCart()">
+
+  <button
+    id="navCart"
+    onclick="openCart()">
+
     <span class="nav-icon">🛒</span>
     Cart <span id="cartBadge"></span>
+
   </button>
 
-  <button id="navOrders" onclick="openOrders()">
+
+  <button
+    id="navOrders"
+    onclick="openOrders()">
+
     <span class="nav-icon">📦</span>
     Orders
+
   </button>
+
 </nav>
 
 
 <!-- AUTH MODAL -->
-<div id="authModal" class="modal-bg">
+
+<div
+  id="authModal"
+  class="modal-bg">
+
   <div class="modal">
 
     <div class="modal-top">
-      <h2>My Account 👤</h2>
-      <button class="close" onclick="closeAccount()">✕</button>
+
+      <h2>
+        My Account 👤
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeAccount()">
+
+        ✕
+
+      </button>
+
     </div>
 
-    <div id="loggedInBox" style="display:none">
+
+    <div
+      id="loggedInBox"
+      style="display:none">
+
       <div class="account-info">
+
         <b id="accountName"></b>
-        <div id="accountEmail" style="font-size:13px;color:#666;margin-top:4px"></div>
+
+        <div
+          id="accountEmail"
+          style="font-size:13px;color:#666;margin-top:4px">
+        </div>
+
       </div>
 
-      <button class="logout" onclick="logout()">
+
+      <button
+        class="logout"
+        onclick="logout()">
+
         Logout
+
       </button>
+
     </div>
+
 
     <div id="authBox">
 
       <div class="auth-tabs">
-        <button id="loginTab" class="active" onclick="showLogin()">
+
+        <button
+          id="loginTab"
+          class="active"
+          onclick="showLogin()">
+
           Login
+
         </button>
 
-        <button id="signupTab" onclick="showSignup()">
+
+        <button
+          id="signupTab"
+          onclick="showSignup()">
+
           Sign Up
+
         </button>
+
       </div>
 
-      <div id="signupNameBox" style="display:none" class="field">
+
+      <div
+        id="signupNameBox"
+        style="display:none"
+        class="field">
+
         <label>Name</label>
-        <input id="signupName" placeholder="Your name">
+
+        <input
+          id="signupName"
+          placeholder="Your name">
+
       </div>
 
+
       <div class="field">
+
         <label>Email</label>
-        <input id="authEmail" type="email" placeholder="Email address">
+
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="Email address">
+
       </div>
+
 
       <div class="field">
+
         <label>Password</label>
-        <input id="authPassword" type="password" placeholder="Password">
+
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Password">
+
       </div>
 
-      <button id="authSubmit"
-              class="auth-submit"
-              onclick="submitAuth()">
+
+      <button
+        id="authSubmit"
+        class="auth-submit"
+        onclick="submitAuth()">
+
         Login
+
       </button>
 
-      <p id="authMessage"
-         style="font-size:13px;text-align:center;color:#666"></p>
+
+      <p
+        id="authMessage"
+        style="font-size:13px;text-align:center;color:#666">
+      </p>
 
     </div>
+
   </div>
+
 </div>
 
 
 <script>
 
-const SUPABASE_URL = "https://vngxyvgtboinxuzxchey.supabase.co";
+const SUPABASE_URL =
+"https://vngxyvgtboinxuzxchey.supabase.co";
 
 const SUPABASE_ANON_KEY =
 "sb_publishable_YjdwhsuPIv0XLcA5mKWuXA_Czk6GFpD";
 
+
 const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 
-const UPI_ID = "pinelabs.stq4104058@pineaxis";
+const UPI_ID =
+"pinelabs.stq4104058@pineaxis";
+
 
 let products = [];
+
 let currentCategory = "";
-let cart = JSON.parse(localStorage.getItem("rps_cart") || "[]");
+
+let cart =
+JSON.parse(
+  localStorage.getItem("rps_cart") || "[]"
+);
 
 let authMode = "login";
 
 
 /* ---------------- PRODUCTS ---------------- */
 
+
 async function loadProducts(){
 
-  const box = document.getElementById("products");
+  const box =
+  document.getElementById("products");
+
 
   box.innerHTML =
-    '<div class="loading">Products load ho rahe hain...</div>';
+  '<div class="loading">Products load ho rahe hain...</div>';
+
 
   try{
 
-    const {data,error} =
-      await supabaseClient
-      .from("products")
-      .select("*")
-      .order("created_at",{ascending:false});
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+    .from("products")
+    .select("*")
+    .order("created_at",{ascending:false});
 
-    if(error) throw error;
 
-    products = data || [];
+    if(error)
+      throw error;
+
+
+    products =
+    data || [];
+
 
     renderProducts();
+
 
   }catch(error){
 
     console.error(error);
 
+
     box.innerHTML =
-      '<div class="empty">Products load nahi ho pa rahe.<br>Database connection check karein.</div>';
+    '<div class="empty">Products load nahi ho pa rahe.<br>Database connection check karein.</div>';
+
   }
+
 }
+
+
+/* ---------------- RENDER PRODUCTS ---------------- */
 
 
 function renderProducts(){
 
-  const box = document.getElementById("products");
+  const box =
+  document.getElementById("products");
 
-  let list = [...products];
+
+  let list =
+  [...products];
+
 
   const search =
-    document.getElementById("searchInput").value
-    .trim()
-    .toLowerCase();
+  document
+  .getElementById("searchInput")
+  .value
+  .trim()
+  .toLowerCase();
+
 
   if(currentCategory){
-    list = list.filter(p =>
-      String(p.category || "").toLowerCase()
+
+    list =
+    list.filter(p =>
+      String(p.category || "")
+      .toLowerCase()
       === currentCategory.toLowerCase()
     );
+
   }
+
 
   if(search){
 
-    list = list.filter(p => {
+    list =
+    list.filter(p => {
 
       const text =
-        `${p.name || ""} ${p.category || ""} ${p.description || ""}`
-        .toLowerCase();
+      `${p.name || ""} ${p.category || ""} ${p.description || ""}`
+      .toLowerCase();
+
 
       return text.includes(search);
+
     });
+
   }
+
 
   if(!list.length){
 
     box.innerHTML =
-      '<div class="empty">No products found.</div>';
+    '<div class="empty">No products found.</div>';
 
     return;
+
   }
 
+
   box.innerHTML =
-    list.map(productCard).join("");
+  list.map(productCard).join("");
+
 }
+
+
+/* ---------------- PRODUCT CARD ---------------- */
+
+
+/*
+  IMPORTANT FIX:
+  Add to Cart ke button me poora JSON object inline
+  pass nahi kar rahe hain.
+  Sirf product ID pass hogi.
+  Isse onclick JavaScript break nahi hogi.
+*/
 
 
 function productCard(p){
 
-  const name = escapeHtml(p.name || "Product");
+  const name =
+  escapeHtml(p.name || "Product");
 
-  const price = Number(
-    p.price || p.selling_price || 0
+
+  const price =
+  Number(
+    p.price ||
+    p.selling_price ||
+    0
   );
 
+
   const image =
-    p.image_url ||
-    p.image ||
-    "https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
+  p.image_url ||
+  p.image ||
+  "https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
+
+
+  const productId =
+  escapeHtml(String(p.id));
+
 
   return `
+
     <div class="card">
 
-      <img src="${escapeHtml(image)}"
-           alt="${name}"
-           onerror="this.src='https://via.placeholder.com/500x400?text=Product'">
+      <img
+        src="${escapeHtml(image)}"
+        alt="${name}"
+        onerror="this.src='https://via.placeholder.com/500x400?text=Product'">
+
 
       <div class="card-body">
 
-        <h3>${name}</h3>
+        <h3>
+          ${name}
+        </h3>
+
 
         <div>
-          <span class="price">₹${price}</span>
+
+          <span class="price">
+            ₹${price}
+          </span>
+
         </div>
 
-        <button class="add-btn"
-                onclick='addToCart(${escapeJs(JSON.stringify({
-                  id:p.id,
-                  name:p.name,
-                  price:price,
-                  image:image
-                }))})'>
+
+        <button
+          class="add-btn"
+          onclick="addToCartById('${productId}')">
+
           Add to Cart
+
         </button>
 
       </div>
+
     </div>
+
   `;
+
+}
+
+
+/* ---------------- ADD TO CART FIX ---------------- */
+
+
+function addToCartById(id){
+
+  const product =
+  products.find(
+    p =>
+    String(p.id) === String(id)
+  );
+
+
+  if(!product){
+
+    alert("Product nahi mila.");
+
+    return;
+
+  }
+
+
+  const price =
+  Number(
+    product.price ||
+    product.selling_price ||
+    0
+  );
+
+
+  const image =
+  product.image_url ||
+  product.image ||
+  "https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
+
+
+  addToCart({
+
+    id:product.id,
+
+    name:product.name || "Product",
+
+    price:price,
+
+    image:image
+
+  });
+
 }
 
 
 /* ---------------- CART ---------------- */
 
+
 function addToCart(product){
 
   const found =
-    cart.find(x => String(x.id) === String(product.id));
+  cart.find(
+    x =>
+    String(x.id) === String(product.id)
+  );
+
 
   if(found){
+
     found.qty++;
+
   }else{
+
     cart.push({
+
       ...product,
+
       qty:1
+
     });
+
   }
+
 
   saveCart();
 
-  alert("Product cart me add ho gaya 🛒");
+
+  alert(
+    "Product cart me add ho gaya 🛒"
+  );
+
 
   openCart();
+
 }
+
+
+/* ---------------- QUANTITY ---------------- */
 
 
 function changeQty(id,delta){
 
   const item =
-    cart.find(x => String(x.id) === String(id));
+  cart.find(
+    x =>
+    String(x.id) === String(id)
+  );
 
-  if(!item) return;
+
+  if(!item)
+    return;
+
 
   item.qty += delta;
 
+
   if(item.qty <= 0){
-    cart = cart.filter(x =>
+
+    cart =
+    cart.filter(
+      x =>
       String(x.id) !== String(id)
     );
+
   }
 
+
   saveCart();
+
   renderCart();
+
 }
+
+
+/* ---------------- SAVE CART ---------------- */
 
 
 function saveCart(){
@@ -844,225 +1392,322 @@ function saveCart(){
     JSON.stringify(cart)
   );
 
+
   updateCartBadge();
+
 }
+
+
+/* ---------------- CART BADGE ---------------- */
 
 
 function updateCartBadge(){
 
   const count =
-    cart.reduce((sum,item) =>
-      sum + Number(item.qty || 0),0);
+  cart.reduce(
+    (sum,item) =>
+    sum + Number(item.qty || 0),
+    0
+  );
 
-  document.getElementById("cartBadge").textContent =
-    count ? `(${count})` : "";
+
+  document
+  .getElementById("cartBadge")
+  .textContent =
+  count
+  ? `(${count})`
+  : "";
+
 }
+
+
+/* ---------------- RENDER CART ---------------- */
 
 
 function renderCart(){
 
   const box =
-    document.getElementById("cartItems");
+  document.getElementById("cartItems");
+
 
   const checkout =
-    document.getElementById("checkoutBox");
+  document.getElementById("checkoutBox");
+
 
   if(!cart.length){
 
     box.innerHTML =
-      '<div class="empty">Your cart is empty 🛒<br><br>Products add kijiye.</div>';
+    '<div class="empty">Your cart is empty 🛒<br><br>Products add kijiye.</div>';
 
-    checkout.style.display = "none";
+
+    checkout.style.display =
+    "none";
+
 
     return;
+
   }
 
-  checkout.style.display = "block";
+
+  checkout.style.display =
+  "block";
+
 
   box.innerHTML =
-    cart.map(item => `
+  cart.map(item => `
 
-      <div class="cart-item">
+    <div class="cart-item">
 
-        <img src="${escapeHtml(item.image || "")}">
+      <img
+        src="${escapeHtml(item.image || "")}"
+        onerror="this.src='https://via.placeholder.com/100?text=Product'">
 
-        <div class="cart-info">
 
-          <b>${escapeHtml(item.name)}</b>
+      <div class="cart-info">
 
-          <div style="color:#5b21b6;font-weight:bold">
-            ₹${Number(item.price).toFixed(0)}
-          </div>
+        <b>
+          ${escapeHtml(item.name)}
+        </b>
 
-          <div class="qty">
 
-            <button onclick="changeQty('${escapeJs(String(item.id))}',-1)">
-              −
-            </button>
+        <div
+          style="color:#5b21b6;font-weight:bold">
 
-            <span>${item.qty}</span>
+          ₹${Number(item.price).toFixed(0)}
 
-            <button onclick="changeQty('${escapeJs(String(item.id))}',1)">
-              +
-            </button>
+        </div>
 
-          </div>
+
+        <div class="qty">
+
+          <button
+            onclick="changeQty('${escapeHtml(String(item.id))}',-1)">
+
+            −
+
+          </button>
+
+
+          <span>
+            ${item.qty}
+          </span>
+
+
+          <button
+            onclick="changeQty('${escapeHtml(String(item.id))}',1)">
+
+            +
+
+          </button>
 
         </div>
 
       </div>
 
-    `).join("");
+    </div>
+
+  `).join("");
+
 
   const total =
-    cart.reduce((sum,item) =>
-      sum + Number(item.price) * Number(item.qty),0);
+  cart.reduce(
+    (sum,item) =>
+    sum +
+    Number(item.price) *
+    Number(item.qty),
+    0
+  );
 
-  document.getElementById("cartTotal").textContent =
-    "₹" + total.toFixed(0);
+
+  document
+  .getElementById("cartTotal")
+  .textContent =
+  "₹" + total.toFixed(0);
+
 }
 
 
 /* ---------------- LOCATION ---------------- */
 
+
 function getCurrentLocation(){
 
   const status =
-    document.getElementById("locationStatus");
+  document.getElementById("locationStatus");
+
 
   const address =
-    document.getElementById("customerAddress");
+  document.getElementById("customerAddress");
+
 
   if(!navigator.geolocation){
 
     status.textContent =
-      "Your browser location support nahi karta.";
+    "Your browser location support nahi karta.";
 
     return;
+
   }
 
+
   status.textContent =
-    "📍 Location mil rahi hai...";
+  "📍 Location mil rahi hai...";
+
 
   navigator.geolocation.getCurrentPosition(
 
     async function(position){
 
       const lat =
-        position.coords.latitude;
+      position.coords.latitude;
+
 
       const lng =
-        position.coords.longitude;
+      position.coords.longitude;
+
 
       status.textContent =
-        "📍 Current location mil gayi.";
+      "📍 Current location mil gayi.";
 
-      /*
-       * Browser GPS coordinates ko address me convert
-       * karne ke liye free OpenStreetMap Nominatim use.
-       */
 
       try{
 
         const response =
-          await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
-            {
-              headers:{
-                "Accept":"application/json"
-              }
+        await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`,
+          {
+            headers:{
+              "Accept":"application/json"
             }
-          );
+          }
+        );
+
 
         const data =
-          await response.json();
+        await response.json();
 
-        if(data && data.display_name){
+
+        if(
+          data &&
+          data.display_name
+        ){
 
           address.value =
-            data.display_name;
+          data.display_name;
 
         }else{
 
           address.value =
-            `GPS Location: ${lat}, ${lng}`;
+          `GPS Location: ${lat}, ${lng}`;
+
         }
+
 
       }catch(error){
 
         console.error(error);
 
+
         address.value =
-          `GPS Location: ${lat}, ${lng}`;
+        `GPS Location: ${lat}, ${lng}`;
+
       }
 
-      /*
-       * Coordinates ko temporary browser storage me rakhenge
-       * taaki order ke time save kar sakein.
-       */
 
       sessionStorage.setItem(
         "rps_lat",
         lat
       );
 
+
       sessionStorage.setItem(
         "rps_lng",
         lng
       );
 
+
     },
+
 
     function(error){
 
       console.error(error);
 
+
       status.textContent =
-        "Location permission nahi mili. Address manually enter karein.";
+      "Location permission nahi mili. Address manually enter karein.";
+
     },
+
 
     {
       enableHighAccuracy:true,
       timeout:15000,
       maximumAge:0
     }
+
   );
+
 }
 
 
 /* ---------------- PAYMENT ---------------- */
 
+
 function paymentMethodChanged(){
 
   const method =
-    document.getElementById("paymentMethod").value;
+  document
+  .getElementById("paymentMethod")
+  .value;
 
-  document.getElementById("upiBox").style.display =
-    method === "UPI" ? "block" : "none";
+
+  document
+  .getElementById("upiBox")
+  .style.display =
+  method === "UPI"
+  ? "block"
+  : "none";
+
 }
+
+
+/* ---------------- UPI ---------------- */
 
 
 function payViaUPI(){
 
   const total =
-    cart.reduce((sum,item) =>
-      sum + Number(item.price) * Number(item.qty),0);
+  cart.reduce(
+    (sum,item) =>
+    sum +
+    Number(item.price) *
+    Number(item.qty),
+    0
+  );
+
 
   if(!total){
 
     alert("Cart empty hai.");
 
     return;
+
   }
 
-  const upiUrl =
-    `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent("Riddhi Party Shop")}&am=${total.toFixed(2)}&cu=INR`;
 
-  window.location.href = upiUrl;
+  const upiUrl =
+  `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent("Riddhi Party Shop")}&am=${total.toFixed(2)}&cu=INR`;
+
+
+  window.location.href =
+  upiUrl;
+
 }
 
 
 /* ---------------- PLACE ORDER ---------------- */
+
 
 async function placeOrder(){
 
@@ -1071,70 +1716,106 @@ async function placeOrder(){
     alert("Cart empty hai.");
 
     return;
+
   }
+
 
   const {
     data:{
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
+
 
   if(!user){
 
-    alert("Order place karne ke liye pehle Login/Signup karein.");
+    alert(
+      "Order place karne ke liye pehle Login/Signup karein."
+    );
+
 
     openAccount();
 
     return;
+
   }
 
+
   const name =
-    document.getElementById("customerName")
-    .value.trim();
+  document
+  .getElementById("customerName")
+  .value
+  .trim();
+
 
   const mobile =
-    document.getElementById("customerMobile")
-    .value.trim();
+  document
+  .getElementById("customerMobile")
+  .value
+  .trim();
+
 
   const address =
-    document.getElementById("customerAddress")
-    .value.trim();
+  document
+  .getElementById("customerAddress")
+  .value
+  .trim();
+
 
   const payment =
-    document.getElementById("paymentMethod")
-    .value;
+  document
+  .getElementById("paymentMethod")
+  .value;
+
 
   if(!name){
 
     alert("Name enter kijiye.");
 
     return;
+
   }
+
 
   if(!/^[0-9]{10}$/.test(mobile)){
 
-    alert("10 digit mobile number enter kijiye.");
+    alert(
+      "10 digit mobile number enter kijiye."
+    );
 
     return;
+
   }
+
 
   if(!address){
 
-    alert("Delivery address enter kijiye ya Current Location use kijiye.");
+    alert(
+      "Delivery address enter kijiye ya Current Location use kijiye."
+    );
 
     return;
+
   }
 
+
   const total =
-    cart.reduce((sum,item) =>
-      sum + Number(item.price) * Number(item.qty),0);
+  cart.reduce(
+    (sum,item) =>
+    sum +
+    Number(item.price) *
+    Number(item.qty),
+    0
+  );
+
 
   const latitude =
-    sessionStorage.getItem("rps_lat");
+  sessionStorage.getItem("rps_lat");
+
 
   const longitude =
-    sessionStorage.getItem("rps_lng");
+  sessionStorage.getItem("rps_lng");
 
 
   const orderData = {
@@ -1158,14 +1839,14 @@ async function placeOrder(){
   };
 
 
-  /*
-   * Agar aapke Orders table me latitude/longitude columns
-   * baad me add kiye jayenge to ye values bhi save ki ja sakti hain.
-   */
+  if(latitude)
+    orderData.latitude =
+    Number(latitude);
 
-  if(latitude) orderData.latitude = Number(latitude);
 
-  if(longitude) orderData.longitude = Number(longitude);
+  if(longitude)
+    orderData.longitude =
+    Number(longitude);
 
 
   try{
@@ -1174,13 +1855,15 @@ async function placeOrder(){
       data,
       error
     } =
-      await supabaseClient
-      .from("orders")
-      .insert(orderData)
-      .select()
-      .single();
+    await supabaseClient
+    .from("orders")
+    .insert(orderData)
+    .select()
+    .single();
 
-    if(error) throw error;
+
+    if(error)
+      throw error;
 
 
     alert(
@@ -1188,38 +1871,55 @@ async function placeOrder(){
       data.id
     );
 
+
     cart = [];
+
 
     saveCart();
 
-    sessionStorage.removeItem("rps_lat");
-    sessionStorage.removeItem("rps_lng");
+
+    sessionStorage.removeItem(
+      "rps_lat"
+    );
+
+
+    sessionStorage.removeItem(
+      "rps_lng"
+    );
+
 
     renderCart();
 
+
     openOrders();
+
 
   }catch(error){
 
     console.error(error);
 
+
     alert(
       "Order place nahi ho paya.\n\n" +
       error.message
     );
+
   }
+
 }
 
 
 /* ---------------- ORDERS ---------------- */
 
+
 async function loadOrders(){
 
   const box =
-    document.getElementById("ordersList");
+  document.getElementById("ordersList");
+
 
   box.innerHTML =
-    '<div class="loading">Orders load ho rahe hain...</div>';
+  '<div class="loading">Orders load ho rahe hain...</div>';
 
 
   const {
@@ -1227,24 +1927,37 @@ async function loadOrders(){
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
 
 
   if(!user){
 
     box.innerHTML = `
-      <div class="empty">
-        <div style="font-size:40px">👤</div>
-        <p>My Orders dekhne ke liye login karein.</p>
 
-        <button onclick="openAccount()"
-                style="border:0;background:#5b21b6;color:white;padding:11px 20px;border-radius:10px;font-weight:bold">
+      <div class="empty">
+
+        <div style="font-size:40px">
+          👤
+        </div>
+
+        <p>
+          My Orders dekhne ke liye login karein.
+        </p>
+
+        <button
+          onclick="openAccount()"
+          style="border:0;background:#5b21b6;color:white;padding:11px 20px;border-radius:10px;font-weight:bold">
+
           Login / Sign Up
+
         </button>
+
       </div>
+
     `;
 
     return;
+
   }
 
 
@@ -1254,193 +1967,270 @@ async function loadOrders(){
       data,
       error
     } =
-      await supabaseClient
-      .from("orders")
-      .select("*")
-      .eq("user_id",user.id)
-      .order("created_at",{ascending:false});
+    await supabaseClient
+    .from("orders")
+    .select("*")
+    .eq("user_id",user.id)
+    .order(
+      "created_at",
+      {ascending:false}
+    );
 
 
-    if(error) throw error;
+    if(error)
+      throw error;
 
 
-    if(!data || !data.length){
+    if(
+      !data ||
+      !data.length
+    ){
 
       box.innerHTML =
-        '<div class="empty">Abhi koi order nahi hai 📦</div>';
+      '<div class="empty">Abhi koi order nahi hai 📦</div>';
 
       return;
+
     }
 
 
     box.innerHTML =
-      data.map(order => {
+    data.map(order => {
 
-        let itemsText = "";
-
-        try{
-
-          const items =
-            typeof order.items === "string"
-            ? JSON.parse(order.items)
-            : order.items;
-
-          if(Array.isArray(items)){
-
-            itemsText =
-              items.map(i =>
-                `${escapeHtml(i.name || "Product")} × ${i.qty || 1}`
-              ).join("<br>");
-
-          }
-
-        }catch(e){}
+      let itemsText = "";
 
 
-        return `
+      try{
 
-          <div class="order-card">
+        const items =
+        typeof order.items === "string"
+        ? JSON.parse(order.items)
+        : order.items;
 
-            <div class="order-head">
 
-              <b>Order #${escapeHtml(String(order.id))}</b>
+        if(Array.isArray(items)){
 
-              <span class="status">
-                ${escapeHtml(order.status || "New")}
-              </span>
+          itemsText =
+          items.map(i =>
+            `${escapeHtml(i.name || "Product")} × ${i.qty || 1}`
+          ).join("<br>");
 
-            </div>
+        }
 
-            <hr>
+      }catch(e){}
 
-            <div style="font-size:13px;line-height:1.6">
 
-              ${itemsText || "Order items"}
+      return `
 
-              <br><br>
+        <div class="order-card">
 
-              <b>Total: ₹${Number(order.total || 0).toFixed(0)}</b>
+          <div class="order-head">
 
-              <br>
+            <b>
+              Order #${escapeHtml(String(order.id))}
+            </b>
 
-              Payment:
-              ${escapeHtml(order.payment_method || "")}
+            <span class="status">
 
-              <br>
+              ${escapeHtml(
+                order.status || "New"
+              )}
 
-              Date:
-              ${order.created_at
-                ? new Date(order.created_at).toLocaleString("en-IN")
-                : ""}
-
-            </div>
+            </span>
 
           </div>
 
-        `;
 
-      }).join("");
+          <hr>
+
+
+          <div
+            style="font-size:13px;line-height:1.6">
+
+            ${itemsText || "Order items"}
+
+            <br><br>
+
+
+            <b>
+              Total:
+              ₹${Number(order.total || 0).toFixed(0)}
+            </b>
+
+
+            <br>
+
+
+            Payment:
+            ${escapeHtml(
+              order.payment_method || ""
+            )}
+
+
+            <br>
+
+
+            Date:
+            ${
+              order.created_at
+              ? new Date(
+                  order.created_at
+                ).toLocaleString("en-IN")
+              : ""
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 
   }catch(error){
 
     console.error(error);
 
+
     box.innerHTML =
-      '<div class="empty">Orders load nahi ho pa rahe.<br>' +
-      escapeHtml(error.message) +
-      '</div>';
+    '<div class="empty">Orders load nahi ho pa rahe.<br>' +
+    escapeHtml(error.message) +
+    '</div>';
+
   }
+
 }
 
 
 /* ---------------- AUTH ---------------- */
 
+
 function openAccount(){
 
   document
-    .getElementById("authModal")
-    .classList.add("show");
+  .getElementById("authModal")
+  .classList.add("show");
+
 
   refreshAccountUI();
+
 }
 
 
 function closeAccount(){
 
   document
-    .getElementById("authModal")
-    .classList.remove("show");
+  .getElementById("authModal")
+  .classList.remove("show");
+
 }
 
 
 function showLogin(){
 
-  authMode = "login";
+  authMode =
+  "login";
 
-  document.getElementById("loginTab")
-    .classList.add("active");
 
-  document.getElementById("signupTab")
-    .classList.remove("active");
+  document
+  .getElementById("loginTab")
+  .classList.add("active");
 
-  document.getElementById("signupNameBox")
-    .style.display = "none";
 
-  document.getElementById("authSubmit")
-    .textContent = "Login";
+  document
+  .getElementById("signupTab")
+  .classList.remove("active");
 
-  document.getElementById("authMessage")
-    .textContent = "";
+
+  document
+  .getElementById("signupNameBox")
+  .style.display =
+  "none";
+
+
+  document
+  .getElementById("authSubmit")
+  .textContent =
+  "Login";
+
+
+  document
+  .getElementById("authMessage")
+  .textContent =
+  "";
+
 }
 
 
 function showSignup(){
 
-  authMode = "signup";
+  authMode =
+  "signup";
 
-  document.getElementById("signupTab")
-    .classList.add("active");
 
-  document.getElementById("loginTab")
-    .classList.remove("active");
+  document
+  .getElementById("signupTab")
+  .classList.add("active");
 
-  document.getElementById("signupNameBox")
-    .style.display = "block";
 
-  document.getElementById("authSubmit")
-    .textContent = "Create Account";
+  document
+  .getElementById("loginTab")
+  .classList.remove("active");
 
-  document.getElementById("authMessage")
-    .textContent = "";
+
+  document
+  .getElementById("signupNameBox")
+  .style.display =
+  "block";
+
+
+  document
+  .getElementById("authSubmit")
+  .textContent =
+  "Create Account";
+
+
+  document
+  .getElementById("authMessage")
+  .textContent =
+  "";
+
 }
 
 
 async function submitAuth(){
 
   const email =
-    document.getElementById("authEmail")
-    .value.trim();
+  document
+  .getElementById("authEmail")
+  .value
+  .trim();
+
 
   const password =
-    document.getElementById("authPassword")
-    .value;
+  document
+  .getElementById("authPassword")
+  .value;
+
 
   const message =
-    document.getElementById("authMessage");
+  document
+  .getElementById("authMessage");
 
 
   if(!email || !password){
 
     message.textContent =
-      "Email aur password dono enter karein.";
+    "Email aur password dono enter karein.";
 
     return;
+
   }
 
 
   message.textContent =
-    "Please wait...";
+  "Please wait...";
 
 
   try{
@@ -1448,16 +2238,19 @@ async function submitAuth(){
     if(authMode === "signup"){
 
       const name =
-        document.getElementById("signupName")
-        .value.trim();
+      document
+      .getElementById("signupName")
+      .value
+      .trim();
 
 
       if(!name){
 
         message.textContent =
-          "Name enter kijiye.";
+        "Name enter kijiye.";
 
         return;
+
       }
 
 
@@ -1465,28 +2258,32 @@ async function submitAuth(){
         data,
         error
       } =
-        await supabaseClient.auth.signUp({
+      await supabaseClient.auth.signUp({
 
-          email:email,
+        email:email,
 
-          password:password,
+        password:password,
 
-          options:{
-            data:{
-              full_name:name
-            }
+        options:{
+
+          data:{
+            full_name:name
           }
 
-        });
+        }
+
+      });
 
 
-      if(error) throw error;
+      if(error)
+        throw error;
 
 
       if(data.session){
 
         message.textContent =
-          "🎉 Account create ho gaya!";
+        "🎉 Account create ho gaya!";
+
 
         setTimeout(() => {
 
@@ -1496,34 +2293,37 @@ async function submitAuth(){
 
         },700);
 
+
       }else{
 
         message.textContent =
-          "Account create ho gaya. Email verification required ho sakti hai.";
+        "Account create ho gaya. Email verification required ho sakti hai.";
 
       }
 
-    }else{
 
+    }else{
 
       const {
         data,
         error
       } =
-        await supabaseClient.auth.signInWithPassword({
+      await supabaseClient.auth.signInWithPassword({
 
-          email:email,
+        email:email,
 
-          password:password
+        password:password
 
-        });
+      });
 
 
-      if(error) throw error;
+      if(error)
+        throw error;
 
 
       message.textContent =
-        "✅ Login successful!";
+      "✅ Login successful!";
+
 
       setTimeout(() => {
 
@@ -1537,28 +2337,46 @@ async function submitAuth(){
 
     }
 
+
   }catch(error){
 
     console.error(error);
 
+
     message.textContent =
-      error.message || "Something went wrong.";
+    error.message ||
+    "Something went wrong.";
+
   }
+
 }
+
+
+/* ---------------- LOGOUT ---------------- */
 
 
 async function logout(){
 
   await supabaseClient.auth.signOut();
 
+
   closeAccount();
+
 
   updateAccountButton();
 
-  alert("Logout ho gaya.");
+
+  alert(
+    "Logout ho gaya."
+  );
+
 
   goHome();
+
 }
+
+
+/* ---------------- ACCOUNT UI ---------------- */
 
 
 async function refreshAccountUI(){
@@ -1568,34 +2386,55 @@ async function refreshAccountUI(){
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
 
 
   if(user){
 
-    document.getElementById("authBox")
-      .style.display = "none";
+    document
+    .getElementById("authBox")
+    .style.display =
+    "none";
 
-    document.getElementById("loggedInBox")
-      .style.display = "block";
 
-    document.getElementById("accountEmail")
-      .textContent = user.email || "";
+    document
+    .getElementById("loggedInBox")
+    .style.display =
+    "block";
 
-    document.getElementById("accountName")
-      .textContent =
-        user.user_metadata?.full_name ||
-        "Customer";
+
+    document
+    .getElementById("accountEmail")
+    .textContent =
+    user.email || "";
+
+
+    document
+    .getElementById("accountName")
+    .textContent =
+    user.user_metadata?.full_name ||
+    "Customer";
+
 
   }else{
 
-    document.getElementById("authBox")
-      .style.display = "block";
+    document
+    .getElementById("authBox")
+    .style.display =
+    "block";
 
-    document.getElementById("loggedInBox")
-      .style.display = "none";
+
+    document
+    .getElementById("loggedInBox")
+    .style.display =
+    "none";
+
   }
+
 }
+
+
+/* ---------------- ACCOUNT BUTTON ---------------- */
 
 
 async function updateAccountButton(){
@@ -1605,37 +2444,56 @@ async function updateAccountButton(){
       user
     }
   } =
-    await supabaseClient.auth.getUser();
+  await supabaseClient.auth.getUser();
+
 
   const btn =
-    document.querySelector(".account-btn");
+  document.querySelector(
+    ".account-btn"
+  );
+
 
   if(user){
 
     const name =
-      user.user_metadata?.full_name ||
-      "Account";
+    user.user_metadata?.full_name ||
+    "Account";
+
 
     btn.textContent =
-      "👤 " + name.split(" ")[0];
+    "👤 " +
+    name.split(" ")[0];
 
   }else{
 
     btn.textContent =
-      "👤 Login";
+    "👤 Login";
+
   }
+
 }
 
 
 /* ---------------- NAVIGATION ---------------- */
 
+
 function hidePages(){
 
-  document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+  document
+  .querySelectorAll(".page")
+  .forEach(
+    p =>
+    p.classList.remove("active")
+  );
 
-  document.querySelectorAll(".bottom-nav button")
-    .forEach(b => b.classList.remove("active"));
+
+  document
+  .querySelectorAll(".bottom-nav button")
+  .forEach(
+    b =>
+    b.classList.remove("active")
+  );
+
 }
 
 
@@ -1643,17 +2501,26 @@ function goHome(){
 
   hidePages();
 
-  document.getElementById("homePage")
-    .classList.add("active");
 
-  document.getElementById("navHome")
-    .classList.add("active");
+  document
+  .getElementById("homePage")
+  .classList.add("active");
 
-  currentCategory = "";
+
+  document
+  .getElementById("navHome")
+  .classList.add("active");
+
+
+  currentCategory =
+  "";
+
 
   renderProducts();
 
+
   window.scrollTo(0,0);
+
 }
 
 
@@ -1661,13 +2528,19 @@ function openCategories(){
 
   hidePages();
 
-  document.getElementById("categoryPage")
-    .classList.add("active");
 
-  document.getElementById("navCategories")
-    .classList.add("active");
+  document
+  .getElementById("categoryPage")
+  .classList.add("active");
+
+
+  document
+  .getElementById("navCategories")
+  .classList.add("active");
+
 
   window.scrollTo(0,0);
+
 }
 
 
@@ -1675,15 +2548,22 @@ function openCart(){
 
   hidePages();
 
-  document.getElementById("cartPage")
-    .classList.add("active");
 
-  document.getElementById("navCart")
-    .classList.add("active");
+  document
+  .getElementById("cartPage")
+  .classList.add("active");
+
+
+  document
+  .getElementById("navCart")
+  .classList.add("active");
+
 
   renderCart();
 
+
   window.scrollTo(0,0);
+
 }
 
 
@@ -1691,66 +2571,94 @@ async function openOrders(){
 
   hidePages();
 
-  document.getElementById("ordersPage")
-    .classList.add("active");
 
-  document.getElementById("navOrders")
-    .classList.add("active");
+  document
+  .getElementById("ordersPage")
+  .classList.add("active");
+
+
+  document
+  .getElementById("navOrders")
+  .classList.add("active");
+
 
   await loadOrders();
 
+
   window.scrollTo(0,0);
+
 }
 
 
 function selectCategory(category){
 
-  currentCategory = category;
+  currentCategory =
+  category;
+
 
   hidePages();
 
-  document.getElementById("homePage")
-    .classList.add("active");
 
-  document.getElementById("navHome")
-    .classList.add("active");
+  document
+  .getElementById("homePage")
+  .classList.add("active");
+
+
+  document
+  .getElementById("navHome")
+  .classList.add("active");
+
 
   renderProducts();
 
+
   window.scrollTo(0,0);
+
 }
 
 
 /* ---------------- HELPERS ---------------- */
 
+
 function escapeHtml(value){
 
   return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
 }
+
+
+/*
+  escapeJs ki zarurat ab productCard me nahi hai,
+  kyunki hum product object ko inline pass nahi kar rahe.
+  Phir bhi helper rakha hai taaki existing code safe rahe.
+*/
 
 
 function escapeJs(value){
 
   return String(value ?? "")
-    .replace(/\\/g,"\\\\")
-    .replace(/'/g,"\\'")
-    .replace(/"/g,'\\"')
-    .replace(/\n/g,"\\n")
-    .replace(/\r/g,"\\r");
+  .replace(/\\/g,"\\\\")
+  .replace(/'/g,"\\'")
+  .replace(/"/g,'\\"')
+  .replace(/\n/g,"\\n")
+  .replace(/\r/g,"\\r");
+
 }
 
 
 /* ---------------- AUTH LISTENER ---------------- */
 
+
 supabaseClient.auth.onAuthStateChange(
   (event,session) => {
 
     updateAccountButton();
+
 
     if(session){
 
@@ -1763,6 +2671,7 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* ---------------- START ---------------- */
+
 
 updateCartBadge();
 
