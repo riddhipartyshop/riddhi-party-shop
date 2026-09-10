@@ -60,9 +60,7 @@ header{
   font-weight:bold;
 }
 
-.search{
-  margin-top:10px;
-}
+.search{margin-top:10px}
 
 .search input{
   width:100%;
@@ -72,18 +70,14 @@ header{
   outline:none;
 }
 
-main{
-  padding-bottom:80px;
-}
+main{padding-bottom:80px}
 
 .page{
   display:none;
   padding:15px;
 }
 
-.page.active{
-  display:block;
-}
+.page.active{display:block}
 
 .hero{
   margin:5px 0 18px;
@@ -98,9 +92,7 @@ main{
   font-size:27px;
 }
 
-.hero p{
-  margin:0 0 15px;
-}
+.hero p{margin:0 0 15px}
 
 .hero button{
   border:0;
@@ -165,9 +157,7 @@ main{
   background:#eee;
 }
 
-.card-body{
-  padding:10px;
-}
+.card-body{padding:10px}
 
 .card h3{
   margin:0 0 5px;
@@ -223,9 +213,7 @@ main{
   border-radius:8px;
 }
 
-.cart-info{
-  flex:1;
-}
+.cart-info{flex:1}
 
 .qty{
   display:flex;
@@ -251,13 +239,9 @@ main{
   margin-top:15px;
 }
 
-.checkout h3{
-  margin-top:0;
-}
+.checkout h3{margin-top:0}
 
-.field{
-  margin-bottom:11px;
-}
+.field{margin-bottom:11px}
 
 .field label{
   display:block;
@@ -276,9 +260,7 @@ main{
   outline:none;
 }
 
-textarea{
-  resize:vertical;
-}
+textarea{resize:vertical}
 
 .location-btn{
   width:100%;
@@ -366,9 +348,7 @@ textarea{
   padding:18px;
 }
 
-.modal-bg.show{
-  display:flex;
-}
+.modal-bg.show{display:flex}
 
 .modal{
   width:100%;
@@ -386,9 +366,7 @@ textarea{
   align-items:center;
 }
 
-.modal-top h2{
-  margin:0;
-}
+.modal-top h2{margin:0}
 
 .close{
   border:0;
@@ -468,28 +446,28 @@ textarea{
 
 <header>
 
-  <div class="header-top">
+<div class="header-top">
 
-    <div>
-      <div class="logo">🎉 RIDDHI PARTY SHOP</div>
-      <div class="location">📍 Kalyanpur, Kanpur</div>
-    </div>
+<div>
+<div class="logo">🎉 RIDDHI PARTY SHOP</div>
+<div class="location">📍 Kalyanpur, Kanpur</div>
+</div>
 
-    <button class="account-btn" onclick="openAccount()">
-      👤 Login
-    </button>
+<button class="account-btn" onclick="openAccount()">
+👤 Login
+</button>
 
-  </div>
+</div>
 
-  <div class="search">
+<div class="search">
 
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search balloons, toys, gifts..."
-      oninput="renderProducts()">
+<input
+id="searchInput"
+type="search"
+placeholder="Search balloons, toys, gifts..."
+oninput="renderProducts()">
 
-  </div>
+</div>
 
 </header>
 
@@ -497,475 +475,411 @@ textarea{
 
 <section id="homePage" class="page active">
 
-  <div class="hero">
+<div class="hero">
 
-    <h1>Great Prices 🎉</h1>
+<h1>Great Prices 🎉</h1>
 
-    <p>
-      Gifts • Toys • Balloons • Birthday Decoration
-    </p>
+<p>
+Gifts • Toys • Balloons • Birthday Decoration
+</p>
 
-    <button onclick="openCategories()">
-      Shop by Category →
-    </button>
+<button onclick="openCategories()">
+Shop by Category →
+</button>
 
-  </div>
+</div>
 
-  <div class="section-title">
+<div class="section-title">
 
-    <h2>Shop by Category</h2>
+<h2>Shop by Category</h2>
 
-    <button
-      onclick="openCategories()"
-      style="border:0;background:none;color:#5b21b6;font-weight:bold">
+<button
+onclick="openCategories()"
+style="border:0;background:none;color:#5b21b6;font-weight:bold">
 
-      View all
+View all
 
-    </button>
+</button>
 
-  </div>
+</div>
 
-  <div class="categories">
+<div class="categories">
 
-    <button
-      class="category"
-      onclick="selectCategory('Decoration')">
+<button class="category" onclick="selectCategory('Decoration')">
+<span>🎈</span>
+Decoration
+</button>
 
-      <span>🎈</span>
-      Decoration
+<button class="category" onclick="selectCategory('Gifts')">
+<span>🎁</span>
+Gifts
+</button>
 
-    </button>
+<button class="category" onclick="selectCategory('Toys')">
+<span>🧸</span>
+Toys
+</button>
 
-    <button
-      class="category"
-      onclick="selectCategory('Gifts')">
+<button class="category" onclick="selectCategory('Party Supplies')">
+<span>🎊</span>
+Party
+</button>
 
-      <span>🎁</span>
-      Gifts
+</div>
 
-    </button>
+<div class="section-title">
+<h2>Products</h2>
+</div>
 
-    <button
-      class="category"
-      onclick="selectCategory('Toys')">
+<div id="products" class="products">
 
-      <span>🧸</span>
-      Toys
+<div class="loading">
+Products load ho rahe hain...
+</div>
 
-    </button>
-
-    <button
-      class="category"
-      onclick="selectCategory('Party Supplies')">
-
-      <span>🎊</span>
-      Party
-
-    </button>
-
-  </div>
-
-  <div class="section-title">
-
-    <h2>Products</h2>
-
-  </div>
-
-  <div id="products" class="products">
-
-    <div class="loading">
-      Products load ho rahe hain...
-    </div>
-
-  </div>
+</div>
 
 </section>
+
 
 <section id="categoryPage" class="page">
 
-  <button
-    class="back"
-    onclick="goHome()">
+<button class="back" onclick="goHome()">
+← Back
+</button>
 
-    ← Back
+<h2>Categories</h2>
 
-  </button>
+<div class="categories">
 
-  <h2>Categories</h2>
+<button class="category" onclick="selectCategory('Decoration')">
+<span>🎈</span>
+Decoration
+</button>
 
-  <div class="categories">
+<button class="category" onclick="selectCategory('Gifts')">
+<span>🎁</span>
+Gifts
+</button>
 
-    <button
-      class="category"
-      onclick="selectCategory('Decoration')">
+<button class="category" onclick="selectCategory('Toys')">
+<span>🧸</span>
+Toys
+</button>
 
-      <span>🎈</span>
-      Decoration
+<button class="category" onclick="selectCategory('Party Supplies')">
+<span>🎊</span>
+Party Supplies
+</button>
 
-    </button>
-
-    <button
-      class="category"
-      onclick="selectCategory('Gifts')">
-
-      <span>🎁</span>
-      Gifts
-
-    </button>
-
-    <button
-      class="category"
-      onclick="selectCategory('Toys')">
-
-      <span>🧸</span>
-      Toys
-
-    </button>
-
-    <button
-      class="category"
-      onclick="selectCategory('Party Supplies')">
-
-      <span>🎊</span>
-      Party Supplies
-
-    </button>
-
-  </div>
+</div>
 
 </section>
+
 
 <section id="cartPage" class="page">
 
-  <button
-    class="back"
-    onclick="goHome()">
+<button class="back" onclick="goHome()">
+← Continue Shopping
+</button>
 
-    ← Continue Shopping
+<h2>Your Cart 🛒</h2>
 
-  </button>
+<div id="cartItems"></div>
 
-  <h2>Your Cart 🛒</h2>
+<div id="checkoutBox" class="checkout" style="display:none">
 
-  <div id="cartItems"></div>
+<h3>Delivery Details</h3>
 
-  <div
-    id="checkoutBox"
-    class="checkout"
-    style="display:none">
+<div class="field">
 
-    <h3>Delivery Details</h3>
+<label>Name</label>
 
-    <div class="field">
+<input
+id="customerName"
+placeholder="Your name">
 
-      <label>Name</label>
+</div>
 
-      <input
-        id="customerName"
-        placeholder="Your name">
 
-    </div>
+<div class="field">
 
-    <div class="field">
+<label>Mobile Number</label>
 
-      <label>Mobile Number</label>
+<input
+id="customerMobile"
+type="tel"
+maxlength="10"
+placeholder="10 digit mobile number">
 
-      <input
-        id="customerMobile"
-        type="tel"
-        maxlength="10"
-        placeholder="10 digit mobile number">
+</div>
 
-    </div>
 
-    <div class="field">
+<div class="field">
 
-      <label>Delivery Address</label>
+<label>Delivery Address</label>
 
-      <button
-        class="location-btn"
-        onclick="getCurrentLocation()">
+<button
+class="location-btn"
+onclick="getCurrentLocation()">
 
-        📍 Use My Current Location
+📍 Use My Current Location
 
-      </button>
+</button>
 
-      <textarea
-        id="customerAddress"
-        rows="3"
-        placeholder="Your complete address"></textarea>
+<textarea
+id="customerAddress"
+rows="3"
+placeholder="Your complete address"></textarea>
 
-      <small
-        id="locationStatus"
-        style="color:#666"></small>
+<small
+id="locationStatus"
+style="color:#666"></small>
 
-    </div>
+</div>
 
-    <div class="field">
 
-      <label>Payment Method</label>
+<div class="field">
 
-      <select
-        id="paymentMethod"
-        onchange="paymentMethodChanged()">
+<label>Payment Method</label>
 
-        <option value="COD">
-          Cash on Delivery
-        </option>
+<select
+id="paymentMethod"
+onchange="paymentMethodChanged()">
 
-        <option value="PICKUP">
-          Shop Pickup
-        </option>
+<option value="COD">
+Cash on Delivery
+</option>
 
-        <option value="UPI">
-          UPI Payment
-        </option>
+<option value="PICKUP">
+Shop Pickup
+</option>
 
-      </select>
+<option value="UPI">
+UPI Payment
+</option>
 
-    </div>
+</select>
 
-    <div
-      id="upiBox"
-      style="display:none;background:#f5f3ff;padding:12px;border-radius:10px;margin-bottom:12px">
+</div>
 
-      <b>UPI Payment</b>
 
-      <p
-        style="font-size:13px;margin-bottom:8px">
+<div
+id="upiBox"
+style="display:none;background:#f5f3ff;padding:12px;border-radius:10px;margin-bottom:12px">
 
-        Payment will be made to:
+<b>UPI Payment</b>
 
-      </p>
+<p style="font-size:13px;margin-bottom:8px">
+Payment will be made to:
+</p>
 
-      <div
-        style="font-weight:bold;color:#5b21b6">
+<div style="font-weight:bold;color:#5b21b6">
+pinelabs.stq4104058@pineaxis
+</div>
 
-        pinelabs.stq4104058@pineaxis
+<button
+onclick="payViaUPI()"
+style="margin-top:10px;width:100%;border:0;background:#5b21b6;color:white;padding:11px;border-radius:9px;font-weight:bold">
 
-      </div>
+💳 Pay with UPI App
 
-      <button
-        onclick="payViaUPI()"
-        style="margin-top:10px;width:100%;border:0;background:#5b21b6;color:white;padding:11px;border-radius:9px;font-weight:bold">
+</button>
 
-        💳 Pay with UPI App
+<small
+style="display:block;margin-top:8px;color:#777">
 
-      </button>
+After payment, come back and tap Place Order.
 
-      <small
-        style="display:block;margin-top:8px;color:#777">
+</small>
 
-        After payment, come back and tap Place Order.
+</div>
 
-      </small>
 
-    </div>
+<div
+style="display:flex;justify-content:space-between;font-size:18px;font-weight:bold;margin:15px 0">
 
-    <div
-      style="display:flex;justify-content:space-between;font-size:18px;font-weight:bold;margin:15px 0">
+<span>Total</span>
 
-      <span>Total</span>
+<span id="cartTotal">
+₹0
+</span>
 
-      <span id="cartTotal">
-        ₹0
-      </span>
+</div>
 
-    </div>
 
-    <button
-      class="place-order"
-      onclick="placeOrder()">
+<button
+class="place-order"
+onclick="placeOrder()">
 
-      Place Order
+Place Order
 
-    </button>
+</button>
 
-  </div>
+</div>
 
 </section>
 
+
 <section id="ordersPage" class="page">
 
-  <h2>My Orders 📦</h2>
+<h2>My Orders 📦</h2>
 
-  <div id="ordersList">
+<div id="ordersList">
 
-    <div class="empty">
-      Please login to see your orders.
-    </div>
+<div class="empty">
+Please login to see your orders.
+</div>
 
-  </div>
+</div>
 
 </section>
 
 </main>
 
+
 <nav class="bottom-nav">
 
-  <button
-    id="navHome"
-    class="active"
-    onclick="goHome()">
+<button id="navHome" class="active" onclick="goHome()">
+<span class="nav-icon">🏠</span>
+Home
+</button>
 
-    <span class="nav-icon">🏠</span>
-    Home
+<button id="navCategories" onclick="openCategories()">
+<span class="nav-icon">📂</span>
+Categories
+</button>
 
-  </button>
+<button id="navCart" onclick="openCart()">
+<span class="nav-icon">🛒</span>
+Cart <span id="cartBadge"></span>
+</button>
 
-  <button
-    id="navCategories"
-    onclick="openCategories()">
-
-    <span class="nav-icon">📂</span>
-    Categories
-
-  </button>
-
-  <button
-    id="navCart"
-    onclick="openCart()">
-
-    <span class="nav-icon">🛒</span>
-    Cart <span id="cartBadge"></span>
-
-  </button>
-
-  <button
-    id="navOrders"
-    onclick="openOrders()">
-
-    <span class="nav-icon">📦</span>
-    Orders
-
-  </button>
+<button id="navOrders" onclick="openOrders()">
+<span class="nav-icon">📦</span>
+Orders
+</button>
 
 </nav>
 
-<div
-  id="authModal"
-  class="modal-bg">
 
-  <div class="modal">
+<div id="authModal" class="modal-bg">
 
-    <div class="modal-top">
+<div class="modal">
 
-      <h2>
-        My Account 👤
-      </h2>
+<div class="modal-top">
 
-      <button
-        class="close"
-        onclick="closeAccount()">
+<h2>My Account 👤</h2>
 
-        ✕
-
-      </button>
-
-    </div>
-
-    <div
-      id="loggedInBox"
-      style="display:none">
-
-      <div class="account-info">
-
-        <b id="accountName"></b>
-
-        <div
-          id="accountEmail"
-          style="font-size:13px;color:#666;margin-top:4px">
-        </div>
-
-      </div>
-
-      <button
-        class="logout"
-        onclick="logout()">
-
-        Logout
-
-      </button>
-
-    </div>
-
-    <div id="authBox">
-
-      <div class="auth-tabs">
-
-        <button
-          id="loginTab"
-          class="active"
-          onclick="showLogin()">
-
-          Login
-
-        </button>
-
-        <button
-          id="signupTab"
-          onclick="showSignup()">
-
-          Sign Up
-
-        </button>
-
-      </div>
-
-      <div
-        id="signupNameBox"
-        style="display:none"
-        class="field">
-
-        <label>Name</label>
-
-        <input
-          id="signupName"
-          placeholder="Your name">
-
-      </div>
-
-      <div class="field">
-
-        <label>Email</label>
-
-        <input
-          id="authEmail"
-          type="email"
-          placeholder="Email address">
-
-      </div>
-
-      <div class="field">
-
-        <label>Password</label>
-
-        <input
-          id="authPassword"
-          type="password"
-          placeholder="Password">
-
-      </div>
-
-      <button
-        id="authSubmit"
-        class="auth-submit"
-        onclick="submitAuth()">
-
-        Login
-
-      </button>
-
-      <p
-        id="authMessage"
-        style="font-size:13px;text-align:center;color:#666">
-      </p>
-
-    </div>
-
-  </div>
+<button class="close" onclick="closeAccount()">
+✕
+</button>
 
 </div>
+
+
+<div id="loggedInBox" style="display:none">
+
+<div class="account-info">
+
+<b id="accountName"></b>
+
+<div
+id="accountEmail"
+style="font-size:13px;color:#666;margin-top:4px">
+</div>
+
+</div>
+
+<button class="logout" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+
+<div id="authBox">
+
+<div class="auth-tabs">
+
+<button
+id="loginTab"
+class="active"
+onclick="showLogin()">
+
+Login
+
+</button>
+
+<button
+id="signupTab"
+onclick="showSignup()">
+
+Sign Up
+
+</button>
+
+</div>
+
+
+<div
+id="signupNameBox"
+style="display:none"
+class="field">
+
+<label>Name</label>
+
+<input
+id="signupName"
+placeholder="Your name">
+
+</div>
+
+
+<div class="field">
+
+<label>Email</label>
+
+<input
+id="authEmail"
+type="email"
+placeholder="Email address">
+
+</div>
+
+
+<div class="field">
+
+<label>Password</label>
+
+<input
+id="authPassword"
+type="password"
+placeholder="Password">
+
+</div>
+
+
+<button
+id="authSubmit"
+class="auth-submit"
+onclick="submitAuth()">
+
+Login
+
+</button>
+
+<p
+id="authMessage"
+style="font-size:13px;text-align:center;color:#666">
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
@@ -977,8 +891,8 @@ const SUPABASE_ANON_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
 
 const UPI_ID =
@@ -990,7 +904,7 @@ let currentCategory = "";
 
 let cart =
 JSON.parse(
-  localStorage.getItem("rps_cart") || "[]"
+localStorage.getItem("rps_cart") || "[]"
 );
 
 let authMode = "login";
@@ -1000,39 +914,37 @@ let authMode = "login";
 
 async function loadProducts(){
 
-  const box =
-  document.getElementById("products");
+const box =
+document.getElementById("products");
 
-  box.innerHTML =
-  '<div class="loading">Products load ho rahe hain...</div>';
+box.innerHTML =
+'<div class="loading">Products load ho rahe hain...</div>';
 
-  try{
+try{
 
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-    .from("products")
-    .select("*")
-    .order("created_at",{ascending:false});
+const {
+data,
+error
+} =
+await supabaseClient
+.from("products")
+.select("*")
+.order("created_at",{ascending:false});
 
-    if(error)
-      throw error;
+if(error) throw error;
 
-    products =
-    data || [];
+products = data || [];
 
-    renderProducts();
+renderProducts();
 
-  }catch(error){
+}catch(error){
 
-    console.error(error);
+console.error(error);
 
-    box.innerHTML =
-    '<div class="empty">Products load nahi ho pa rahe.<br>Database connection check karein.</div>';
+box.innerHTML =
+'<div class="empty">Products load nahi ho pa rahe.<br>Database connection check karein.</div>';
 
-  }
+}
 
 }
 
@@ -1041,56 +953,56 @@ async function loadProducts(){
 
 function renderProducts(){
 
-  const box =
-  document.getElementById("products");
+const box =
+document.getElementById("products");
 
-  let list =
-  [...products];
+let list = [...products];
 
-  const search =
-  document
-  .getElementById("searchInput")
-  .value
-  .trim()
-  .toLowerCase();
+const search =
+document
+.getElementById("searchInput")
+.value
+.trim()
+.toLowerCase();
 
-  if(currentCategory){
+if(currentCategory){
 
-    list =
-    list.filter(p =>
-      String(p.category || "")
-      .toLowerCase()
-      === currentCategory.toLowerCase()
-    );
+list =
+list.filter(p =>
+String(p.category || "")
+.toLowerCase()
+===
+currentCategory.toLowerCase()
+);
 
-  }
+}
 
-  if(search){
+if(search){
 
-    list =
-    list.filter(p => {
+list =
+list.filter(p => {
 
-      const text =
-      `${p.name || ""} ${p.category || ""} ${p.description || ""}`
-      .toLowerCase();
+const text =
+`${p.name || ""} ${p.category || ""} ${p.description || ""}`
+.toLowerCase();
 
-      return text.includes(search);
+return text.includes(search);
 
-    });
+});
 
-  }
+}
 
-  if(!list.length){
+if(!list.length){
 
-    box.innerHTML =
-    '<div class="empty">No products found.</div>';
+box.innerHTML =
+'<div class="empty">No products found.</div>';
 
-    return;
+return;
 
-  }
+}
 
-  box.innerHTML =
-  list.map(productCard).join("");
+box.innerHTML =
+list.map(productCard).join("");
 
 }
 
@@ -1099,60 +1011,58 @@ function renderProducts(){
 
 function productCard(p){
 
-  const name =
-  escapeHtml(p.name || "Product");
+const name =
+escapeHtml(p.name || "Product");
 
-  const price =
-  Number(
-    p.price ||
-    p.selling_price ||
-    0
-  );
+const price =
+Number(
+p.price ||
+p.selling_price ||
+0
+);
 
-  const image =
-  p.image_url ||
-  p.image ||
-  "https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
+const image =
+p.image_url ||
+p.image ||
+"https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
 
-  const productId =
-  escapeHtml(String(p.id));
+const productId =
+escapeHtml(String(p.id));
 
-  return `
+return `
 
-    <div class="card">
+<div class="card">
 
-      <img
-        src="${escapeHtml(image)}"
-        alt="${name}"
-        onerror="this.src='https://via.placeholder.com/500x400?text=Product'">
+<img
+src="${escapeHtml(image)}"
+alt="${name}"
+onerror="this.src='https://via.placeholder.com/500x400?text=Product'">
 
-      <div class="card-body">
+<div class="card-body">
 
-        <h3>
-          ${name}
-        </h3>
+<h3>${name}</h3>
 
-        <div>
+<div>
 
-          <span class="price">
-            ₹${price}
-          </span>
+<span class="price">
+₹${price}
+</span>
 
-        </div>
+</div>
 
-        <button
-          class="add-btn"
-          onclick="addToCartById('${productId}')">
+<button
+class="add-btn"
+onclick="addToCartById('${productId}')">
 
-          Add to Cart
+Add to Cart
 
-        </button>
+</button>
 
-      </div>
+</div>
 
-    </div>
+</div>
 
-  `;
+`;
 
 }
 
@@ -1161,43 +1071,43 @@ function productCard(p){
 
 function addToCartById(id){
 
-  const product =
-  products.find(
-    p =>
-    String(p.id) === String(id)
-  );
+const product =
+products.find(
+p =>
+String(p.id) === String(id)
+);
 
-  if(!product){
+if(!product){
 
-    alert("Product nahi mila.");
+alert("Product nahi mila.");
 
-    return;
+return;
 
-  }
+}
 
-  const price =
-  Number(
-    product.price ||
-    product.selling_price ||
-    0
-  );
+const price =
+Number(
+product.price ||
+product.selling_price ||
+0
+);
 
-  const image =
-  product.image_url ||
-  product.image ||
-  "https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
+const image =
+product.image_url ||
+product.image ||
+"https://via.placeholder.com/500x400?text=Riddhi+Party+Shop";
 
-  addToCart({
+addToCart({
 
-    id:product.id,
+id:product.id,
 
-    name:product.name || "Product",
+name:product.name || "Product",
 
-    price:price,
+price:price,
 
-    image:image
+image:image
 
-  });
+});
 
 }
 
@@ -1206,35 +1116,30 @@ function addToCartById(id){
 
 function addToCart(product){
 
-  const found =
-  cart.find(
-    x =>
-    String(x.id) === String(product.id)
-  );
+const found =
+cart.find(
+x =>
+String(x.id) === String(product.id)
+);
 
-  if(found){
+if(found){
 
-    found.qty++;
+found.qty++;
 
-  }else{
+}else{
 
-    cart.push({
+cart.push({
+...product,
+qty:1
+});
 
-      ...product,
+}
 
-      qty:1
+saveCart();
 
-    });
+alert("Product cart me add ho gaya 🛒");
 
-  }
-
-  saveCart();
-
-  alert(
-    "Product cart me add ho gaya 🛒"
-  );
-
-  openCart();
+openCart();
 
 }
 
@@ -1243,30 +1148,29 @@ function addToCart(product){
 
 function changeQty(id,delta){
 
-  const item =
-  cart.find(
-    x =>
-    String(x.id) === String(id)
-  );
+const item =
+cart.find(
+x =>
+String(x.id) === String(id)
+);
 
-  if(!item)
-    return;
+if(!item) return;
 
-  item.qty += delta;
+item.qty += delta;
 
-  if(item.qty <= 0){
+if(item.qty <= 0){
 
-    cart =
-    cart.filter(
-      x =>
-      String(x.id) !== String(id)
-    );
+cart =
+cart.filter(
+x =>
+String(x.id) !== String(id)
+);
 
-  }
+}
 
-  saveCart();
+saveCart();
 
-  renderCart();
+renderCart();
 
 }
 
@@ -1275,12 +1179,12 @@ function changeQty(id,delta){
 
 function saveCart(){
 
-  localStorage.setItem(
-    "rps_cart",
-    JSON.stringify(cart)
-  );
+localStorage.setItem(
+"rps_cart",
+JSON.stringify(cart)
+);
 
-  updateCartBadge();
+updateCartBadge();
 
 }
 
@@ -1289,19 +1193,17 @@ function saveCart(){
 
 function updateCartBadge(){
 
-  const count =
-  cart.reduce(
-    (sum,item) =>
-    sum + Number(item.qty || 0),
-    0
-  );
+const count =
+cart.reduce(
+(sum,item) =>
+sum + Number(item.qty || 0),
+0
+);
 
-  document
-  .getElementById("cartBadge")
-  .textContent =
-  count
-  ? `(${count})`
-  : "";
+document
+.getElementById("cartBadge")
+.textContent =
+count ? `(${count})` : "";
 
 }
 
@@ -1310,487 +1212,573 @@ function updateCartBadge(){
 
 function renderCart(){
 
-  const box =
-  document.getElementById("cartItems");
+const box =
+document.getElementById("cartItems");
 
-  const checkout =
-  document.getElementById("checkoutBox");
+const checkout =
+document.getElementById("checkoutBox");
 
-  if(!cart.length){
+if(!cart.length){
 
-    box.innerHTML =
-    '<div class="empty">Your cart is empty 🛒<br><br>Products add kijiye.</div>';
+box.innerHTML =
+'<div class="empty">Your cart is empty 🛒<br><br>Products add kijiye.</div>';
 
-    checkout.style.display =
-    "none";
+checkout.style.display = "none";
 
-    return;
+return;
 
-  }
+}
 
-  checkout.style.display =
-  "block";
+checkout.style.display = "block";
 
-  box.innerHTML =
-  cart.map(item => `
+box.innerHTML =
+cart.map(item => `
 
-    <div class="cart-item">
+<div class="cart-item">
 
-      <img
-        src="${escapeHtml(item.image || "")}"
-        onerror="this.src='https://via.placeholder.com/100?text=Product'">
+<img
+src="${escapeHtml(item.image || "")}"
+onerror="this.src='https://via.placeholder.com/100?text=Product'">
 
-      <div class="cart-info">
+<div class="cart-info">
 
-        <b>
-          ${escapeHtml(item.name)}
-        </b>
+<b>
+${escapeHtml(item.name)}
+</b>
 
-        <div
-          style="color:#5b21b6;font-weight:bold">
+<div style="color:#5b21b6;font-weight:bold">
+₹${Number(item.price).toFixed(0)}
+</div>
 
-          ₹${Number(item.price).toFixed(0)}
+<div class="qty">
 
-        </div>
+<button
+onclick="changeQty('${escapeHtml(String(item.id))}',-1)">
+−
+</button>
 
-        <div class="qty">
+<span>${item.qty}</span>
 
-          <button
-            onclick="changeQty('${escapeHtml(String(item.id))}',-1)">
+<button
+onclick="changeQty('${escapeHtml(String(item.id))}',1)">
++
+</button>
 
-            −
+</div>
 
-          </button>
+</div>
 
-          <span>
-            ${item.qty}
-          </span>
+</div>
 
-          <button
-            onclick="changeQty('${escapeHtml(String(item.id))}',1)">
+`).join("");
 
-            +
+const total =
+cart.reduce(
+(sum,item) =>
+sum +
+Number(item.price) *
+Number(item.qty),
+0
+);
 
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-  const total =
-  cart.reduce(
-    (sum,item) =>
-    sum +
-    Number(item.price) *
-    Number(item.qty),
-    0
-  );
-
-  document
-  .getElementById("cartTotal")
-  .textContent =
-  "₹" + total.toFixed(0);
+document
+.getElementById("cartTotal")
+.textContent =
+"₹" + total.toFixed(0);
 
 }
 
 
-/* ---------------- LOCATION ---------------- */
+/* =========================================================
+   LOCATION
+   ========================================================= */
 
 /*
-  NEW ACCURATE LOCATION SYSTEM
-
-  Multiple GPS readings li jayengi.
-  Sabse accurate reading select hogi.
-  100 meter se zyada inaccurate location
-  automatically reject hogi.
+  GPS se multiple readings lenge.
+  Sabse accurate reading select karenge.
+  Nominatim ki jagah BigDataCloud use hoga.
+  GPS coordinates Supabase Orders me save honge.
 */
 
 function getCurrentLocation(){
 
-  const status =
-    document.getElementById("locationStatus");
+const status =
+document.getElementById("locationStatus");
 
-  const address =
-    document.getElementById("customerAddress");
+const address =
+document.getElementById("customerAddress");
 
-  const button =
-    document.querySelector(".location-btn");
+const button =
+document.querySelector(".location-btn");
 
-  if(!navigator.geolocation){
+if(!navigator.geolocation){
 
-    status.textContent =
-    "Aapke browser me location support nahi hai.";
+status.textContent =
+"Aapke browser me location support nahi hai.";
 
-    return;
+return;
 
-  }
+}
 
-  status.textContent =
-  "📍 Exact location dhoondh rahe hain...";
+status.textContent =
+"📍 Exact GPS location dhoondh rahe hain...";
 
-  if(button){
+if(button){
 
-    button.disabled = true;
+button.disabled = true;
 
-    button.textContent =
-    "📍 Location mil rahi hai...";
+button.textContent =
+"📍 GPS location mil rahi hai...";
 
-  }
+}
 
-  let bestPosition = null;
+let bestPosition = null;
 
-  let watchId = null;
+let watchId = null;
 
-  let finished = false;
+let finished = false;
 
+let startTime = Date.now();
 
-  async function finishLocation(){
 
-    if(finished)
-      return;
+function stopWatching(){
 
-    finished = true;
+if(watchId !== null){
 
-    if(watchId !== null){
+navigator.geolocation.clearWatch(
+watchId
+);
 
-      navigator.geolocation.clearWatch(
-        watchId
-      );
+watchId = null;
 
-      watchId = null;
+}
 
-    }
+}
 
-    if(!bestPosition){
 
-      status.textContent =
-      "❌ Exact location nahi mil paayi.";
+async function reverseGeocode(lat,lng){
 
-      if(button){
+try{
 
-        button.disabled = false;
+status.textContent =
+"📍 Address aur pincode nikal rahe hain...";
 
-        button.textContent =
-        "📍 Try Again";
 
-      }
+const response =
+await fetch(
+`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lng)}&localityLanguage=en`,
+{
+method:"GET",
+headers:{
+"Accept":"application/json"
+}
+}
+);
 
-      alert(
-        "Exact location nahi mil paayi.\n\n" +
-        "Phone ki GPS/Location ON karke dobara Try Again dabaiye."
-      );
 
-      return;
+if(!response.ok){
 
-    }
+throw new Error(
+"Reverse geocoding failed: " +
+response.status
+);
 
-    const lat =
-    bestPosition.coords.latitude;
+}
 
-    const lng =
-    bestPosition.coords.longitude;
 
-    const accuracy =
-    bestPosition.coords.accuracy;
+const data =
+await response.json();
 
-    console.log(
-      "Best Latitude:",
-      lat
-    );
+console.log(
+"Reverse Geocode Result:",
+data
+);
 
-    console.log(
-      "Best Longitude:",
-      lng
-    );
 
-    console.log(
-      "Best Accuracy:",
-      accuracy + " meters"
-    );
+let postcode =
+data.postcode ||
+(data.localityInfo &&
+data.localityInfo.postcode) ||
+"";
 
 
-    /*
-      100 meter se zyada inaccurate
-      location ko reject karenge.
-    */
+let parts = [];
 
-    if(accuracy > 100){
 
-      status.textContent =
-      "⚠️ Location accurate nahi mili.";
+if(data.houseNumber)
+parts.push(data.houseNumber);
 
-      if(button){
+if(data.street)
+parts.push(data.street);
 
-        button.disabled = false;
+if(data.locality)
+parts.push(data.locality);
 
-        button.textContent =
-        "📍 Try Again";
+if(data.city)
+parts.push(data.city);
 
-      }
+if(data.principalSubdivision)
+parts.push(data.principalSubdivision);
 
-      alert(
-        "Location abhi accurate nahi hai.\n\n" +
-        "Phone ki Location/GPS ON karein, " +
-        "Google Maps me apni location fix hone dein, " +
-        "phir Try Again dabaiye."
-      );
+if(postcode)
+parts.push(postcode);
 
-      return;
+if(data.countryName)
+parts.push(data.countryName);
 
-    }
 
+let finalAddress =
+parts.filter(Boolean).join(", ");
 
-    /*
-      Coordinates save
-    */
 
-    sessionStorage.setItem(
-      "rps_lat",
-      lat
-    );
+if(!finalAddress){
 
-    sessionStorage.setItem(
-      "rps_lng",
-      lng
-    );
+finalAddress =
+data.locality ||
+data.city ||
+`GPS Location: ${lat}, ${lng}`;
 
+}
 
-    status.textContent =
-    `✅ Current location mil gayi (${Math.round(accuracy)}m accuracy)`;
 
+address.value =
+finalAddress;
 
-    /*
-      GPS coordinates ko address me convert karna
-    */
 
-    try{
+if(postcode){
 
-      const response =
-      await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
-        {
-          headers:{
-            "Accept":"application/json"
-          }
-        }
-      );
+status.textContent =
+`✅ Location added • Pincode: ${postcode}`;
 
+}else{
 
-      const data =
-      await response.json();
+status.textContent =
+"✅ GPS location added";
 
+}
 
-      if(
-        data &&
-        data.display_name
-      ){
 
-        address.value =
-        data.display_name;
+return {
+address:finalAddress,
+postcode:postcode
+};
 
-      }else{
 
-        address.value =
-        `GPS Location: ${lat}, ${lng}`;
+}catch(error){
 
-      }
+console.error(
+"Reverse geocoding error:",
+error
+);
 
 
-    }catch(error){
+address.value =
+`GPS Location: ${lat}, ${lng}`;
 
-      console.error(
-        "Address conversion error:",
-        error
-      );
+status.textContent =
+"✅ GPS location added (address manually check karein)";
 
-      address.value =
-      `GPS Location: ${lat}, ${lng}`;
+return {
+address:address.value,
+postcode:""
+};
 
-    }
+}
 
+}
 
-    if(button){
 
-      button.disabled = false;
+async function finishLocation(){
 
-      button.textContent =
-      "✅ Current Location Added";
+if(finished)
+return;
 
-    }
+finished = true;
 
-  }
+stopWatching();
 
 
-  /*
-    Multiple GPS readings
-  */
+if(!bestPosition){
 
-  watchId =
-  navigator.geolocation.watchPosition(
+status.textContent =
+"❌ GPS location nahi mil paayi.";
 
-    function(position){
+if(button){
 
-      const accuracy =
-      position.coords.accuracy;
+button.disabled = false;
 
+button.textContent =
+"📍 Try Again";
 
-      console.log(
-        "GPS Reading:",
-        accuracy,
-        "meters"
-      );
+}
 
+alert(
+"GPS location nahi mil paayi.\n\n" +
+"Phone ki Location/GPS ON karke dobara Try Again dabaiye."
+);
 
-      /*
-        Sabse accurate reading save karenge
-      */
+return;
 
-      if(
-        !bestPosition ||
-        accuracy <
-        bestPosition.coords.accuracy
-      ){
+}
 
-        bestPosition =
-        position;
 
-        status.textContent =
-        `📍 Location improve ho rahi hai... ${Math.round(accuracy)}m`;
+const lat =
+bestPosition.coords.latitude;
 
-      }
+const lng =
+bestPosition.coords.longitude;
 
+const accuracy =
+bestPosition.coords.accuracy;
 
-      /*
-        20 meter ya usse better mil gayi
-        to immediately finish
-      */
 
-      if(
-        accuracy <= 20
-      ){
+console.log(
+"FINAL GPS Latitude:",
+lat
+);
 
-        finishLocation();
+console.log(
+"FINAL GPS Longitude:",
+lng
+);
 
-      }
+console.log(
+"FINAL GPS Accuracy:",
+accuracy + " meters"
+);
 
-    },
 
+/*
+  100m se zyada inaccurate reading reject.
+*/
 
-    function(error){
+if(accuracy > 100){
 
-      console.error(
-        "Location Error:",
-        error
-      );
+status.textContent =
+"⚠️ GPS accuracy bahut kam hai.";
 
+if(button){
 
-      if(finished)
-        return;
+button.disabled = false;
 
+button.textContent =
+"📍 Try Again";
 
-      finished = true;
+}
 
+alert(
+"Location abhi accurate nahi hai.\n\n" +
+"Phone ki GPS/Location ON karein aur " +
+"Google Maps me blue dot fix hone dein.\n\n" +
+"Uske baad Try Again dabaiye."
+);
 
-      if(watchId !== null){
+return;
 
-        navigator.geolocation.clearWatch(
-          watchId
-        );
+}
 
-        watchId = null;
 
-      }
+/*
+  GPS coordinates save.
+*/
 
+sessionStorage.setItem(
+"rps_lat",
+String(lat)
+);
 
-      if(button){
+sessionStorage.setItem(
+"rps_lng",
+String(lng)
+);
 
-        button.disabled = false;
+sessionStorage.setItem(
+"rps_accuracy",
+String(accuracy)
+);
 
-        button.textContent =
-        "📍 Try Again";
 
-      }
+/*
+  GPS coordinates ko address/pincode me convert.
+*/
 
+await reverseGeocode(
+lat,
+lng
+);
 
-      if(error.code === 1){
 
-        status.textContent =
-        "❌ Location permission denied.";
+if(button){
 
-        alert(
-          "Location permission Allow kijiye.\n\n" +
-          "Chrome ke address bar ke left side 🔒 par click → Location → Allow."
-        );
+button.disabled = false;
 
-      }
+button.textContent =
+"✅ Current Location Added";
 
-      else if(error.code === 2){
+}
 
-        status.textContent =
-        "❌ Location available nahi hai.";
+}
 
-        alert(
-          "Phone ki GPS/Location ON karke dobara try karein."
-        );
 
-      }
+/*
+  GPS reading callback.
+*/
 
-      else if(error.code === 3){
+watchId =
+navigator.geolocation.watchPosition(
 
-        status.textContent =
-        "❌ Location timeout.";
+function(position){
 
-        alert(
-          "GPS location milne me time lag raha hai.\n\n" +
-          "Open area me jaakar dobara Try Again dabaiye."
-        );
+const accuracy =
+position.coords.accuracy;
 
-      }
 
-      else{
+console.log(
+"GPS Reading:",
+{
+latitude:position.coords.latitude,
+longitude:position.coords.longitude,
+accuracy:accuracy
+}
+);
 
-        status.textContent =
-        "❌ Location nahi mil paayi.";
 
-        alert(
-          "Location nahi mil paayi. Dobara Try Again dabaiye."
-        );
+/*
+  Sabse accurate reading save.
+*/
 
-      }
+if(
+!bestPosition ||
+accuracy <
+bestPosition.coords.accuracy
+){
 
-    },
+bestPosition =
+position;
 
+status.textContent =
+`📍 GPS improve ho rahi hai... ${Math.round(accuracy)}m`;
 
-    {
-      enableHighAccuracy:true,
-      timeout:20000,
-      maximumAge:0
-    }
+}
 
-  );
 
+/*
+  20m ya better accuracy milne par
+  turant location accept.
+*/
 
-  /*
-    Maximum 20 seconds tak
-    best GPS reading collect karenge.
-  */
+if(accuracy <= 20){
 
-  setTimeout(() => {
+finishLocation();
 
-    if(
-      !finished &&
-      watchId !== null
-    ){
+}
 
-      finishLocation();
+},
 
-    }
 
-  },20000);
+function(error){
+
+console.error(
+"GPS Error:",
+error
+);
+
+if(finished)
+return;
+
+finished = true;
+
+stopWatching();
+
+
+if(button){
+
+button.disabled = false;
+
+button.textContent =
+"📍 Try Again";
+
+}
+
+
+if(error.code === 1){
+
+status.textContent =
+"❌ Location permission denied.";
+
+alert(
+"Chrome me Location permission Allow kijiye.\n\n" +
+"Browser ke address bar ke paas 🔒 par click → Location → Allow."
+);
+
+}
+
+else if(error.code === 2){
+
+status.textContent =
+"❌ GPS location available nahi hai.";
+
+alert(
+"Phone ki Location/GPS ON karke dobara Try Again dabaiye."
+);
+
+}
+
+else if(error.code === 3){
+
+status.textContent =
+"❌ GPS timeout.";
+
+alert(
+"GPS location milne me time lag raha hai.\n\n" +
+"Open area me jaakar dobara Try Again dabaiye."
+);
+
+}
+
+else{
+
+status.textContent =
+"❌ Location nahi mil paayi.";
+
+alert(
+"Location nahi mil paayi. Dobara Try Again dabaiye."
+);
+
+}
+
+},
+
+
+{
+enableHighAccuracy:true,
+timeout:30000,
+maximumAge:0
+}
+
+);
+
+
+/*
+  Maximum 30 seconds tak GPS readings.
+*/
+
+setTimeout(() => {
+
+if(
+!finished &&
+watchId !== null
+){
+
+console.log(
+"GPS 30 second timeout reached."
+);
+
+finishLocation();
+
+}
+
+},30000);
 
 }
 
@@ -1799,17 +1787,17 @@ function getCurrentLocation(){
 
 function paymentMethodChanged(){
 
-  const method =
-  document
-  .getElementById("paymentMethod")
-  .value;
+const method =
+document
+.getElementById("paymentMethod")
+.value;
 
-  document
-  .getElementById("upiBox")
-  .style.display =
-  method === "UPI"
-  ? "block"
-  : "none";
+document
+.getElementById("upiBox")
+.style.display =
+method === "UPI"
+? "block"
+: "none";
 
 }
 
@@ -1818,28 +1806,28 @@ function paymentMethodChanged(){
 
 function payViaUPI(){
 
-  const total =
-  cart.reduce(
-    (sum,item) =>
-    sum +
-    Number(item.price) *
-    Number(item.qty),
-    0
-  );
+const total =
+cart.reduce(
+(sum,item) =>
+sum +
+Number(item.price) *
+Number(item.qty),
+0
+);
 
-  if(!total){
+if(!total){
 
-    alert("Cart empty hai.");
+alert("Cart empty hai.");
 
-    return;
+return;
 
-  }
+}
 
-  const upiUrl =
-  `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent("Riddhi Party Shop")}&am=${total.toFixed(2)}&cu=INR`;
+const upiUrl =
+`upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent("Riddhi Party Shop")}&am=${total.toFixed(2)}&cu=INR`;
 
-  window.location.href =
-  upiUrl;
+window.location.href =
+upiUrl;
 
 }
 
@@ -1848,173 +1836,192 @@ function payViaUPI(){
 
 async function placeOrder(){
 
-  if(!cart.length){
+if(!cart.length){
 
-    alert("Cart empty hai.");
+alert("Cart empty hai.");
 
-    return;
+return;
 
-  }
+}
 
-  const {
-    data:{
-      user
-    }
-  } =
-  await supabaseClient.auth.getUser();
+const {
+data:{
+user
+}
+} =
+await supabaseClient.auth.getUser();
 
-  if(!user){
+if(!user){
 
-    alert(
-      "Order place karne ke liye pehle Login/Signup karein."
-    );
+alert(
+"Order place karne ke liye pehle Login/Signup karein."
+);
 
-    openAccount();
+openAccount();
 
-    return;
+return;
 
-  }
+}
 
-  const name =
-  document
-  .getElementById("customerName")
-  .value
-  .trim();
 
-  const mobile =
-  document
-  .getElementById("customerMobile")
-  .value
-  .trim();
+const name =
+document
+.getElementById("customerName")
+.value
+.trim();
 
-  const address =
-  document
-  .getElementById("customerAddress")
-  .value
-  .trim();
+const mobile =
+document
+.getElementById("customerMobile")
+.value
+.trim();
 
-  const payment =
-  document
-  .getElementById("paymentMethod")
-  .value;
+const address =
+document
+.getElementById("customerAddress")
+.value
+.trim();
 
-  if(!name){
+const payment =
+document
+.getElementById("paymentMethod")
+.value;
 
-    alert("Name enter kijiye.");
 
-    return;
+if(!name){
 
-  }
+alert("Name enter kijiye.");
 
-  if(!/^[0-9]{10}$/.test(mobile)){
+return;
 
-    alert(
-      "10 digit mobile number enter kijiye."
-    );
+}
 
-    return;
 
-  }
+if(!/^[0-9]{10}$/.test(mobile)){
 
-  if(!address){
+alert(
+"10 digit mobile number enter kijiye."
+);
 
-    alert(
-      "Delivery address enter kijiye ya Current Location use kijiye."
-    );
+return;
 
-    return;
+}
 
-  }
 
-  const total =
-  cart.reduce(
-    (sum,item) =>
-    sum +
-    Number(item.price) *
-    Number(item.qty),
-    0
-  );
+if(!address){
 
-  const latitude =
-  sessionStorage.getItem("rps_lat");
+alert(
+"Delivery address enter kijiye ya Current Location use kijiye."
+);
 
-  const longitude =
-  sessionStorage.getItem("rps_lng");
+return;
 
-  const orderData = {
+}
 
-    user_id:user.id,
 
-    customer_name:name,
+const total =
+cart.reduce(
+(sum,item) =>
+sum +
+Number(item.price) *
+Number(item.qty),
+0
+);
 
-    mobile:mobile,
 
-    address:address,
+const latitude =
+sessionStorage.getItem("rps_lat");
 
-    payment_method:payment,
+const longitude =
+sessionStorage.getItem("rps_lng");
 
-    items:cart,
 
-    total:total,
+const orderData = {
 
-    status:"New"
+user_id:user.id,
 
-  };
+customer_name:name,
 
-  if(latitude)
-    orderData.latitude =
-    Number(latitude);
+mobile:mobile,
 
-  if(longitude)
-    orderData.longitude =
-    Number(longitude);
+address:address,
 
-  try{
+payment_method:payment,
 
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-    .from("orders")
-    .insert(orderData)
-    .select()
-    .single();
+items:cart,
 
-    if(error)
-      throw error;
+total:total,
 
-    alert(
-      "🎉 Order successfully placed!\n\nOrder ID: " +
-      data.id
-    );
+status:"New"
 
-    cart = [];
+};
 
-    saveCart();
 
-    sessionStorage.removeItem(
-      "rps_lat"
-    );
+if(latitude)
+orderData.latitude =
+Number(latitude);
 
-    sessionStorage.removeItem(
-      "rps_lng"
-    );
+if(longitude)
+orderData.longitude =
+Number(longitude);
 
-    renderCart();
 
-    openOrders();
+try{
 
-  }catch(error){
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.insert(orderData)
+.select()
+.single();
 
-    console.error(error);
 
-    alert(
-      "Order place nahi ho paya.\n\n" +
-      error.message
-    );
+if(error)
+throw error;
 
-  }
+
+alert(
+"🎉 Order successfully placed!\n\nOrder ID: " +
+data.id
+);
+
+
+cart = [];
+
+saveCart();
+
+
+sessionStorage.removeItem(
+"rps_lat"
+);
+
+sessionStorage.removeItem(
+"rps_lng"
+);
+
+sessionStorage.removeItem(
+"rps_accuracy"
+);
+
+
+renderCart();
+
+openOrders();
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Order place nahi ho paya.\n\n" +
+error.message
+);
+
+}
 
 }
 
@@ -2023,172 +2030,175 @@ async function placeOrder(){
 
 async function loadOrders(){
 
-  const box =
-  document.getElementById("ordersList");
+const box =
+document.getElementById("ordersList");
 
-  box.innerHTML =
-  '<div class="loading">Orders load ho rahe hain...</div>';
+box.innerHTML =
+'<div class="loading">Orders load ho rahe hain...</div>';
 
-  const {
-    data:{
-      user
-    }
-  } =
-  await supabaseClient.auth.getUser();
 
-  if(!user){
+const {
+data:{
+user
+}
+} =
+await supabaseClient.auth.getUser();
 
-    box.innerHTML = `
 
-      <div class="empty">
+if(!user){
 
-        <div style="font-size:40px">
-          👤
-        </div>
+box.innerHTML = `
 
-        <p>
-          My Orders dekhne ke liye login karein.
-        </p>
+<div class="empty">
 
-        <button
-          onclick="openAccount()"
-          style="border:0;background:#5b21b6;color:white;padding:11px 20px;border-radius:10px;font-weight:bold">
+<div style="font-size:40px">
+👤
+</div>
 
-          Login / Sign Up
+<p>
+My Orders dekhne ke liye login karein.
+</p>
 
-        </button>
+<button
+onclick="openAccount()"
+style="border:0;background:#5b21b6;color:white;padding:11px 20px;border-radius:10px;font-weight:bold">
 
-      </div>
+Login / Sign Up
 
-    `;
+</button>
 
-    return;
+</div>
 
-  }
+`;
 
-  try{
+return;
 
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-    .from("orders")
-    .select("*")
-    .eq("user_id",user.id)
-    .order(
-      "created_at",
-      {ascending:false}
-    );
+}
 
-    if(error)
-      throw error;
 
-    if(
-      !data ||
-      !data.length
-    ){
+try{
 
-      box.innerHTML =
-      '<div class="empty">Abhi koi order nahi hai 📦</div>';
+const {
+data,
+error
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.eq("user_id",user.id)
+.order(
+"created_at",
+{ascending:false}
+);
 
-      return;
 
-    }
+if(error)
+throw error;
 
-    box.innerHTML =
-    data.map(order => {
 
-      let itemsText = "";
+if(
+!data ||
+!data.length
+){
 
-      try{
+box.innerHTML =
+'<div class="empty">Abhi koi order nahi hai 📦</div>';
 
-        const items =
-        typeof order.items === "string"
-        ? JSON.parse(order.items)
-        : order.items;
+return;
 
-        if(Array.isArray(items)){
+}
 
-          itemsText =
-          items.map(i =>
-            `${escapeHtml(i.name || "Product")} × ${i.qty || 1}`
-          ).join("<br>");
 
-        }
+box.innerHTML =
+data.map(order => {
 
-      }catch(e){}
+let itemsText = "";
 
-      return `
+try{
 
-        <div class="order-card">
+const items =
+typeof order.items === "string"
+? JSON.parse(order.items)
+: order.items;
 
-          <div class="order-head">
 
-            <b>
-              Order #${escapeHtml(String(order.id))}
-            </b>
+if(Array.isArray(items)){
 
-            <span class="status">
+itemsText =
+items.map(i =>
+`${escapeHtml(i.name || "Product")} × ${i.qty || 1}`
+).join("<br>");
 
-              ${escapeHtml(
-                order.status || "New"
-              )}
+}
 
-            </span>
+}catch(e){}
 
-          </div>
 
-          <hr>
+return `
 
-          <div
-            style="font-size:13px;line-height:1.6">
+<div class="order-card">
 
-            ${itemsText || "Order items"}
+<div class="order-head">
 
-            <br><br>
+<b>
+Order #${escapeHtml(String(order.id))}
+</b>
 
-            <b>
-              Total:
-              ₹${Number(order.total || 0).toFixed(0)}
-            </b>
+<span class="status">
+${escapeHtml(order.status || "New")}
+</span>
 
-            <br>
+</div>
 
-            Payment:
-            ${escapeHtml(
-              order.payment_method || ""
-            )}
+<hr>
 
-            <br>
+<div
+style="font-size:13px;line-height:1.6">
 
-            Date:
-            ${
-              order.created_at
-              ? new Date(
-                  order.created_at
-                ).toLocaleString("en-IN")
-              : ""
-            }
+${itemsText || "Order items"}
 
-          </div>
+<br><br>
 
-        </div>
+<b>
+Total:
+₹${Number(order.total || 0).toFixed(0)}
+</b>
 
-      `;
+<br>
 
-    }).join("");
+Payment:
+${escapeHtml(order.payment_method || "")}
 
-  }catch(error){
+<br>
 
-    console.error(error);
+Date:
+${
+order.created_at
+? new Date(
+order.created_at
+).toLocaleString("en-IN")
+: ""
+}
 
-    box.innerHTML =
-    '<div class="empty">Orders load nahi ho pa rahe.<br>' +
-    escapeHtml(error.message) +
-    '</div>';
+</div>
 
-  }
+</div>
+
+`;
+
+}).join("");
+
+
+}catch(error){
+
+console.error(error);
+
+box.innerHTML =
+'<div class="empty">Orders load nahi ho pa rahe.<br>' +
+escapeHtml(error.message) +
+'</div>';
+
+}
 
 }
 
@@ -2197,214 +2207,219 @@ async function loadOrders(){
 
 function openAccount(){
 
-  document
-  .getElementById("authModal")
-  .classList.add("show");
+document
+.getElementById("authModal")
+.classList.add("show");
 
-  refreshAccountUI();
+refreshAccountUI();
 
 }
+
 
 function closeAccount(){
 
-  document
-  .getElementById("authModal")
-  .classList.remove("show");
+document
+.getElementById("authModal")
+.classList.remove("show");
 
 }
+
 
 function showLogin(){
 
-  authMode =
-  "login";
+authMode = "login";
 
-  document
-  .getElementById("loginTab")
-  .classList.add("active");
+document
+.getElementById("loginTab")
+.classList.add("active");
 
-  document
-  .getElementById("signupTab")
-  .classList.remove("active");
+document
+.getElementById("signupTab")
+.classList.remove("active");
 
-  document
-  .getElementById("signupNameBox")
-  .style.display =
-  "none";
+document
+.getElementById("signupNameBox")
+.style.display = "none";
 
-  document
-  .getElementById("authSubmit")
-  .textContent =
-  "Login";
+document
+.getElementById("authSubmit")
+.textContent = "Login";
 
-  document
-  .getElementById("authMessage")
-  .textContent =
-  "";
+document
+.getElementById("authMessage")
+.textContent = "";
 
 }
+
 
 function showSignup(){
 
-  authMode =
-  "signup";
+authMode = "signup";
 
-  document
-  .getElementById("signupTab")
-  .classList.add("active");
+document
+.getElementById("signupTab")
+.classList.add("active");
 
-  document
-  .getElementById("loginTab")
-  .classList.remove("active");
+document
+.getElementById("loginTab")
+.classList.remove("active");
 
-  document
-  .getElementById("signupNameBox")
-  .style.display =
-  "block";
+document
+.getElementById("signupNameBox")
+.style.display = "block";
 
-  document
-  .getElementById("authSubmit")
-  .textContent =
-  "Create Account";
+document
+.getElementById("authSubmit")
+.textContent = "Create Account";
 
-  document
-  .getElementById("authMessage")
-  .textContent =
-  "";
+document
+.getElementById("authMessage")
+.textContent = "";
 
 }
 
+
 async function submitAuth(){
 
-  const email =
-  document
-  .getElementById("authEmail")
-  .value
-  .trim();
+const email =
+document
+.getElementById("authEmail")
+.value
+.trim();
 
-  const password =
-  document
-  .getElementById("authPassword")
-  .value;
+const password =
+document
+.getElementById("authPassword")
+.value;
 
-  const message =
-  document
-  .getElementById("authMessage");
+const message =
+document
+.getElementById("authMessage");
 
-  if(!email || !password){
 
-    message.textContent =
-    "Email aur password dono enter karein.";
+if(!email || !password){
 
-    return;
+message.textContent =
+"Email aur password dono enter karein.";
 
-  }
+return;
 
-  message.textContent =
-  "Please wait...";
+}
 
-  try{
 
-    if(authMode === "signup"){
+message.textContent =
+"Please wait...";
 
-      const name =
-      document
-      .getElementById("signupName")
-      .value
-      .trim();
 
-      if(!name){
+try{
 
-        message.textContent =
-        "Name enter kijiye.";
+if(authMode === "signup"){
 
-        return;
+const name =
+document
+.getElementById("signupName")
+.value
+.trim();
 
-      }
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth.signUp({
+if(!name){
 
-        email:email,
+message.textContent =
+"Name enter kijiye.";
 
-        password:password,
+return;
 
-        options:{
+}
 
-          data:{
-            full_name:name
-          }
 
-        }
+const {
+data,
+error
+} =
+await supabaseClient.auth.signUp({
 
-      });
+email:email,
 
-      if(error)
-        throw error;
+password:password,
 
-      if(data.session){
+options:{
+data:{
+full_name:name
+}
+}
 
-        message.textContent =
-        "🎉 Account create ho gaya!";
+});
 
-        setTimeout(() => {
 
-          closeAccount();
+if(error)
+throw error;
 
-          updateAccountButton();
 
-        },700);
+if(data.session){
 
-      }else{
+message.textContent =
+"🎉 Account create ho gaya!";
 
-        message.textContent =
-        "Account create ho gaya. Email verification required ho sakti hai.";
+setTimeout(() => {
 
-      }
+closeAccount();
 
-    }else{
+updateAccountButton();
 
-      const {
-        data,
-        error
-      } =
-      await supabaseClient.auth.signInWithPassword({
+},700);
 
-        email:email,
+}else{
 
-        password:password
+message.textContent =
+"Account create ho gaya. Email verification required ho sakti hai.";
 
-      });
+}
 
-      if(error)
-        throw error;
+}else{
 
-      message.textContent =
-      "✅ Login successful!";
 
-      setTimeout(() => {
+const {
+data,
+error
+} =
+await supabaseClient.auth.signInWithPassword({
 
-        closeAccount();
+email:email,
 
-        updateAccountButton();
+password:password
 
-        loadOrders();
+});
 
-      },500);
 
-    }
+if(error)
+throw error;
 
-  }catch(error){
 
-    console.error(error);
+message.textContent =
+"✅ Login successful!";
 
-    message.textContent =
-    error.message ||
-    "Something went wrong.";
 
-  }
+setTimeout(() => {
+
+closeAccount();
+
+updateAccountButton();
+
+loadOrders();
+
+},500);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+message.textContent =
+error.message ||
+"Something went wrong.";
+
+}
 
 }
 
@@ -2413,17 +2428,15 @@ async function submitAuth(){
 
 async function logout(){
 
-  await supabaseClient.auth.signOut();
+await supabaseClient.auth.signOut();
 
-  closeAccount();
+closeAccount();
 
-  updateAccountButton();
+updateAccountButton();
 
-  alert(
-    "Logout ho gaya."
-  );
+alert("Logout ho gaya.");
 
-  goHome();
+goHome();
 
 }
 
@@ -2432,49 +2445,46 @@ async function logout(){
 
 async function refreshAccountUI(){
 
-  const {
-    data:{
-      user
-    }
-  } =
-  await supabaseClient.auth.getUser();
+const {
+data:{
+user
+}
+} =
+await supabaseClient.auth.getUser();
 
-  if(user){
 
-    document
-    .getElementById("authBox")
-    .style.display =
-    "none";
+if(user){
 
-    document
-    .getElementById("loggedInBox")
-    .style.display =
-    "block";
+document
+.getElementById("authBox")
+.style.display = "none";
 
-    document
-    .getElementById("accountEmail")
-    .textContent =
-    user.email || "";
+document
+.getElementById("loggedInBox")
+.style.display = "block";
 
-    document
-    .getElementById("accountName")
-    .textContent =
-    user.user_metadata?.full_name ||
-    "Customer";
+document
+.getElementById("accountEmail")
+.textContent =
+user.email || "";
 
-  }else{
+document
+.getElementById("accountName")
+.textContent =
+user.user_metadata?.full_name ||
+"Customer";
 
-    document
-    .getElementById("authBox")
-    .style.display =
-    "block";
+}else{
 
-    document
-    .getElementById("loggedInBox")
-    .style.display =
-    "none";
+document
+.getElementById("authBox")
+.style.display = "block";
 
-  }
+document
+.getElementById("loggedInBox")
+.style.display = "none";
+
+}
 
 }
 
@@ -2483,34 +2493,34 @@ async function refreshAccountUI(){
 
 async function updateAccountButton(){
 
-  const {
-    data:{
-      user
-    }
-  } =
-  await supabaseClient.auth.getUser();
+const {
+data:{
+user
+}
+} =
+await supabaseClient.auth.getUser();
 
-  const btn =
-  document.querySelector(
-    ".account-btn"
-  );
 
-  if(user){
+const btn =
+document.querySelector(".account-btn");
 
-    const name =
-    user.user_metadata?.full_name ||
-    "Account";
 
-    btn.textContent =
-    "👤 " +
-    name.split(" ")[0];
+if(user){
 
-  }else{
+const name =
+user.user_metadata?.full_name ||
+"Account";
 
-    btn.textContent =
-    "👤 Login";
+btn.textContent =
+"👤 " +
+name.split(" ")[0];
 
-  }
+}else{
+
+btn.textContent =
+"👤 Login";
+
+}
 
 }
 
@@ -2519,113 +2529,117 @@ async function updateAccountButton(){
 
 function hidePages(){
 
-  document
-  .querySelectorAll(".page")
-  .forEach(
-    p =>
-    p.classList.remove("active")
-  );
+document
+.querySelectorAll(".page")
+.forEach(
+p =>
+p.classList.remove("active")
+);
 
-  document
-  .querySelectorAll(".bottom-nav button")
-  .forEach(
-    b =>
-    b.classList.remove("active")
-  );
+document
+.querySelectorAll(".bottom-nav button")
+.forEach(
+b =>
+b.classList.remove("active")
+);
 
 }
+
 
 function goHome(){
 
-  hidePages();
+hidePages();
 
-  document
-  .getElementById("homePage")
-  .classList.add("active");
+document
+.getElementById("homePage")
+.classList.add("active");
 
-  document
-  .getElementById("navHome")
-  .classList.add("active");
+document
+.getElementById("navHome")
+.classList.add("active");
 
-  currentCategory =
-  "";
+currentCategory = "";
 
-  renderProducts();
+renderProducts();
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
 }
+
 
 function openCategories(){
 
-  hidePages();
+hidePages();
 
-  document
-  .getElementById("categoryPage")
-  .classList.add("active");
+document
+.getElementById("categoryPage")
+.classList.add("active");
 
-  document
-  .getElementById("navCategories")
-  .classList.add("active");
+document
+.getElementById("navCategories")
+.classList.add("active");
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
 }
+
 
 function openCart(){
 
-  hidePages();
+hidePages();
 
-  document
-  .getElementById("cartPage")
-  .classList.add("active");
+document
+.getElementById("cartPage")
+.classList.add("active");
 
-  document
-  .getElementById("navCart")
-  .classList.add("active");
+document
+.getElementById("navCart")
+.classList.add("active");
 
-  renderCart();
+renderCart();
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
 }
+
 
 async function openOrders(){
 
-  hidePages();
+hidePages();
 
-  document
-  .getElementById("ordersPage")
-  .classList.add("active");
+document
+.getElementById("ordersPage")
+.classList.add("active");
 
-  document
-  .getElementById("navOrders")
-  .classList.add("active");
+document
+.getElementById("navOrders")
+.classList.add("active");
 
-  await loadOrders();
+await loadOrders();
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
 }
 
+
 function selectCategory(category){
 
-  currentCategory =
-  category;
+currentCategory =
+category;
 
-  hidePages();
+hidePages();
 
-  document
-  .getElementById("homePage")
-  .classList.add("active");
+document
+.getElementById("homePage")
+.classList.add("active");
 
-  document
-  .getElementById("navHome")
-  .classList.add("active");
+document
+.getElementById("navHome")
+.classList.add("active");
 
-  renderProducts();
+renderProducts();
 
-  window.scrollTo(0,0);
+window.scrollTo(0,0);
 
 }
 
@@ -2634,23 +2648,12 @@ function selectCategory(category){
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
-}
-
-function escapeJs(value){
-
-  return String(value ?? "")
-  .replace(/\\/g,"\\\\")
-  .replace(/'/g,"\\'")
-  .replace(/"/g,'\\"')
-  .replace(/\n/g,"\\n")
-  .replace(/\r/g,"\\r");
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
@@ -2658,17 +2661,17 @@ function escapeJs(value){
 /* ---------------- AUTH LISTENER ---------------- */
 
 supabaseClient.auth.onAuthStateChange(
-  (event,session) => {
+(event,session) => {
 
-    updateAccountButton();
+updateAccountButton();
 
-    if(session){
+if(session){
 
-      loadOrders();
+loadOrders();
 
-    }
+}
 
-  }
+}
 );
 
 
