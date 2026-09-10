@@ -371,6 +371,90 @@ opacity:.6;
 cursor:not-allowed;
 }
 
+.location-search{
+display:flex;
+gap:7px;
+margin-top:8px;
+}
+
+.location-search input{
+flex:1;
+min-width:0;
+padding:10px;
+border:1px solid #ddd;
+border-radius:9px;
+outline:none;
+}
+
+.location-search button{
+border:0;
+background:#5b21b6;
+color:white;
+padding:10px 12px;
+border-radius:9px;
+font-weight:bold;
+}
+
+.location-search button:disabled{
+opacity:.6;
+}
+
+.location-search-help{
+font-size:11px;
+color:#777;
+margin-top:5px;
+line-height:1.4;
+}
+
+.landmark-results{
+display:none;
+background:white;
+border:1px solid #ddd;
+border-radius:9px;
+margin-top:7px;
+max-height:190px;
+overflow-y:auto;
+}
+
+.landmark-result{
+padding:10px;
+border-bottom:1px solid #eee;
+cursor:pointer;
+font-size:12px;
+line-height:1.4;
+}
+
+.landmark-result:last-child{
+border-bottom:0;
+}
+
+.landmark-result:hover{
+background:#f5f3ff;
+}
+
+.landmark-name{
+font-weight:bold;
+color:#333;
+}
+
+.landmark-address{
+font-size:11px;
+color:#777;
+margin-top:3px;
+}
+
+.recenter-btn{
+display:none;
+width:100%;
+padding:9px;
+border:1px solid #ddd;
+border-radius:9px;
+background:white;
+color:#5b21b6;
+font-weight:bold;
+margin-top:8px;
+}
+
 #deliveryMap{
 display:none;
 width:100%;
@@ -409,6 +493,16 @@ font-size:12px;
 color:#777;
 line-height:1.5;
 margin-top:8px;
+}
+
+.accuracy-box{
+display:none;
+font-size:11px;
+margin-top:7px;
+padding:7px 8px;
+border-radius:8px;
+background:#ecfdf5;
+color:#166534;
 }
 
 
@@ -594,6 +688,14 @@ grid-template-columns:repeat(2,1fr);
 
 #deliveryMap{
 height:250px;
+}
+
+.location-search{
+flex-direction:column;
+}
+
+.location-search button{
+width:100%;
 }
 
 }
@@ -926,6 +1028,59 @@ onclick="getCurrentLocation()">
 </button>
 
 
+<!-- LANDMARK SEARCH -->
+
+<div
+style="font-size:12px;font-weight:bold;color:#444;margin-top:4px">
+
+🔎 Nearby Landmark / Area Search
+
+</div>
+
+
+<div class="location-search">
+
+<input
+id="landmarkSearch"
+type="search"
+placeholder="e.g. school, shop, temple, market..."
+onkeydown="if(event.key==='Enter') searchNearbyLandmark()">
+
+<button
+id="landmarkSearchBtn"
+onclick="searchNearbyLandmark()">
+
+Search
+
+</button>
+
+</div>
+
+
+<div class="location-search-help">
+
+Pehle Current Location select karein. Phir aas-paas ka
+landmark search karke map par us jagah ko dekhein.
+
+</div>
+
+
+<div
+id="landmarkResults"
+class="landmark-results">
+</div>
+
+
+<button
+id="recenterBtn"
+class="recenter-btn"
+onclick="recenterToGPS()">
+
+🎯 Meri Current Location Par Wapas Jayein
+
+</button>
+
+
 <div
 id="deliveryMap">
 </div>
@@ -947,11 +1102,27 @@ class="location-coordinates">
 </div>
 
 
+<div
+id="accuracyBox"
+class="accuracy-box">
+</div>
+
+
 <div class="location-help">
 
-GPS location milne ke baad map par pin ko
-ghar ke exact entrance par drag kar sakte hain.
-Phir <b>Confirm This Delivery Location</b> dabaiye.
+📍 GPS location milne ke baad map par pin ko
+ghar ke <b>exact entrance</b> par drag karein.
+
+<br><br>
+
+🔎 Agar aas-paas ki gali/shop/landmark pehchanne me
+problem ho to upar <b>landmark search</b> karke
+map ko us area par le ja sakte hain.
+
+<br><br>
+
+Pin ko apne ghar ke exact entrance par set karne ke baad
+<b>Confirm This Delivery Location</b> dabaiye.
 
 </div>
 
@@ -1402,11 +1573,34 @@ let deliveryMap = null;
 
 let deliveryMarker = null;
 
+let accuracyCircle = null;
+
+
+/*
+  Selected location =
+  final customer delivery pin
+*/
+
 let selectedLatitude = null;
 
 let selectedLongitude = null;
 
 let selectedAccuracy = null;
+
+
+/*
+  GPS location is kept separately.
+  This is important because after
+  dragging/searching the marker,
+  selected location changes.
+*/
+
+let gpsLatitude = null;
+
+let gpsLongitude = null;
+
+let gpsAccuracy = null;
+
 
 let locationConfirmed = false;
 
@@ -1906,16 +2100,21 @@ total.toFixed(0);
    LOCATION
    ========================================================= */
 
-/*
-  CUSTOMER LOCATION SYSTEM
 
-  1. Browser GPS location
-  2. Best accuracy reading
-  3. Map opens
-  4. Customer can drag marker
-  5. Customer confirms exact location
-  6. Manual address separately entered
-  7. Latitude + Longitude + Address saved in order
+/*
+  IMPORTANT LOCATION FLOW
+
+  1. Customer presses Current Location.
+  2. Browser GPS finds customer's location.
+  3. Map opens at customer's GPS.
+  4. Customer can search nearby landmark.
+  5. Map can move to that landmark.
+  6. Customer drags the marker to own home entrance.
+  7. Customer confirms.
+  8. Final latitude + longitude saved in order.
+
+  RIDDHI PARTY SHOP LOCATION IS NOT USED
+  AS CUSTOMER DELIVERY LOCATION.
 */
 
 
@@ -1925,7 +2124,6 @@ const status =
 document.getElementById(
 "locationStatus"
 );
-
 
 const button =
 document.getElementById(
@@ -1943,9 +2141,7 @@ return;
 }
 
 
-/*
-  Reset previous GPS session
-*/
+/* Reset GPS */
 
 gpsFinished =
 false;
@@ -1954,10 +2150,7 @@ gpsBestPosition =
 null;
 
 
-/*
-  If previous watcher exists,
-  stop it.
-*/
+/* Stop previous watcher */
 
 if(gpsWatchId !== null){
 
@@ -1971,17 +2164,14 @@ null;
 }
 
 
-/*
-  UI
-*/
+/* UI */
 
 status.textContent =
-"📍 GPS se exact location dhoondh rahe hain...";
+"📍 GPS se customer ki location dhoondh rahe hain...";
 
 
 button.disabled =
 true;
-
 
 button.textContent =
 "📍 Location mil rahi hai...";
@@ -1992,24 +2182,18 @@ false;
 
 
 document
-.getElementById(
-"confirmLocationBtn"
-)
+.getElementById("confirmLocationBtn")
 .style.display =
 "none";
 
 
 document
-.getElementById(
-"locationCoordinates"
-)
+.getElementById("landmarkResults")
 .style.display =
 "none";
 
 
-/*
-  GPS watch
-*/
+/* GPS watch */
 
 gpsWatchId =
 navigator.geolocation.watchPosition(
@@ -2028,22 +2212,13 @@ position.coords.accuracy
 
 console.log(
 "GPS Reading:",
-{
-latitude:
 position.coords.latitude,
-
-longitude:
 position.coords.longitude,
-
-accuracy:
 accuracy
-}
 );
 
 
-/*
-  Best accuracy select
-*/
+/* Best accuracy */
 
 if(
 !gpsBestPosition ||
@@ -2064,7 +2239,8 @@ status.textContent =
 
 
 /*
-  20 meter or better
+  If accuracy is 20m or better,
+  finish early.
 */
 
 if(
@@ -2102,7 +2278,6 @@ null;
 
 button.disabled =
 false;
-
 
 button.textContent =
 "📍 Try Again";
@@ -2168,9 +2343,7 @@ maximumAge:0
 );
 
 
-/*
-  Maximum 30 seconds.
-*/
+/* Maximum 30 seconds */
 
 setTimeout(
 function(){
@@ -2222,7 +2395,6 @@ document.getElementById(
 "locationBtn"
 );
 
-
 const status =
 document.getElementById(
 "locationStatus"
@@ -2234,14 +2406,11 @@ if(!gpsBestPosition){
 status.textContent =
 "❌ GPS location nahi mil paayi.";
 
-
 button.disabled =
 false;
 
-
 button.textContent =
 "📍 Try Again";
-
 
 alert(
 "GPS location nahi mil paayi.\n\n" +
@@ -2271,18 +2440,8 @@ gpsBestPosition.coords.accuracy
 );
 
 
-console.log(
-"FINAL GPS:",
-{
-latitude:lat,
-longitude:lng,
-accuracy:accuracy
-}
-);
-
-
 /*
-  GPS accuracy very poor
+  Accuracy too poor
 */
 
 if(
@@ -2300,9 +2459,8 @@ button.textContent =
 
 
 alert(
-"GPS location abhi accurate nahi hai.\n\n" +
-"Phone ki Location ON rakhein aur Google Maps me blue dot fix hone dein.\n\n" +
-"Phir Try Again dabaiye."
+"GPS location abhi bahut accurate nahi hai.\n\n" +
+"Phone ki Location ON rakhein aur thodi der wait karke Try Again dabaiye."
 );
 
 return;
@@ -2311,7 +2469,22 @@ return;
 
 
 /*
-  Save temporary location
+  SAVE ORIGINAL GPS SEPARATELY
+*/
+
+gpsLatitude =
+lat;
+
+gpsLongitude =
+lng;
+
+gpsAccuracy =
+accuracy;
+
+
+/*
+  Initial selected point =
+  customer's GPS point
 */
 
 selectedLatitude =
@@ -2345,7 +2518,7 @@ String(accuracy)
 
 
 /*
-  Open/update map
+  Map
 */
 
 updateDeliveryMap(
@@ -2366,13 +2539,17 @@ button.textContent =
 "📍 Current Location Found";
 
 
+document
+.getElementById(
+"recenterBtn"
+)
+.style.display =
+"block";
+
+
 status.textContent =
-`📍 Location found • GPS accuracy about ${Math.round(accuracy)}m`;
+`📍 Customer location found • GPS accuracy about ${Math.round(accuracy)}m`;
 
-
-/*
-  Show confirm button
-*/
 
 document
 .getElementById(
@@ -2393,17 +2570,500 @@ document
 updateCoordinatesText();
 
 
-/*
-  Reverse geocoding only as
-  helpful suggestion.
+updateAccuracyBox(
+accuracy
+);
 
-  Customer can manually edit
-  address afterwards.
+
+/*
+  Helpful address
 */
 
 await reverseGeocodeAddress(
 lat,
 lng
+);
+
+}
+
+
+/* =========================================================
+   LANDMARK SEARCH
+   ========================================================= */
+
+async function searchNearbyLandmark(){
+
+const input =
+document.getElementById(
+"landmarkSearch"
+);
+
+const resultsBox =
+document.getElementById(
+"landmarkResults"
+);
+
+const button =
+document.getElementById(
+"landmarkSearchBtn"
+);
+
+const query =
+input.value.trim();
+
+
+if(!query){
+
+alert(
+"Landmark ya area ka naam likhiye.\n\nExample: school, shop, temple, market"
+);
+
+input.focus();
+
+return;
+
+}
+
+
+/*
+  GPS required first.
+*/
+
+if(
+gpsLatitude === null ||
+gpsLongitude === null
+){
+
+alert(
+"Pehle 📍 Use My Current Location dabaiye.\n\n" +
+"Uske baad nearby landmark search kijiye."
+);
+
+return;
+
+}
+
+
+button.disabled =
+true;
+
+button.textContent =
+"Searching...";
+
+
+resultsBox.style.display =
+"block";
+
+resultsBox.innerHTML =
+'<div style="padding:12px;text-align:center;color:#777">🔎 Nearby places search ho rahe hain...</div>';
+
+
+try{
+
+
+/*
+  Small map area around customer's GPS.
+
+  Approximately around 2 km area.
+*/
+
+const delta =
+0.025;
+
+
+const left =
+gpsLongitude - delta;
+
+const right =
+gpsLongitude + delta;
+
+const top =
+gpsLatitude + delta;
+
+const bottom =
+gpsLatitude - delta;
+
+
+/*
+  Nominatim OpenStreetMap search
+*/
+
+const url =
+"https://nominatim.openstreetmap.org/search?" +
+
+"format=jsonv2" +
+
+"&q=" +
+encodeURIComponent(query) +
+
+"&lat=" +
+encodeURIComponent(gpsLatitude) +
+
+"&lon=" +
+encodeURIComponent(gpsLongitude) +
+
+"&viewbox=" +
+encodeURIComponent(
+`${left},${top},${right},${bottom}`
+) +
+
+"&bounded=1" +
+
+"&limit=8" +
+
+"&addressdetails=1";
+
+
+const response =
+await fetch(
+url,
+{
+headers:{
+"Accept":"application/json"
+}
+}
+);
+
+
+if(!response.ok){
+
+throw new Error(
+"Landmark search failed"
+);
+
+}
+
+
+const data =
+await response.json();
+
+
+if(!Array.isArray(data) || !data.length){
+
+resultsBox.innerHTML =
+`
+<div style="padding:12px;color:#777;line-height:1.5">
+❌ Is area me "${escapeHtml(query)}" nahi mila.<br><br>
+Dusra naam try karein, jaise:
+<br>
+• school
+<br>
+• temple
+<br>
+• market
+<br>
+• hospital
+<br>
+• shop
+</div>
+`;
+
+return;
+
+}
+
+
+/*
+  Results
+*/
+
+resultsBox.innerHTML =
+data
+.map(
+(place,index) => {
+
+const name =
+place.name ||
+place.display_name?.split(",")[0] ||
+"Place";
+
+
+const address =
+place.display_name ||
+"";
+
+
+return `
+
+<div
+class="landmark-result"
+onclick="selectLandmark(
+${Number(place.lat)},
+${Number(place.lon)},
+'${escapeHtml(name).replace(/'/g,"&#039;")}'
+)">
+
+<div class="landmark-name">
+
+📍 ${escapeHtml(name)}
+
+</div>
+
+<div class="landmark-address">
+
+${escapeHtml(address)}
+
+</div>
+
+</div>
+
+`;
+
+}
+)
+.join("");
+
+
+}catch(error){
+
+console.error(
+"Landmark search error:",
+error
+);
+
+
+resultsBox.innerHTML =
+`
+<div style="padding:12px;color:#b91c1c;line-height:1.5">
+❌ Landmark search abhi kaam nahi kar paayi.
+<br><br>
+Please thodi der baad dobara try karein.
+</div>
+`;
+
+}finally{
+
+button.disabled =
+false;
+
+button.textContent =
+"Search";
+
+}
+
+}
+
+
+/* =========================================================
+   SELECT LANDMARK
+   ========================================================= */
+
+function selectLandmark(
+lat,
+lng,
+name
+){
+
+lat =
+Number(lat);
+
+lng =
+Number(lng);
+
+
+/*
+  Move map to selected landmark.
+
+  IMPORTANT:
+  We do NOT consider landmark
+  as final customer address.
+
+  Customer still needs to drag
+  the pin to own house.
+*/
+
+if(deliveryMap){
+
+deliveryMap.setView(
+[lat,lng],
+19
+);
+
+}
+
+
+/*
+  Move existing marker
+*/
+
+if(deliveryMarker){
+
+deliveryMarker.setLatLng(
+[lat,lng]
+);
+
+}else{
+
+createDeliveryMarker(
+lat,
+lng
+);
+
+}
+
+
+/*
+  Selected location becomes
+  temporary pin position.
+*/
+
+selectedLatitude =
+lat;
+
+selectedLongitude =
+lng;
+
+selectedAccuracy =
+null;
+
+locationConfirmed =
+false;
+
+
+/*
+  Hide results
+*/
+
+document
+.getElementById(
+"landmarkResults"
+)
+.style
+.display =
+"none";
+
+
+/*
+  Status
+*/
+
+document
+.getElementById(
+"locationStatus"
+)
+.textContent =
+`🔎 "${name}" ke paas map open hai. Ab pin ko apne ghar ke exact entrance par drag karein.`;
+
+
+/*
+  Show confirm
+*/
+
+document
+.getElementById(
+"confirmLocationBtn"
+)
+.style
+.display =
+"block";
+
+
+document
+.getElementById(
+"recenterBtn"
+)
+.style
+.display =
+"block";
+
+
+updateCoordinatesText();
+
+updateAccuracyBox(null);
+
+
+/*
+  Reverse geocode landmark area
+*/
+
+reverseGeocodeAddress(
+lat,
+lng
+);
+
+}
+
+
+/* =========================================================
+   RECENTER TO ORIGINAL GPS
+   ========================================================= */
+
+function recenterToGPS(){
+
+if(
+gpsLatitude === null ||
+gpsLongitude === null
+){
+
+alert(
+"Pehle Current Location select kijiye."
+);
+
+return;
+
+}
+
+
+selectedLatitude =
+gpsLatitude;
+
+selectedLongitude =
+gpsLongitude;
+
+selectedAccuracy =
+gpsAccuracy;
+
+locationConfirmed =
+false;
+
+
+if(deliveryMap){
+
+deliveryMap.setView(
+[gpsLatitude,gpsLongitude],
+18
+);
+
+}
+
+
+if(deliveryMarker){
+
+deliveryMarker.setLatLng(
+[gpsLatitude,gpsLongitude]
+);
+
+}else{
+
+createDeliveryMarker(
+gpsLatitude,
+gpsLongitude
+);
+
+}
+
+
+document
+.getElementById(
+"locationStatus"
+)
+.textContent =
+`📍 Wapas customer ki GPS location par aa gaye. Accuracy about ${Math.round(gpsAccuracy)}m`;
+
+
+document
+.getElementById(
+"confirmLocationBtn"
+)
+.style
+.display =
+"block";
+
+
+updateCoordinatesText();
+
+updateAccuracyBox(
+gpsAccuracy
 );
 
 }
@@ -2430,7 +3090,7 @@ mapBox.style.display =
 
 
 /*
-  First time map
+  First map creation
 */
 
 if(!deliveryMap){
@@ -2460,21 +3120,90 @@ deliveryMap
 
 
 /*
-  Remove old marker
+  Create/update marker
 */
 
-if(deliveryMarker){
+createDeliveryMarker(
+lat,
+lng
+);
+
+
+/*
+  Accuracy circle
+*/
+
+if(accuracy){
+
+if(accuracyCircle){
 
 deliveryMap.removeLayer(
-deliveryMarker
+accuracyCircle
+);
+
+}
+
+
+accuracyCircle =
+L.circle(
+[lat,lng],
+{
+radius:accuracy,
+weight:1
+}
+)
+.addTo(
+deliveryMap
 );
 
 }
 
 
 /*
-  Create draggable marker
+  Center
 */
+
+deliveryMap.setView(
+[lat,lng],
+18
+);
+
+
+/*
+  Fix Leaflet rendering
+*/
+
+setTimeout(
+function(){
+
+deliveryMap.invalidateSize();
+
+},
+300
+);
+
+}
+
+
+/* =========================================================
+   CREATE DELIVERY MARKER
+   ========================================================= */
+
+function createDeliveryMarker(
+lat,
+lng
+){
+
+if(deliveryMarker){
+
+deliveryMarker.setLatLng(
+[lat,lng]
+);
+
+return;
+
+}
+
 
 deliveryMarker =
 L.marker(
@@ -2489,7 +3218,8 @@ deliveryMap
 
 
 deliveryMarker.bindPopup(
-"<b>📍 Delivery Location</b><br>Pin ko ghar ke exact entrance par drag kar sakte hain."
+"<b>📍 Aapki Delivery Location</b><br><br>" +
+"Pin ko apne ghar ke exact entrance par drag karein."
 );
 
 
@@ -2497,31 +3227,7 @@ deliveryMarker.openPopup();
 
 
 /*
-  Map center
-*/
-
-deliveryMap.setView(
-[lat,lng],
-18
-);
-
-
-/*
-  Map size fix
-*/
-
-setTimeout(
-function(){
-
-deliveryMap.invalidateSize();
-
-},
-300
-);
-
-
-/*
-  When customer drags marker
+  Marker drag
 */
 
 deliveryMarker.on(
@@ -2540,8 +3246,9 @@ position.lng;
 
 
 /*
-  Dragged location accuracy
-  is no longer original GPS accuracy.
+  Dragging means original
+  GPS accuracy no longer
+  represents final pin.
 */
 
 selectedAccuracy =
@@ -2556,7 +3263,8 @@ document
 .getElementById(
 "confirmLocationBtn"
 )
-.style.display =
+.style
+.display =
 "block";
 
 
@@ -2565,14 +3273,16 @@ document
 "locationStatus"
 )
 .textContent =
-"📍 Pin moved. Please confirm your exact delivery location.";
+"📍 Pin moved. Ab ye aapke ghar ke entrance par hai to Confirm dabaiye.";
 
 
 updateCoordinatesText();
 
+updateAccuracyBox(null);
+
 
 /*
-  Save temporary selected point
+  Save temporary point
 */
 
 sessionStorage.setItem(
@@ -2589,14 +3299,13 @@ selectedLongitude
 )
 );
 
-
 sessionStorage.removeItem(
 "rps_accuracy"
 );
 
 
 /*
-  Reverse geocode new pin
+  Get address suggestion
 */
 
 reverseGeocodeAddress(
@@ -2610,7 +3319,7 @@ selectedLongitude
 
 
 /* =========================================================
-   COORDINATES TEXT
+   COORDINATES
    ========================================================= */
 
 function updateCoordinatesText(){
@@ -2638,7 +3347,7 @@ let accuracyText =
 "";
 
 
-if(selectedAccuracy){
+if(selectedAccuracy !== null){
 
 accuracyText =
 `<br>GPS accuracy: approximately ${Math.round(selectedAccuracy)}m`;
@@ -2655,6 +3364,43 @@ ${accuracyText}`;
 
 box.style.display =
 "block";
+
+}
+
+
+/* =========================================================
+   ACCURACY BOX
+   ========================================================= */
+
+function updateAccuracyBox(
+accuracy
+){
+
+const box =
+document.getElementById(
+"accuracyBox"
+);
+
+
+if(
+accuracy === null ||
+accuracy === undefined
+){
+
+box.style.display =
+"none";
+
+return;
+
+}
+
+
+box.style.display =
+"block";
+
+
+box.textContent =
+`📡 GPS accuracy approximately ${Math.round(accuracy)} metres. Pin ko ghar ke exact entrance par manually adjust kar sakte hain.`;
 
 }
 
@@ -2723,7 +3469,7 @@ document.getElementById(
 
 
 status.textContent =
-"✅ Exact delivery location confirmed.";
+"✅ Exact customer delivery location confirmed.";
 
 
 const button =
@@ -2738,10 +3484,6 @@ button.textContent =
 button.style.background =
 "#15803d";
 
-
-/*
-  Button dobara GPS ke liye
-*/
 
 const gpsButton =
 document.getElementById(
@@ -2774,7 +3516,6 @@ document.getElementById(
 "locationStatus"
 );
 
-
 const address =
 document.getElementById(
 "customerAddress"
@@ -2782,8 +3523,7 @@ document.getElementById(
 
 
 /*
-  Do not overwrite customer
-  manually entered address.
+  Don't overwrite manual address.
 */
 
 const existingAddress =
@@ -2813,12 +3553,6 @@ const data =
 await response.json();
 
 
-console.log(
-"Reverse geocode:",
-data
-);
-
-
 const postcode =
 data.postcode ||
 "";
@@ -2832,36 +3566,30 @@ parts.push(
 data.houseNumber
 );
 
-
 if(data.street)
 parts.push(
 data.street
 );
-
 
 if(data.locality)
 parts.push(
 data.locality
 );
 
-
 if(data.city)
 parts.push(
 data.city
 );
-
 
 if(data.principalSubdivision)
 parts.push(
 data.principalSubdivision
 );
 
-
 if(postcode)
 parts.push(
 postcode
 );
-
 
 if(data.countryName)
 parts.push(
@@ -2876,11 +3604,7 @@ parts
 
 
 /*
-  IMPORTANT:
-
-  Agar customer ne manually
-  address already fill kar diya hai,
-  to usko overwrite nahi karna.
+  Only auto-fill if empty.
 */
 
 if(!existingAddress){
@@ -2928,7 +3652,7 @@ status.textContent =
 }else{
 
 status.textContent =
-"📍 GPS location found • Complete address manually fill karein.";
+"📍 Location found • Complete address manually fill karein.";
 
 }
 
@@ -2955,7 +3679,8 @@ document
 .getElementById(
 "upiBox"
 )
-.style.display =
+.style
+.display =
 method === "UPI"
 ? "block"
 : "none";
@@ -3045,7 +3770,7 @@ return;
 
 
 /*
-  Customer fields
+  Fields
 */
 
 const name =
@@ -3084,7 +3809,7 @@ document
 
 
 /*
-  Validate name
+  Name
 */
 
 if(!name){
@@ -3099,7 +3824,7 @@ return;
 
 
 /*
-  Validate mobile
+  Mobile
 */
 
 if(
@@ -3116,7 +3841,7 @@ return;
 
 
 /*
-  Manual address REQUIRED
+  Address
 */
 
 if(
@@ -3140,7 +3865,7 @@ return;
 
 
 /*
-  Exact location REQUIRED
+  Coordinates
 */
 
 if(
@@ -3158,7 +3883,7 @@ return;
 
 
 /*
-  Location confirmation REQUIRED
+  Confirmation
 */
 
 if(
@@ -3246,7 +3971,7 @@ longitude
 
 
 /*
-  Insert order
+  Insert
 */
 
 try{
@@ -3290,7 +4015,7 @@ clearLocationData();
 
 
 /*
-  Clear checkout fields
+  Clear fields
 */
 
 document
@@ -3300,14 +4025,12 @@ document
 .value =
 "";
 
-
 document
 .getElementById(
 "customerName"
 )
 .value =
 "";
-
 
 document
 .getElementById(
@@ -3358,8 +4081,31 @@ null;
 selectedAccuracy =
 null;
 
+
+gpsLatitude =
+null;
+
+gpsLongitude =
+null;
+
+gpsAccuracy =
+null;
+
+
 locationConfirmed =
 false;
+
+
+if(gpsWatchId !== null){
+
+navigator.geolocation.clearWatch(
+gpsWatchId
+);
+
+gpsWatchId =
+null;
+
+}
 
 
 sessionStorage.removeItem(
@@ -3423,6 +4169,19 @@ locationBtn.textContent =
 }
 
 
+const recenterBtn =
+document.getElementById(
+"recenterBtn"
+);
+
+if(recenterBtn){
+
+recenterBtn.style.display =
+"none";
+
+}
+
+
 const coordinateBox =
 document.getElementById(
 "locationCoordinates"
@@ -3432,6 +4191,45 @@ if(coordinateBox){
 
 coordinateBox.style.display =
 "none";
+
+}
+
+
+const accuracyBox =
+document.getElementById(
+"accuracyBox"
+);
+
+if(accuracyBox){
+
+accuracyBox.style.display =
+"none";
+
+}
+
+
+const results =
+document.getElementById(
+"landmarkResults"
+);
+
+if(results){
+
+results.style.display =
+"none";
+
+}
+
+
+const search =
+document.getElementById(
+"landmarkSearch"
+);
+
+if(search){
+
+search.value =
+"";
 
 }
 
@@ -4272,11 +5070,6 @@ document
 
 renderCart();
 
-
-/*
-  Leaflet map resize
-  after page becomes visible.
-*/
 
 if(deliveryMap){
 
