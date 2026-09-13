@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Riddhi Party Shop</title>
-
 <meta name="theme-color" content="#5b21b6">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -92,11 +91,12 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:12px;
 }
 
 .location-text{
   overflow:hidden;
+  flex:1;
 }
 
 .location-title{
@@ -109,6 +109,13 @@ header{
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  margin-top:3px;
+}
+
+.location-actions{
+  display:flex;
+  gap:7px;
+  flex-shrink:0;
 }
 
 .location-btn{
@@ -116,8 +123,13 @@ header{
   background:white;
   color:#5b21b6;
   border-radius:8px;
-  padding:8px 12px;
+  padding:8px 10px;
   font-weight:bold;
+}
+
+.location-btn.gps{
+  background:#5b21b6;
+  color:white;
 }
 
 .section{
@@ -409,6 +421,15 @@ footer{
   padding:30px;
 }
 
+.address-box{
+  background:#f3efff;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-size:14px;
+  line-height:1.5;
+}
+
 @media(max-width:600px){
 
   header{
@@ -462,6 +483,15 @@ footer{
   .location-bar{
     padding:10px 4%;
   }
+
+  .location-actions{
+    flex-direction:column;
+  }
+
+  .location-btn{
+    padding:7px 9px;
+    font-size:12px;
+  }
 }
 </style>
 </head>
@@ -490,6 +520,8 @@ footer{
 </header>
 
 
+<!-- LOCATION -->
+
 <div class="location-bar">
 
   <div class="location-text">
@@ -498,17 +530,29 @@ footer{
       DELIVERY LOCATION
     </div>
 
-    <div class="location-value" id="locationText">
-      Add your location
+    <div
+      class="location-value"
+      id="locationText">
+      Add your delivery address
     </div>
 
   </div>
 
-  <button
-    class="location-btn"
-    onclick="getLocation()">
-    📍 Use my location
-  </button>
+  <div class="location-actions">
+
+    <button
+      class="location-btn gps"
+      onclick="getLocation()">
+      📍 GPS
+    </button>
+
+    <button
+      class="location-btn"
+      onclick="enterAddress()">
+      ✏️ Address
+    </button>
+
+  </div>
 
 </div>
 
@@ -660,9 +704,7 @@ footer{
 
   </div>
 
-
   <div id="userArea"></div>
-
 
   <div id="loginForm">
 
@@ -679,7 +721,6 @@ footer{
 
     </div>
 
-
     <div class="form-group">
 
       <label>
@@ -693,7 +734,6 @@ footer{
 
     </div>
 
-
     <button
       class="primary-btn"
       onclick="loginUser()">
@@ -701,7 +741,6 @@ footer{
       Login
 
     </button>
-
 
     <div
       class="switch-text"
@@ -753,7 +792,6 @@ footer{
 
   </button>
 
-
   <button onclick="openCart()">
 
     <span class="icon">
@@ -765,7 +803,6 @@ footer{
 
   </button>
 
-
   <button onclick="openOrders()">
 
     <span class="icon">
@@ -775,7 +812,6 @@ footer{
     Orders
 
   </button>
-
 
   <button onclick="openLogin()">
 
@@ -840,11 +876,11 @@ let currentUser = null;
 
 let userLocation = null;
 
+let deliveryAddress = "";
+
 
 /* ==============================
    FALLBACK PRODUCTS
-   Agar Supabase Products table
-   temporarily load na ho
 ============================== */
 
 const demoProducts = [
@@ -954,7 +990,10 @@ async function loadProducts(){
 
     if(error){
 
-      console.log("Supabase product error:",error);
+      console.log(
+        "Supabase product error:",
+        error
+      );
 
       products = demoProducts;
 
@@ -1209,13 +1248,24 @@ function updateCart(){
       0
     );
 
-  document
-    .getElementById("cartCount")
-    .innerText = count;
+  const bottomCount =
+    document.getElementById(
+      "bottomCartCount"
+    );
 
-  document
-    .getElementById("bottomCartCount")
-    .innerText = count;
+  if(bottomCount){
+    bottomCount.innerText = count;
+  }
+
+
+  /* Compatibility if old cartCount element exists */
+
+  const oldCartCount =
+    document.getElementById("cartCount");
+
+  if(oldCartCount){
+    oldCartCount.innerText = count;
+  }
 
 
   const container =
@@ -1516,7 +1566,10 @@ async function signupUser(){
 
   if(password.length < 6){
 
-    alert("Password kam se kam 6 characters ka hona chahiye.");
+    alert(
+      "Password kam se kam 6 characters ka hona chahiye."
+    );
+
     return;
 
   }
@@ -1636,7 +1689,7 @@ async function logoutUser(){
 
 
 /* ==============================
-   LOCATION
+   GPS LOCATION
 ============================== */
 
 function getLocation(){
@@ -1655,7 +1708,7 @@ function getLocation(){
   document
     .getElementById("locationText")
     .innerText =
-    "Location detect ho rahi hai...";
+    "📍 GPS location detect ho rahi hai...";
 
 
   navigator.geolocation.getCurrentPosition(
@@ -1676,20 +1729,31 @@ function getLocation(){
       };
 
 
-      document
-        .getElementById("locationText")
-        .innerText =
-        `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-
-
       localStorage.setItem(
         "riddhi_location",
         JSON.stringify(userLocation)
       );
 
 
+      if(deliveryAddress){
+
+        document
+          .getElementById("locationText")
+          .innerText =
+          "📍 " + deliveryAddress;
+
+      }else{
+
+        document
+          .getElementById("locationText")
+          .innerText =
+          "📍 GPS location saved • Address add karein";
+
+      }
+
+
       alert(
-        "Location mil gayi. Order karte waqt delivery address confirm karein."
+        "GPS location mil gayi.\n\nAb delivery ke liye Address button se proper address bhi add kar sakte hain."
       );
 
     },
@@ -1701,7 +1765,9 @@ function getLocation(){
       document
         .getElementById("locationText")
         .innerText =
-        "Location permission nahi mili.";
+        deliveryAddress
+        ? "📍 " + deliveryAddress
+        : "Location permission nahi mili.";
 
       alert(
         "Location permission Allow karein, phir dobara try karein."
@@ -1717,6 +1783,111 @@ function getLocation(){
 
     }
 
+  );
+
+}
+
+
+/* ==============================
+   MANUAL ADDRESS
+============================== */
+
+function enterAddress(){
+
+  const house =
+    prompt(
+      "House / Shop / Flat No. likhiye:"
+    );
+
+  if(house === null) return;
+
+
+  const area =
+    prompt(
+      "Street / Area / Colony likhiye:"
+    );
+
+  if(area === null) return;
+
+
+  const landmark =
+    prompt(
+      "Landmark likhiye (optional):"
+    );
+
+  if(landmark === null) return;
+
+
+  const city =
+    prompt(
+      "City:",
+      "Kanpur"
+    );
+
+  if(city === null) return;
+
+
+  const pincode =
+    prompt(
+      "Pincode:"
+    );
+
+  if(pincode === null) return;
+
+
+  if(
+    !house.trim() ||
+    !area.trim() ||
+    !city.trim()
+  ){
+
+    alert(
+      "House/Shop No., Area aur City zaroori hai."
+    );
+
+    return;
+
+  }
+
+
+  deliveryAddress =
+    `${house.trim()}, ${area.trim()}`;
+
+
+  if(landmark.trim()){
+
+    deliveryAddress +=
+      `, Near ${landmark.trim()}`;
+
+  }
+
+
+  deliveryAddress +=
+    `, ${city.trim()}`;
+
+
+  if(pincode.trim()){
+
+    deliveryAddress +=
+      ` - ${pincode.trim()}`;
+
+  }
+
+
+  localStorage.setItem(
+    "riddhi_delivery_address",
+    deliveryAddress
+  );
+
+
+  document
+    .getElementById("locationText")
+    .innerText =
+    "📍 " + deliveryAddress;
+
+
+  alert(
+    "Delivery address save ho gaya."
   );
 
 }
@@ -1754,13 +1925,46 @@ async function checkout(){
   }
 
 
-  const address =
-    prompt(
-      "Delivery Address likhiye:"
+  /*
+    Agar address pehle se saved hai
+    to use karega.
+  */
+
+  if(deliveryAddress){
+
+    const changeAddress =
+      confirm(
+        "Saved delivery address:\n\n" +
+        deliveryAddress +
+        "\n\nKya address change karna hai?"
+      );
+
+    if(changeAddress){
+
+      enterAddress();
+
+    }
+
+  }else{
+
+    alert(
+      "Order se pehle delivery address add kijiye."
     );
 
+    enterAddress();
 
-  if(!address || !address.trim()){
+  }
+
+
+  /*
+    Agar user ne address nahi diya
+    to order rok do.
+  */
+
+  if(
+    !deliveryAddress ||
+    !deliveryAddress.trim()
+  ){
 
     alert(
       "Delivery address zaroori hai."
@@ -1812,20 +2016,31 @@ async function checkout(){
 
     mobile:"",
 
-    address:address.trim(),
+    address:
+      deliveryAddress.trim(),
 
-    payment_method:payment,
+    payment_method:
+      payment,
 
-    total:total,
+    total:
+      total,
 
-    items:items,
+    items:
+      items,
 
-    status:"Pending",
+    status:
+      "Pending",
 
-    user_id:currentUser.id
+    user_id:
+      currentUser.id
 
   };
 
+
+  /*
+    GPS coordinates bhi save karne ki
+    koshish hogi.
+  */
 
   if(userLocation){
 
@@ -1855,10 +2070,9 @@ async function checkout(){
       console.error(error);
 
       /*
-        Agar Orders table mein latitude/
-        longitude columns nahi hain,
-        to second attempt bina un columns
-        ke kiya ja raha hai.
+        Agar latitude/longitude columns
+        Orders table mein nahi hain,
+        to bina un columns ke retry.
       */
 
       delete orderData.latitude;
@@ -2087,8 +2301,9 @@ async function loadOrders(){
           order.payment_method || ""
         )}
 
-        <br>
+        <br><br>
 
+        📍
         ${escapeHTML(
           order.address || ""
         )}
@@ -2135,34 +2350,49 @@ function escapeHTML(value){
 
 
 /* ==============================
-   SAVED LOCATION
+   SAVED LOCATION + ADDRESS
 ============================== */
 
 function loadSavedLocation(){
 
   try{
 
-    const saved =
+    const savedLocation =
       localStorage.getItem(
         "riddhi_location"
       );
 
-    if(saved){
+
+    if(savedLocation){
 
       userLocation =
-        JSON.parse(saved);
+        JSON.parse(savedLocation);
 
-      if(
-        userLocation.latitude &&
-        userLocation.longitude
-      ){
+    }
 
-        document
-          .getElementById("locationText")
-          .innerText =
-          `📍 ${Number(userLocation.latitude).toFixed(5)}, ${Number(userLocation.longitude).toFixed(5)}`;
 
-      }
+    const savedAddress =
+      localStorage.getItem(
+        "riddhi_delivery_address"
+      );
+
+
+    if(savedAddress){
+
+      deliveryAddress =
+        savedAddress;
+
+      document
+        .getElementById("locationText")
+        .innerText =
+        "📍 " + deliveryAddress;
+
+    }else if(userLocation){
+
+      document
+        .getElementById("locationText")
+        .innerText =
+        "📍 GPS location saved • Address add karein";
 
     }
 
