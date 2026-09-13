@@ -1,180 +1,691 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#5b21b6">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Riddhi Party Shop</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f7f5fb;color:#222;padding-bottom:70px}
-header{background:#5b21b6;color:#fff;padding:15px;position:sticky;top:0;z-index:5}
-.top{display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:21px;font-weight:800}
-.location{font-size:12px;margin-top:4px}
-.search{margin-top:13px;background:#fff;border-radius:12px;padding:12px;color:#777}
-.search input{border:0;outline:0;width:90%;font-size:15px}
-section{padding:15px}
-.banner{background:#eadcff;border-radius:15px;padding:20px;font-weight:bold;font-size:20px}
-.banner small{display:block;margin-top:7px;font-size:13px;font-weight:normal}
-h2{font-size:19px;margin:8px 0 14px}
-.cats{display:flex;gap:12px;overflow:auto}
-.cat{min-width:75px;text-align:center;font-size:12px}
-.cat div{height:65px;background:#fff;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:5px}
-.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:#fff;border-radius:14px;padding:10px;box-shadow:0 1px 5px #ddd}
-.card img{width:100%;height:145px;object-fit:contain}
-.card h3{font-size:14px;margin:7px 0}
-.price{font-weight:bold}
-.add{width:100%;margin-top:8px;padding:9px;background:#5b21b6;color:#fff;border:0;border-radius:8px}
-.page{display:none}
-.page.active{display:block}
-.loginbox{background:#fff;padding:20px;border-radius:15px}
-.loginbox input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px}
-.loginbox button{width:100%;padding:12px;background:#5b21b6;color:#fff;border:0;border-radius:8px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #ddd;height:65px;display:flex;justify-content:space-around;z-index:10}
-.bottom button{border:0;background:none;font-size:11px;color:#555}
-.bottom b{display:block;font-size:20px;margin-bottom:3px}
-.empty{text-align:center;padding:40px;color:#777}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f7f4ff;
+  color:#222;
+}
+
+/* HEADER */
+header{
+  background:#5b21b6;
+  color:white;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.search{
+  flex:1;
+  max-width:500px;
+}
+
+.search input{
+  width:100%;
+  padding:12px 16px;
+  border:none;
+  border-radius:25px;
+  outline:none;
+  font-size:15px;
+}
+
+.cart{
+  background:white;
+  color:#5b21b6;
+  padding:10px 15px;
+  border-radius:22px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#5b21b6,#7c3aed);
+  color:white;
+  text-align:center;
+  padding:45px 20px;
+}
+
+.hero h1{
+  font-size:36px;
+  margin-bottom:10px;
+}
+
+.hero p{
+  font-size:17px;
+}
+
+/* CATEGORIES */
+.section{
+  padding:25px 5%;
+}
+
+.section h2{
+  margin-bottom:18px;
+}
+
+.categories{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding-bottom:8px;
+}
+
+.category{
+  background:white;
+  min-width:120px;
+  padding:18px 10px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 2px 10px #ddd;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-3px);
+}
+
+.category .emoji{
+  font-size:32px;
+  display:block;
+  margin-bottom:8px;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:18px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 2px 10px #ddd;
+}
+
+.product-image{
+  height:170px;
+  background:#eee;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+}
+
+.product-info{
+  padding:14px;
+}
+
+.product-info h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.price{
+  color:#5b21b6;
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.add{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#5b21b6;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.add:hover{
+  background:#45158d;
+}
+
+/* CART */
+.cart-box{
+  position:fixed;
+  right:-400px;
+  top:0;
+  width:360px;
+  max-width:90%;
+  height:100vh;
+  background:white;
+  z-index:200;
+  box-shadow:-5px 0 20px #aaa;
+  padding:20px;
+  transition:.3s;
+  overflow-y:auto;
+}
+
+.cart-box.open{
+  right:0;
+}
+
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.close{
+  cursor:pointer;
+  font-size:25px;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+}
+
+.qty button{
+  padding:4px 8px;
+  border:1px solid #ccc;
+  background:white;
+  cursor:pointer;
+}
+
+.total{
+  font-size:21px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.order-btn{
+  width:100%;
+  padding:13px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+  background:#24104d;
+  color:white;
+  text-align:center;
+  padding:30px 15px;
+  margin-top:30px;
+}
+
+@media(max-width:600px){
+  header{
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .search{
+    order:3;
+    max-width:none;
+    flex-basis:100%;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  .product-image{
+    height:140px;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="top">
-<div>
-<div class="logo">RIDDHI PARTY SHOP</div>
-<div class="location">📍 Delivering to Kalyanpur</div>
-</div>
-<div>🛒</div>
-</div>
+  <div class="logo">RIDDHI PARTY SHOP</div>
 
-<div class="search">
-🔍 <input placeholder="Search gifts, toys, balloons...">
-</div>
+  <div class="search">
+    <input
+      type="text"
+      id="search"
+      placeholder="Search balloons, toys, gifts..."
+      oninput="searchProducts()"
+    >
+  </div>
+
+  <div class="cart" onclick="openCart()">
+    🛒 Cart <span id="cartCount">0</span>
+  </div>
 </header>
 
-<main>
-
-<div id="home" class="page active">
-
-<section>
-<div class="banner">
-🎉 Birthday Special
-<small>Gifts, Toys & Decoration at great prices</small>
-</div>
+<section class="hero">
+  <h1>Riddhi Party Shop 🎉</h1>
+  <p>Gifts • Toys • Birthday Decoration • Party Supplies</p>
 </section>
 
-<section>
-<h2>Shop by Category</h2>
-<div class="cats">
-<div class="cat"><div>🎈</div>Balloons</div>
-<div class="cat"><div>🎂</div>Birthday</div>
-<div class="cat"><div>🧸</div>Toys</div>
-<div class="cat"><div>🎁</div>Gifts</div>
-<div class="cat"><div>🎊</div>Decoration</div>
-</div>
+<section class="section">
+  <h2>Shop by Category</h2>
+
+  <div class="categories">
+    <div class="category" onclick="filterCategory('All')">
+      <span class="emoji">🛍️</span>
+      All
+    </div>
+
+    <div class="category" onclick="filterCategory('Birthday')">
+      <span class="emoji">🎂</span>
+      Birthday
+    </div>
+
+    <div class="category" onclick="filterCategory('Balloons')">
+      <span class="emoji">🎈</span>
+      Balloons
+    </div>
+
+    <div class="category" onclick="filterCategory('Toys')">
+      <span class="emoji">🧸</span>
+      Toys
+    </div>
+
+    <div class="category" onclick="filterCategory('Gifts')">
+      <span class="emoji">🎁</span>
+      Gifts
+    </div>
+
+    <div class="category" onclick="filterCategory('Party')">
+      <span class="emoji">🎉</span>
+      Party Supplies
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Popular Products</h2>
-<div id="products" class="products">
+<section class="section">
+  <h2>Our Products</h2>
 
-<div class="card">
-<div style="height:145px;display:flex;align-items:center;justify-content:center;font-size:60px">🎈</div>
-<h3>Birthday Balloons</h3>
-<div class="price">₹99</div>
-<button class="add">ADD</button>
-</div>
-
-<div class="card">
-<div style="height:145px;display:flex;align-items:center;justify-content:center;font-size:60px">🧸</div>
-<h3>Soft Teddy Bear</h3>
-<div class="price">₹299</div>
-<button class="add">ADD</button>
-</div>
-
-</div>
+  <div class="products" id="products"></div>
 </section>
 
+<!-- CART -->
+<div class="cart-box" id="cartBox">
+
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <span class="close" onclick="closeCart()">×</span>
+  </div>
+
+  <div id="cartItems"></div>
+
+  <div class="total">
+    Total: ₹<span id="total">0</span>
+  </div>
+
+  <button class="order-btn" onclick="orderWhatsApp()">
+    Order on WhatsApp
+  </button>
+
 </div>
 
-<div id="searchPage" class="page">
-<section>
-<h2>Search Products</h2>
-<div class="empty">Search karke products yahan milenge.</div>
-</section>
-</div>
-
-<div id="cart" class="page">
-<section>
-<h2>🛒 Your Cart</h2>
-<div class="empty">Your cart is empty</div>
-</section>
-</div>
-
-<div id="orders" class="page">
-<section>
-<h2>📦 My Orders</h2>
-<div class="empty">Login karke apne orders dekhiye.</div>
-</section>
-</div>
-
-<div id="profile" class="page">
-<section>
-<h2>👤 My Account</h2>
-
-<div class="loginbox">
-<h3>Customer Login</h3>
-
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Password">
-
-<button>Login</button>
-
-<p style="text-align:center;font-size:13px">
-New customer? <b>Sign Up</b>
-</p>
-</div>
-
-</section>
-</div>
-
-</main>
-
-<nav class="bottom">
-
-<button onclick="showPage('home')">
-<b>⌂</b>Home
-</button>
-
-<button onclick="showPage('searchPage')">
-<b>⌕</b>Search
-</button>
-
-<button onclick="showPage('cart')">
-<b>🛒</b>Cart
-</button>
-
-<button onclick="showPage('orders')">
-<b>📦</b>Orders
-</button>
-
-<button onclick="showPage('profile')">
-<b>👤</b>Account
-</button>
-
-</nav>
+<footer>
+  <h3>RIDDHI PARTY SHOP</h3>
+  <p>Gifts • Toys • Birthday Decoration</p>
+  <p>📍 4B Shukla Market, Panki Road, Kalyanpur</p>
+</footer>
 
 <script>
-function showPage(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-window.scrollTo(0,0);
+
+const products = [
+
+  {
+    id:1,
+    name:"Birthday Balloon Set",
+    price:199,
+    category:"Balloons",
+    emoji:"🎈"
+  },
+
+  {
+    id:2,
+    name:"Happy Birthday Decoration",
+    price:299,
+    category:"Birthday",
+    emoji:"🎂"
+  },
+
+  {
+    id:3,
+    name:"Cute Teddy Bear",
+    price:499,
+    category:"Toys",
+    emoji:"🧸"
+  },
+
+  {
+    id:4,
+    name:"Birthday Gift Box",
+    price:349,
+    category:"Gifts",
+    emoji:"🎁"
+  },
+
+  {
+    id:5,
+    name:"Party Caps",
+    price:99,
+    category:"Party",
+    emoji:"🥳"
+  },
+
+  {
+    id:6,
+    name:"Foil Balloons",
+    price:149,
+    category:"Balloons",
+    emoji:"🎈"
+  },
+
+  {
+    id:7,
+    name:"Kids Toy Car",
+    price:299,
+    category:"Toys",
+    emoji:"🚗"
+  },
+
+  {
+    id:8,
+    name:"Birthday Banner",
+    price:129,
+    category:"Birthday",
+    emoji:"🎉"
+  },
+
+  {
+    id:9,
+    name:"Gift Hamper",
+    price:599,
+    category:"Gifts",
+    emoji:"🎁"
+  },
+
+  {
+    id:10,
+    name:"Party Glasses",
+    price:79,
+    category:"Party",
+    emoji:"🥳"
+  }
+
+];
+
+let cart = [];
+
+function displayProducts(list){
+
+  const container = document.getElementById("products");
+
+  container.innerHTML = "";
+
+  if(list.length === 0){
+
+    container.innerHTML =
+      "<p>No products found.</p>";
+
+    return;
+  }
+
+  list.forEach(product => {
+
+    container.innerHTML += `
+
+      <div class="product">
+
+        <div class="product-image">
+          ${product.emoji}
+        </div>
+
+        <div class="product-info">
+
+          <h3>${product.name}</h3>
+
+          <div class="price">
+            ₹${product.price}
+          </div>
+
+          <button class="add"
+            onclick="addToCart(${product.id})">
+            Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
 }
+
+function addToCart(id){
+
+  const product =
+    products.find(p => p.id === id);
+
+  const existing =
+    cart.find(item => item.id === id);
+
+  if(existing){
+
+    existing.qty++;
+
+  }else{
+
+    cart.push({
+      ...product,
+      qty:1
+    });
+
+  }
+
+  updateCart();
+
+}
+
+function updateCart(){
+
+  document.getElementById("cartCount").innerText =
+    cart.reduce((sum,item)=>sum + item.qty,0);
+
+  const container =
+    document.getElementById("cartItems");
+
+  container.innerHTML = "";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    total += item.price * item.qty;
+
+    container.innerHTML += `
+
+      <div class="cart-item">
+
+        <div>
+          <b>${item.name}</b><br>
+          ₹${item.price} × ${item.qty}
+        </div>
+
+        <div class="qty">
+
+          <button onclick="changeQty(${item.id},-1)">
+            −
+          </button>
+
+          <button onclick="changeQty(${item.id},1)">
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  document.getElementById("total").innerText = total;
+
+}
+
+function changeQty(id,change){
+
+  const item =
+    cart.find(item => item.id === id);
+
+  if(!item) return;
+
+  item.qty += change;
+
+  if(item.qty <= 0){
+
+    cart =
+      cart.filter(item => item.id !== id);
+
+  }
+
+  updateCart();
+
+}
+
+function openCart(){
+
+  document
+    .getElementById("cartBox")
+    .classList.add("open");
+
+}
+
+function closeCart(){
+
+  document
+    .getElementById("cartBox")
+    .classList.remove("open");
+
+}
+
+function searchProducts(){
+
+  const value =
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+  const filtered =
+    products.filter(product =>
+      product.name.toLowerCase().includes(value) ||
+      product.category.toLowerCase().includes(value)
+    );
+
+  displayProducts(filtered);
+
+}
+
+function filterCategory(category){
+
+  if(category === "All"){
+
+    displayProducts(products);
+    return;
+
+  }
+
+  const filtered =
+    products.filter(
+      product => product.category === category
+    );
+
+  displayProducts(filtered);
+
+}
+
+function orderWhatsApp(){
+
+  if(cart.length === 0){
+
+    alert("Please add products to cart first.");
+    return;
+
+  }
+
+  let message =
+    "Hello Riddhi Party Shop!%0A%0AI want to order:%0A";
+
+  cart.forEach(item => {
+
+    message +=
+      `• ${item.name} × ${item.qty} = ₹${item.price * item.qty}%0A`;
+
+  });
+
+  const total =
+    cart.reduce(
+      (sum,item)=>sum + item.price * item.qty,
+      0
+    );
+
+  message +=
+    `%0ATotal: ₹${total}`;
+
+  window.open(
+    "https://wa.me/916392178984?text=" + message,
+    "_blank"
+  );
+
+}
+
+displayProducts(products);
+updateCart();
+
 </script>
 
 </body>
 </html>
+```
