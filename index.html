@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Riddhi Party Shop</title>
+
+<meta name="theme-color" content="#5b21b6">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -18,16 +21,19 @@
 body{
   background:#f7f4ff;
   color:#222;
+  padding-bottom:70px;
 }
 
-/* HEADER */
+button{
+  cursor:pointer;
+}
+
 header{
   background:#5b21b6;
   color:white;
-  padding:15px 5%;
+  padding:12px 5%;
   display:flex;
   align-items:center;
-  justify-content:space-between;
   gap:15px;
   position:sticky;
   top:0;
@@ -35,52 +41,85 @@ header{
 }
 
 .logo{
-  font-size:24px;
+  font-size:22px;
   font-weight:bold;
   white-space:nowrap;
 }
 
 .search{
   flex:1;
-  max-width:500px;
 }
 
 .search input{
   width:100%;
-  padding:12px 16px;
+  padding:12px 17px;
   border:none;
   border-radius:25px;
   outline:none;
   font-size:15px;
 }
 
-.cart{
+.header-btn{
   background:white;
   color:#5b21b6;
-  padding:10px 15px;
+  border:none;
+  padding:10px 14px;
   border-radius:22px;
   font-weight:bold;
-  cursor:pointer;
+  white-space:nowrap;
 }
 
-/* HERO */
 .hero{
   background:linear-gradient(135deg,#5b21b6,#7c3aed);
   color:white;
+  padding:35px 20px;
   text-align:center;
-  padding:45px 20px;
 }
 
 .hero h1{
-  font-size:36px;
-  margin-bottom:10px;
+  font-size:34px;
+  margin-bottom:8px;
 }
 
 .hero p{
-  font-size:17px;
+  font-size:16px;
 }
 
-/* CATEGORIES */
+.location-bar{
+  background:white;
+  padding:12px 5%;
+  box-shadow:0 2px 8px #ddd;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.location-text{
+  overflow:hidden;
+}
+
+.location-title{
+  font-size:12px;
+  color:#777;
+}
+
+.location-value{
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.location-btn{
+  border:1px solid #5b21b6;
+  background:white;
+  color:#5b21b6;
+  border-radius:8px;
+  padding:8px 12px;
+  font-weight:bold;
+}
+
 .section{
   padding:25px 5%;
 }
@@ -98,8 +137,8 @@ header{
 
 .category{
   background:white;
-  min-width:120px;
-  padding:18px 10px;
+  min-width:110px;
+  padding:15px 10px;
   border-radius:14px;
   text-align:center;
   box-shadow:0 2px 10px #ddd;
@@ -107,17 +146,21 @@ header{
   transition:.2s;
 }
 
+.category.active{
+  background:#5b21b6;
+  color:white;
+}
+
 .category:hover{
-  transform:translateY(-3px);
+  transform:translateY(-2px);
 }
 
 .category .emoji{
-  font-size:32px;
+  font-size:30px;
   display:block;
-  margin-bottom:8px;
+  margin-bottom:7px;
 }
 
-/* PRODUCTS */
 .products{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -132,7 +175,7 @@ header{
 }
 
 .product-image{
-  height:170px;
+  height:165px;
   background:#eee;
   display:flex;
   align-items:center;
@@ -164,57 +207,67 @@ header{
   background:#5b21b6;
   color:white;
   font-weight:bold;
-  cursor:pointer;
 }
 
-.add:hover{
-  background:#45158d;
+.add:active{
+  transform:scale(.98);
 }
 
-/* CART */
-.cart-box{
+.cart-box,
+.login-box,
+.orders-box{
   position:fixed;
-  right:-400px;
+  right:-500px;
   top:0;
-  width:360px;
-  max-width:90%;
+  width:420px;
+  max-width:94%;
   height:100vh;
   background:white;
-  z-index:200;
+  z-index:300;
   box-shadow:-5px 0 20px #aaa;
   padding:20px;
   transition:.3s;
   overflow-y:auto;
 }
 
-.cart-box.open{
+.cart-box.open,
+.login-box.open,
+.orders-box.open{
   right:0;
 }
 
-.cart-header{
+.panel-header{
   display:flex;
   justify-content:space-between;
+  align-items:center;
   margin-bottom:20px;
 }
 
 .close{
+  font-size:28px;
   cursor:pointer;
-  font-size:25px;
 }
 
 .cart-item{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px 0;
+  gap:10px;
+  padding:13px 0;
   border-bottom:1px solid #ddd;
 }
 
+.qty{
+  display:flex;
+  gap:5px;
+  align-items:center;
+}
+
 .qty button{
-  padding:4px 8px;
+  padding:5px 9px;
   border:1px solid #ccc;
   background:white;
-  cursor:pointer;
+  border-radius:5px;
 }
 
 .total{
@@ -223,19 +276,126 @@ header{
   margin:20px 0;
 }
 
-.order-btn{
+.order-btn,
+.primary-btn{
   width:100%;
   padding:13px;
-  background:#25D366;
-  color:white;
   border:none;
   border-radius:8px;
   font-size:16px;
   font-weight:bold;
+}
+
+.order-btn{
+  background:#25D366;
+  color:white;
+}
+
+.primary-btn{
+  background:#5b21b6;
+  color:white;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.switch-text{
+  text-align:center;
+  margin-top:15px;
+  color:#5b21b6;
+  font-weight:bold;
   cursor:pointer;
 }
 
-/* FOOTER */
+.user-info{
+  background:#f3efff;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.logout-btn{
+  background:#eee;
+  border:none;
+  padding:9px 13px;
+  border-radius:7px;
+  margin-top:10px;
+}
+
+.order-card{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+}
+
+.order-status{
+  display:inline-block;
+  background:#ede9fe;
+  color:#5b21b6;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  margin-top:7px;
+}
+
+.empty{
+  text-align:center;
+  padding:35px 10px;
+  color:#777;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  height:65px;
+  box-shadow:0 -2px 10px #ccc;
+  z-index:250;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+.bottom-nav button{
+  border:none;
+  background:none;
+  font-size:12px;
+  color:#555;
+}
+
+.bottom-nav .icon{
+  display:block;
+  font-size:22px;
+  margin-bottom:2px;
+}
+
 footer{
   background:#24104d;
   color:white;
@@ -244,23 +404,37 @@ footer{
   margin-top:30px;
 }
 
+.loading{
+  text-align:center;
+  padding:30px;
+}
+
 @media(max-width:600px){
+
   header{
     flex-wrap:wrap;
+    padding:10px 4%;
   }
 
   .logo{
-    font-size:20px;
+    font-size:18px;
   }
 
   .search{
     order:3;
-    max-width:none;
     flex-basis:100%;
   }
 
+  .hero{
+    padding:28px 15px;
+  }
+
   .hero h1{
-    font-size:28px;
+    font-size:27px;
+  }
+
+  .section{
+    padding:20px 4%;
   }
 
   .products{
@@ -269,7 +443,24 @@ footer{
   }
 
   .product-image{
-    height:140px;
+    height:135px;
+    font-size:55px;
+  }
+
+  .product-info{
+    padding:10px;
+  }
+
+  .product-info h3{
+    font-size:14px;
+  }
+
+  .price{
+    font-size:17px;
+  }
+
+  .location-bar{
+    padding:10px 4%;
   }
 }
 </style>
@@ -278,7 +469,10 @@ footer{
 <body>
 
 <header>
-  <div class="logo">RIDDHI PARTY SHOP</div>
+
+  <div class="logo">
+    RIDDHI PARTY SHOP
+  </div>
 
   <div class="search">
     <input
@@ -289,87 +483,371 @@ footer{
     >
   </div>
 
-  <div class="cart" onclick="openCart()">
-    🛒 Cart <span id="cartCount">0</span>
-  </div>
+  <button class="header-btn" onclick="openLogin()">
+    👤 <span id="accountText">Login</span>
+  </button>
+
 </header>
 
+
+<div class="location-bar">
+
+  <div class="location-text">
+
+    <div class="location-title">
+      DELIVERY LOCATION
+    </div>
+
+    <div class="location-value" id="locationText">
+      Add your location
+    </div>
+
+  </div>
+
+  <button
+    class="location-btn"
+    onclick="getLocation()">
+    📍 Use my location
+  </button>
+
+</div>
+
+
 <section class="hero">
-  <h1>Riddhi Party Shop 🎉</h1>
-  <p>Gifts • Toys • Birthday Decoration • Party Supplies</p>
+
+  <h1>
+    Riddhi Party Shop 🎉
+  </h1>
+
+  <p>
+    Gifts • Toys • Birthday Decoration • Party Supplies
+  </p>
+
 </section>
 
+
 <section class="section">
-  <h2>Shop by Category</h2>
+
+  <h2>
+    Shop by Category
+  </h2>
 
   <div class="categories">
-    <div class="category" onclick="filterCategory('All')">
+
+    <div
+      class="category active"
+      onclick="filterCategory('All',this)">
       <span class="emoji">🛍️</span>
       All
     </div>
 
-    <div class="category" onclick="filterCategory('Birthday')">
+    <div
+      class="category"
+      onclick="filterCategory('Birthday',this)">
       <span class="emoji">🎂</span>
       Birthday
     </div>
 
-    <div class="category" onclick="filterCategory('Balloons')">
+    <div
+      class="category"
+      onclick="filterCategory('Balloons',this)">
       <span class="emoji">🎈</span>
       Balloons
     </div>
 
-    <div class="category" onclick="filterCategory('Toys')">
+    <div
+      class="category"
+      onclick="filterCategory('Toys',this)">
       <span class="emoji">🧸</span>
       Toys
     </div>
 
-    <div class="category" onclick="filterCategory('Gifts')">
+    <div
+      class="category"
+      onclick="filterCategory('Gifts',this)">
       <span class="emoji">🎁</span>
       Gifts
     </div>
 
-    <div class="category" onclick="filterCategory('Party')">
+    <div
+      class="category"
+      onclick="filterCategory('Party',this)">
       <span class="emoji">🎉</span>
-      Party Supplies
+      Party
     </div>
+
   </div>
+
 </section>
+
 
 <section class="section">
-  <h2>Our Products</h2>
 
-  <div class="products" id="products"></div>
+  <h2>
+    Our Products
+  </h2>
+
+  <div
+    class="products"
+    id="products">
+
+    <div class="loading">
+      Products load ho rahe hain...
+    </div>
+
+  </div>
+
 </section>
 
-<!-- CART -->
-<div class="cart-box" id="cartBox">
 
-  <div class="cart-header">
-    <h2>Your Cart</h2>
-    <span class="close" onclick="closeCart()">×</span>
+<!-- CART -->
+
+<div
+  class="cart-box"
+  id="cartBox">
+
+  <div class="panel-header">
+
+    <h2>
+      🛒 Your Cart
+    </h2>
+
+    <span
+      class="close"
+      onclick="closeCart()">
+      ×
+    </span>
+
   </div>
 
   <div id="cartItems"></div>
 
   <div class="total">
-    Total: ₹<span id="total">0</span>
+
+    Total:
+    ₹<span id="total">0</span>
+
   </div>
 
-  <button class="order-btn" onclick="orderWhatsApp()">
-    Order on WhatsApp
+  <button
+    class="order-btn"
+    onclick="checkout()">
+
+    Proceed to Order
+
   </button>
 
 </div>
 
+
+<!-- LOGIN -->
+
+<div
+  class="login-box"
+  id="loginBox">
+
+  <div class="panel-header">
+
+    <h2 id="loginTitle">
+      Login
+    </h2>
+
+    <span
+      class="close"
+      onclick="closeLogin()">
+      ×
+    </span>
+
+  </div>
+
+
+  <div id="userArea"></div>
+
+
+  <div id="loginForm">
+
+    <div class="form-group">
+
+      <label>
+        Email
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Your email">
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password">
+
+    </div>
+
+
+    <button
+      class="primary-btn"
+      onclick="loginUser()">
+
+      Login
+
+    </button>
+
+
+    <div
+      class="switch-text"
+      id="switchText"
+      onclick="toggleSignup()">
+
+      New customer? Create account
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ORDERS -->
+
+<div
+  class="orders-box"
+  id="ordersBox">
+
+  <div class="panel-header">
+
+    <h2>
+      📦 My Orders
+    </h2>
+
+    <span
+      class="close"
+      onclick="closeOrders()">
+      ×
+    </span>
+
+  </div>
+
+  <div id="ordersList"></div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+    <span class="icon">🏠</span>
+    Home
+
+  </button>
+
+
+  <button onclick="openCart()">
+
+    <span class="icon">
+      🛒
+    </span>
+
+    Cart
+    (<span id="bottomCartCount">0</span>)
+
+  </button>
+
+
+  <button onclick="openOrders()">
+
+    <span class="icon">
+      📦
+    </span>
+
+    Orders
+
+  </button>
+
+
+  <button onclick="openLogin()">
+
+    <span class="icon">
+      👤
+    </span>
+
+    Account
+
+  </button>
+
+</div>
+
+
 <footer>
-  <h3>RIDDHI PARTY SHOP</h3>
-  <p>Gifts • Toys • Birthday Decoration</p>
-  <p>📍 4B Shukla Market, Panki Road, Kalyanpur</p>
+
+  <h3>
+    RIDDHI PARTY SHOP
+  </h3>
+
+  <p>
+    Gifts • Toys • Birthday Decoration
+  </p>
+
+  <p>
+    📍 4B Shukla Market, Panki Road, Kalyanpur
+  </p>
+
 </footer>
+
 
 <script>
 
-const products = [
+/* ==============================
+   SUPABASE
+============================== */
+
+const SUPABASE_URL =
+  "https://vngxyvgtboinxuzxchey.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_YjdwhsuPIv0XLcA5mKWuXA_Czk6GFpD";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* ==============================
+   SHOP DATA
+============================== */
+
+let products = [];
+
+let cart = [];
+
+let selectedCategory = "All";
+
+let currentUser = null;
+
+let userLocation = null;
+
+
+/* ==============================
+   FALLBACK PRODUCTS
+   Agar Supabase Products table
+   temporarily load na ho
+============================== */
+
+const demoProducts = [
 
   {
     id:1,
@@ -453,43 +931,143 @@ const products = [
 
 ];
 
-let cart = [];
+
+/* ==============================
+   LOAD PRODUCTS
+============================== */
+
+async function loadProducts(){
+
+  const container =
+    document.getElementById("products");
+
+  container.innerHTML =
+    '<div class="loading">Products load ho rahe hain...</div>';
+
+  try{
+
+    const {data,error} =
+      await supabaseClient
+      .from("Products")
+      .select("*")
+      .order("id",{ascending:true});
+
+    if(error){
+
+      console.log("Supabase product error:",error);
+
+      products = demoProducts;
+
+    }else if(data && data.length > 0){
+
+      products =
+        data.map(p => ({
+
+          id:p.id,
+
+          name:
+            p.name ||
+            p.product_name ||
+            "Product",
+
+          price:
+            Number(
+              p.price ||
+              p.selling_price ||
+              0
+            ),
+
+          category:
+            p.category ||
+            "Party",
+
+          emoji:
+            p.emoji ||
+            "🎁",
+
+          image:
+            p.image ||
+            p.image_url ||
+            ""
+
+        }));
+
+    }else{
+
+      products = demoProducts;
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+    products = demoProducts;
+
+  }
+
+  displayProducts(products);
+
+}
+
+
+/* ==============================
+   DISPLAY PRODUCTS
+============================== */
 
 function displayProducts(list){
 
-  const container = document.getElementById("products");
+  const container =
+    document.getElementById("products");
 
   container.innerHTML = "";
 
-  if(list.length === 0){
+  if(!list || list.length === 0){
 
     container.innerHTML =
-      "<p>No products found.</p>";
+      '<div class="empty">No products found.</div>';
 
     return;
+
   }
 
   list.forEach(product => {
+
+    let imageHTML =
+      product.image
+      ?
+      `<img
+        src="${product.image}"
+        style="width:100%;height:100%;object-fit:cover"
+        onerror="this.style.display='none';this.parentElement.innerHTML='🎁'"
+      >`
+      :
+      product.emoji;
 
     container.innerHTML += `
 
       <div class="product">
 
         <div class="product-image">
-          ${product.emoji}
+          ${imageHTML}
         </div>
 
         <div class="product-info">
 
-          <h3>${product.name}</h3>
+          <h3>
+            ${escapeHTML(product.name)}
+          </h3>
 
           <div class="price">
             ₹${product.price}
           </div>
 
-          <button class="add"
+          <button
+            class="add"
             onclick="addToCart(${product.id})">
+
             Add to Cart
+
           </button>
 
         </div>
@@ -502,13 +1080,102 @@ function displayProducts(list){
 
 }
 
+
+/* ==============================
+   SEARCH
+============================== */
+
+function searchProducts(){
+
+  const value =
+    document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  let filtered = products;
+
+  if(selectedCategory !== "All"){
+
+    filtered =
+      filtered.filter(
+        p =>
+        String(p.category).toLowerCase()
+        === selectedCategory.toLowerCase()
+      );
+
+  }
+
+  if(value){
+
+    filtered =
+      filtered.filter(product =>
+
+        String(product.name)
+        .toLowerCase()
+        .includes(value)
+
+        ||
+
+        String(product.category)
+        .toLowerCase()
+        .includes(value)
+
+      );
+
+  }
+
+  displayProducts(filtered);
+
+}
+
+
+/* ==============================
+   CATEGORY
+============================== */
+
+function filterCategory(category,element){
+
+  selectedCategory = category;
+
+  document
+    .querySelectorAll(".category")
+    .forEach(el =>
+      el.classList.remove("active")
+    );
+
+  if(element){
+    element.classList.add("active");
+  }
+
+  searchProducts();
+
+}
+
+
+/* ==============================
+   CART
+============================== */
+
 function addToCart(id){
 
   const product =
-    products.find(p => p.id === id);
+    products.find(
+      p => String(p.id) === String(id)
+    );
+
+  if(!product){
+
+    alert("Product nahi mila.");
+    return;
+
+  }
 
   const existing =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => String(item.id) === String(id)
+    );
 
   if(existing){
 
@@ -517,20 +1184,39 @@ function addToCart(id){
   }else{
 
     cart.push({
+
       ...product,
+
       qty:1
+
     });
 
   }
 
   updateCart();
 
+  openCart();
+
 }
+
 
 function updateCart(){
 
-  document.getElementById("cartCount").innerText =
-    cart.reduce((sum,item)=>sum + item.qty,0);
+  const count =
+    cart.reduce(
+      (sum,item) =>
+      sum + item.qty,
+      0
+    );
+
+  document
+    .getElementById("cartCount")
+    .innerText = count;
+
+  document
+    .getElementById("bottomCartCount")
+    .innerText = count;
+
 
   const container =
     document.getElementById("cartItems");
@@ -539,26 +1225,51 @@ function updateCart(){
 
   let total = 0;
 
+  if(cart.length === 0){
+
+    container.innerHTML =
+      '<div class="empty">Your cart is empty.</div>';
+
+  }
+
+
   cart.forEach(item => {
 
-    total += item.price * item.qty;
+    total +=
+      Number(item.price) *
+      item.qty;
 
     container.innerHTML += `
 
       <div class="cart-item">
 
-        <div>
-          <b>${item.name}</b><br>
-          ₹${item.price} × ${item.qty}
+        <div style="flex:1">
+
+          <b>
+            ${escapeHTML(item.name)}
+          </b>
+
+          <br>
+
+          ₹${item.price}
+          ×
+          ${item.qty}
+
         </div>
 
         <div class="qty">
 
-          <button onclick="changeQty(${item.id},-1)">
+          <button
+            onclick="changeQty(${item.id},-1)">
             −
           </button>
 
-          <button onclick="changeQty(${item.id},1)">
+          <b>
+            ${item.qty}
+          </b>
+
+          <button
+            onclick="changeQty(${item.id},1)">
             +
           </button>
 
@@ -570,14 +1281,20 @@ function updateCart(){
 
   });
 
-  document.getElementById("total").innerText = total;
+  document
+    .getElementById("total")
+    .innerText = total;
 
 }
+
 
 function changeQty(id,change){
 
   const item =
-    cart.find(item => item.id === id);
+    cart.find(
+      item =>
+      String(item.id) === String(id)
+    );
 
   if(!item) return;
 
@@ -586,13 +1303,17 @@ function changeQty(id,change){
   if(item.qty <= 0){
 
     cart =
-      cart.filter(item => item.id !== id);
+      cart.filter(
+        item =>
+        String(item.id) !== String(id)
+      );
 
   }
 
   updateCart();
 
 }
+
 
 function openCart(){
 
@@ -602,6 +1323,7 @@ function openCart(){
 
 }
 
+
 function closeCart(){
 
   document
@@ -610,82 +1332,886 @@ function closeCart(){
 
 }
 
-function searchProducts(){
 
-  const value =
+/* ==============================
+   AUTH
+============================== */
+
+async function checkUser(){
+
+  const {
+    data
+  } =
+    await supabaseClient
+    .auth
+    .getSession();
+
+  currentUser =
+    data.session
+    ? data.session.user
+    : null;
+
+  updateAccountUI();
+
+}
+
+
+function updateAccountUI(){
+
+  const account =
+    document.getElementById("accountText");
+
+  if(currentUser){
+
+    account.innerText =
+      currentUser.email
+      ? currentUser.email.split("@")[0]
+      : "Account";
+
+  }else{
+
+    account.innerText = "Login";
+
+  }
+
+}
+
+
+function openLogin(){
+
+  document
+    .getElementById("loginBox")
+    .classList.add("open");
+
+  renderLogin();
+
+}
+
+
+function closeLogin(){
+
+  document
+    .getElementById("loginBox")
+    .classList.remove("open");
+
+}
+
+
+let signupMode = false;
+
+
+function toggleSignup(){
+
+  signupMode =
+    !signupMode;
+
+  renderLogin();
+
+}
+
+
+function renderLogin(){
+
+  const title =
+    document.getElementById("loginTitle");
+
+  const button =
+    document.querySelector(
+      "#loginForm .primary-btn"
+    );
+
+  const switchText =
+    document.getElementById("switchText");
+
+  if(currentUser){
+
+    document.getElementById("loginForm")
+      .style.display = "none";
+
+    document.getElementById("userArea")
+      .innerHTML = `
+
+      <div class="user-info">
+
+        <b>
+          👤 Logged in
+        </b>
+
+        <p style="margin-top:8px">
+          ${escapeHTML(currentUser.email || "")}
+        </p>
+
+        <button
+          class="logout-btn"
+          onclick="logoutUser()">
+
+          Logout
+
+        </button>
+
+      </div>
+
+    `;
+
+    title.innerText =
+      "My Account";
+
+    return;
+
+  }
+
+
+  document.getElementById("loginForm")
+    .style.display = "block";
+
+  document.getElementById("userArea")
+    .innerHTML = "";
+
+  title.innerText =
+    signupMode
+    ? "Create Account"
+    : "Login";
+
+
+  button.innerText =
+    signupMode
+    ? "Create Account"
+    : "Login";
+
+
+  button.onclick =
+    signupMode
+    ? signupUser
+    : loginUser;
+
+
+  switchText.innerText =
+    signupMode
+    ? "Already have account? Login"
+    : "New customer? Create account";
+
+}
+
+
+async function signupUser(){
+
+  const email =
     document
-      .getElementById("search")
-      .value
-      .toLowerCase();
+    .getElementById("email")
+    .value
+    .trim();
 
-  const filtered =
-    products.filter(product =>
-      product.name.toLowerCase().includes(value) ||
-      product.category.toLowerCase().includes(value)
-    );
+  const password =
+    document
+    .getElementById("password")
+    .value;
 
-  displayProducts(filtered);
 
-}
+  if(!email || !password){
 
-function filterCategory(category){
-
-  if(category === "All"){
-
-    displayProducts(products);
+    alert("Email aur password bhariye.");
     return;
 
   }
 
-  const filtered =
-    products.filter(
-      product => product.category === category
-    );
+  if(password.length < 6){
 
-  displayProducts(filtered);
-
-}
-
-function orderWhatsApp(){
-
-  if(cart.length === 0){
-
-    alert("Please add products to cart first.");
+    alert("Password kam se kam 6 characters ka hona chahiye.");
     return;
 
   }
 
-  let message =
-    "Hello Riddhi Party Shop!%0A%0AI want to order:%0A";
 
-  cart.forEach(item => {
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+    .auth
+    .signUp({
 
-    message +=
-      `• ${item.name} × ${item.qty} = ₹${item.price * item.qty}%0A`;
+      email,
+      password
 
-  });
+    });
 
-  const total =
-    cart.reduce(
-      (sum,item)=>sum + item.price * item.qty,
-      0
+
+  if(error){
+
+    alert(error.message);
+    return;
+
+  }
+
+
+  if(data.user){
+
+    currentUser =
+      data.user;
+
+    updateAccountUI();
+
+    alert(
+      "Account create ho gaya. Agar email confirmation on hai to email verify karein."
     );
 
-  message +=
-    `%0ATotal: ₹${total}`;
+    renderLogin();
 
-  window.open(
-    "https://wa.me/916392178984?text=" + message,
-    "_blank"
+  }
+
+}
+
+
+async function loginUser(){
+
+  const email =
+    document
+    .getElementById("email")
+    .value
+    .trim();
+
+  const password =
+    document
+    .getElementById("password")
+    .value;
+
+
+  if(!email || !password){
+
+    alert("Email aur password bhariye.");
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+    .auth
+    .signInWithPassword({
+
+      email,
+      password
+
+    });
+
+
+  if(error){
+
+    alert(error.message);
+    return;
+
+  }
+
+
+  currentUser =
+    data.user;
+
+  updateAccountUI();
+
+  alert("Login successful.");
+
+  renderLogin();
+
+}
+
+
+async function logoutUser(){
+
+  await supabaseClient
+    .auth
+    .signOut();
+
+  currentUser = null;
+
+  updateAccountUI();
+
+  renderLogin();
+
+  closeOrders();
+
+}
+
+
+/* ==============================
+   LOCATION
+============================== */
+
+function getLocation(){
+
+  if(!navigator.geolocation){
+
+    alert(
+      "Aapke browser mein location support nahi hai."
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("locationText")
+    .innerText =
+    "Location detect ho rahi hai...";
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    position => {
+
+      const lat =
+        position.coords.latitude;
+
+      const lng =
+        position.coords.longitude;
+
+      userLocation = {
+
+        latitude:lat,
+        longitude:lng
+
+      };
+
+
+      document
+        .getElementById("locationText")
+        .innerText =
+        `📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+
+      localStorage.setItem(
+        "riddhi_location",
+        JSON.stringify(userLocation)
+      );
+
+
+      alert(
+        "Location mil gayi. Order karte waqt delivery address confirm karein."
+      );
+
+    },
+
+    error => {
+
+      console.log(error);
+
+      document
+        .getElementById("locationText")
+        .innerText =
+        "Location permission nahi mili.";
+
+      alert(
+        "Location permission Allow karein, phir dobara try karein."
+      );
+
+    },
+
+    {
+
+      enableHighAccuracy:true,
+      timeout:15000,
+      maximumAge:0
+
+    }
+
   );
 
 }
 
-displayProducts(products);
-updateCart();
+
+/* ==============================
+   CHECKOUT
+============================== */
+
+async function checkout(){
+
+  if(cart.length === 0){
+
+    alert(
+      "Please pehle cart mein product add karein."
+    );
+
+    return;
+
+  }
+
+
+  if(!currentUser){
+
+    alert(
+      "Order karne ke liye pehle Login / Sign Up karein."
+    );
+
+    closeCart();
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const address =
+    prompt(
+      "Delivery Address likhiye:"
+    );
+
+
+  if(!address || !address.trim()){
+
+    alert(
+      "Delivery address zaroori hai."
+    );
+
+    return;
+
+  }
+
+
+  const payment =
+    confirm(
+      "COD (Cash on Delivery) select karna hai?\n\nOK = COD\nCancel = Online Payment"
+    )
+    ? "COD"
+    : "ONLINE";
+
+
+  const total =
+    cart.reduce(
+      (sum,item) =>
+      sum +
+      Number(item.price) *
+      item.qty,
+      0
+    );
+
+
+  const items =
+    cart.map(item => ({
+
+      id:item.id,
+
+      name:item.name,
+
+      price:Number(item.price),
+
+      qty:item.qty
+
+    }));
+
+
+  const orderData = {
+
+    customer_name:
+      currentUser.email
+      ? currentUser.email.split("@")[0]
+      : "Customer",
+
+    mobile:"",
+
+    address:address.trim(),
+
+    payment_method:payment,
+
+    total:total,
+
+    items:items,
+
+    status:"Pending",
+
+    user_id:currentUser.id
+
+  };
+
+
+  if(userLocation){
+
+    orderData.latitude =
+      userLocation.latitude;
+
+    orderData.longitude =
+      userLocation.longitude;
+
+  }
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+      .from("Orders")
+      .insert(orderData)
+      .select();
+
+
+    if(error){
+
+      console.error(error);
+
+      /*
+        Agar Orders table mein latitude/
+        longitude columns nahi hain,
+        to second attempt bina un columns
+        ke kiya ja raha hai.
+      */
+
+      delete orderData.latitude;
+      delete orderData.longitude;
+
+
+      const retry =
+        await supabaseClient
+        .from("Orders")
+        .insert(orderData)
+        .select();
+
+
+      if(retry.error){
+
+        alert(
+          "Order save nahi hua:\n\n" +
+          retry.error.message
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    alert(
+      "🎉 Order successfully placed!"
+    );
+
+
+    cart = [];
+
+    updateCart();
+
+    closeCart();
+
+    openOrders();
+
+    loadOrders();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Order place karte waqt problem aa gayi."
+    );
+
+  }
+
+}
+
+
+/* ==============================
+   ORDERS
+============================== */
+
+function openOrders(){
+
+  if(!currentUser){
+
+    alert(
+      "My Orders dekhne ke liye Login karein."
+    );
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("ordersBox")
+    .classList.add("open");
+
+  loadOrders();
+
+}
+
+
+function closeOrders(){
+
+  document
+    .getElementById("ordersBox")
+    .classList.remove("open");
+
+}
+
+
+async function loadOrders(){
+
+  const container =
+    document.getElementById("ordersList");
+
+  container.innerHTML =
+    '<div class="loading">Orders load ho rahe hain...</div>';
+
+
+  if(!currentUser){
+
+    container.innerHTML =
+      '<div class="empty">Please login first.</div>';
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+    .from("Orders")
+    .select("*")
+    .eq("user_id",currentUser.id)
+    .order("created_at",{ascending:false});
+
+
+  if(error){
+
+    console.error(error);
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        Orders load nahi ho pa rahe.
+
+        <br><br>
+
+        ${escapeHTML(error.message)}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        📦
+
+        <br><br>
+
+        Abhi koi order nahi hai.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  data.forEach(order => {
+
+    let itemsText = "";
+
+    if(Array.isArray(order.items)){
+
+      itemsText =
+        order.items
+        .map(
+          item =>
+          `${escapeHTML(item.name)} × ${item.qty}`
+        )
+        .join("<br>");
+
+    }else{
+
+      itemsText =
+        escapeHTML(
+          String(order.items || "")
+        );
+
+    }
+
+
+    const date =
+      order.created_at
+      ?
+      new Date(order.created_at)
+      .toLocaleString("en-IN")
+      :
+      "";
+
+
+    container.innerHTML += `
+
+      <div class="order-card">
+
+        <b>
+          Order #${escapeHTML(String(order.id))}
+        </b>
+
+        <br><br>
+
+        ${itemsText}
+
+        <br><br>
+
+        <b>
+          Total: ₹${Number(order.total || 0)}
+        </b>
+
+        <br>
+
+        Payment:
+        ${escapeHTML(
+          order.payment_method || ""
+        )}
+
+        <br>
+
+        ${escapeHTML(
+          order.address || ""
+        )}
+
+        <br>
+
+        <span class="order-status">
+
+          ${escapeHTML(
+            order.status || "Pending"
+          )}
+
+        </span>
+
+        <br><br>
+
+        <small>
+          ${escapeHTML(date)}
+        </small>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* ==============================
+   SECURITY HELPER
+============================== */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* ==============================
+   SAVED LOCATION
+============================== */
+
+function loadSavedLocation(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        "riddhi_location"
+      );
+
+    if(saved){
+
+      userLocation =
+        JSON.parse(saved);
+
+      if(
+        userLocation.latitude &&
+        userLocation.longitude
+      ){
+
+        document
+          .getElementById("locationText")
+          .innerText =
+          `📍 ${Number(userLocation.latitude).toFixed(5)}, ${Number(userLocation.longitude).toFixed(5)}`;
+
+      }
+
+    }
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+}
+
+
+/* ==============================
+   AUTH STATE LISTENER
+============================== */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+  (event,session) => {
+
+    currentUser =
+      session
+      ? session.user
+      : null;
+
+    updateAccountUI();
+
+  }
+);
+
+
+/* ==============================
+   START APP
+============================== */
+
+(async function(){
+
+  loadSavedLocation();
+
+  await checkUser();
+
+  await loadProducts();
+
+  updateCart();
+
+})();
 
 </script>
 
 </body>
 </html>
-```
