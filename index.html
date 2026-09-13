@@ -20,11 +20,16 @@
 body{
   background:#f7f4ff;
   color:#222;
-  padding-bottom:70px;
+  padding-bottom:75px;
 }
 
 button{
   cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 header{
@@ -193,6 +198,7 @@ header{
   align-items:center;
   justify-content:center;
   font-size:70px;
+  overflow:hidden;
 }
 
 .product-info{
@@ -209,6 +215,24 @@ header{
   font-size:19px;
   font-weight:bold;
   margin-bottom:10px;
+}
+
+.mrp{
+  color:#888;
+  text-decoration:line-through;
+  font-size:13px;
+  margin-left:5px;
+}
+
+.discount{
+  display:inline-block;
+  color:#15803d;
+  background:#dcfce7;
+  border-radius:5px;
+  padding:3px 6px;
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
 .add{
@@ -308,6 +332,45 @@ header{
   color:white;
 }
 
+.secondary-btn{
+  width:100%;
+  padding:12px;
+  border:1px solid #5b21b6;
+  border-radius:8px;
+  background:white;
+  color:#5b21b6;
+  font-weight:bold;
+  margin-top:9px;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.auth-tab{
+  flex:1;
+  padding:11px 7px;
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.auth-tab.active{
+  background:#5b21b6;
+  color:white;
+  border-color:#5b21b6;
+}
+
+.otp-box{
+  background:#f3efff;
+  padding:14px;
+  border-radius:12px;
+  margin-top:15px;
+}
+
 .form-group{
   margin-bottom:14px;
 }
@@ -327,11 +390,19 @@ header{
   border:1px solid #ccc;
   border-radius:8px;
   outline:none;
+  font-size:15px;
 }
 
 .form-group textarea{
   min-height:90px;
   resize:vertical;
+}
+
+.helper{
+  color:#777;
+  font-size:12px;
+  line-height:1.5;
+  margin-top:8px;
 }
 
 .switch-text{
@@ -430,6 +501,46 @@ footer{
   line-height:1.5;
 }
 
+.info-box{
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:15px;
+}
+
+.payment-box{
+  background:#f8fafc;
+  padding:14px;
+  border-radius:10px;
+  margin:15px 0;
+}
+
+.payment-option{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:10px 0;
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:82px;
+  transform:translateX(-50%);
+  background:#24104d;
+  color:white;
+  padding:12px 18px;
+  border-radius:25px;
+  z-index:999;
+  display:none;
+  max-width:90%;
+  text-align:center;
+}
+
 @media(max-width:600px){
 
   header{
@@ -509,8 +620,7 @@ footer{
       type="text"
       id="search"
       placeholder="Search balloons, toys, gifts..."
-      oninput="searchProducts()"
-    >
+      oninput="searchProducts()">
   </div>
 
   <button class="header-btn" onclick="openLogin()">
@@ -530,9 +640,7 @@ footer{
       DELIVERY LOCATION
     </div>
 
-    <div
-      class="location-value"
-      id="locationText">
+    <div class="location-value" id="locationText">
       Add your delivery address
     </div>
 
@@ -646,9 +754,7 @@ footer{
 
 <!-- CART -->
 
-<div
-  class="cart-box"
-  id="cartBox">
+<div class="cart-box" id="cartBox">
 
   <div class="panel-header">
 
@@ -667,10 +773,8 @@ footer{
   <div id="cartItems"></div>
 
   <div class="total">
-
     Total:
     ₹<span id="total">0</span>
-
   </div>
 
   <button
@@ -686,14 +790,12 @@ footer{
 
 <!-- LOGIN -->
 
-<div
-  class="login-box"
-  id="loginBox">
+<div class="login-box" id="loginBox">
 
   <div class="panel-header">
 
-    <h2 id="loginTitle">
-      Login
+    <h2>
+      👤 <span id="loginTitle">Login</span>
     </h2>
 
     <span
@@ -708,46 +810,174 @@ footer{
 
   <div id="loginForm">
 
-    <div class="form-group">
+    <div class="auth-tabs">
 
-      <label>
-        Email
-      </label>
+      <button
+        id="phoneTab"
+        class="auth-tab active"
+        onclick="setAuthMode('phone')">
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Your email">
+        📱 Mobile OTP
 
-    </div>
+      </button>
 
-    <div class="form-group">
+      <button
+        id="emailTab"
+        class="auth-tab"
+        onclick="setAuthMode('email')">
 
-      <label>
-        Password
-      </label>
+        📧 Email OTP
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Password">
+      </button>
 
     </div>
 
-    <button
-      class="primary-btn"
-      onclick="loginUser()">
 
-      Login
+    <!-- PHONE LOGIN -->
 
-    </button>
+    <div id="phoneAuth">
+
+      <div class="form-group">
+
+        <label>
+          Mobile Number
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          maxlength="13"
+          inputmode="numeric"
+          placeholder="10 digit mobile number">
+
+      </div>
+
+      <button
+        class="primary-btn"
+        id="sendPhoneOtpBtn"
+        onclick="sendPhoneOTP()">
+
+        Send OTP
+
+      </button>
+
+      <div
+        id="phoneOtpArea"
+        class="otp-box"
+        style="display:none">
+
+        <div class="form-group">
+
+          <label>
+            SMS OTP
+          </label>
+
+          <input
+            type="text"
+            id="phoneOtp"
+            maxlength="8"
+            inputmode="numeric"
+            placeholder="OTP enter karein">
+
+        </div>
+
+        <button
+          class="primary-btn"
+          id="verifyPhoneBtn"
+          onclick="verifyPhoneOTP()">
+
+          Verify OTP & Login
+
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="sendPhoneOTP()">
+
+          Resend OTP
+
+        </button>
+
+      </div>
+
+      <div class="helper">
+        India ke liye 10 digit mobile number daaliye.
+        SMS OTP Supabase ke configured SMS provider ke through aayega.
+      </div>
+
+    </div>
+
+
+    <!-- EMAIL LOGIN -->
 
     <div
-      class="switch-text"
-      id="switchText"
-      onclick="toggleSignup()">
+      id="emailAuth"
+      style="display:none">
 
-      New customer? Create account
+      <div class="form-group">
+
+        <label>
+          Email Address
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="customer@email.com">
+
+      </div>
+
+      <button
+        class="primary-btn"
+        id="sendEmailOtpBtn"
+        onclick="sendEmailOTP()">
+
+        Send Email OTP
+
+      </button>
+
+      <div
+        id="emailOtpArea"
+        class="otp-box"
+        style="display:none">
+
+        <div class="form-group">
+
+          <label>
+            Email OTP
+          </label>
+
+          <input
+            type="text"
+            id="emailOtp"
+            maxlength="8"
+            inputmode="numeric"
+            placeholder="Email mein aaya OTP">
+
+        </div>
+
+        <button
+          class="primary-btn"
+          id="verifyEmailBtn"
+          onclick="verifyEmailOTP()">
+
+          Verify OTP & Login
+
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="sendEmailOTP()">
+
+          Resend OTP
+
+        </button>
+
+      </div>
+
+      <div class="helper">
+        Email par OTP aayega. Customer ko password yaad rakhne ki zarurat nahi.
+      </div>
 
     </div>
 
@@ -758,9 +988,7 @@ footer{
 
 <!-- ORDERS -->
 
-<div
-  class="orders-box"
-  id="ordersBox">
+<div class="orders-box" id="ordersBox">
 
   <div class="panel-header">
 
@@ -840,14 +1068,21 @@ footer{
     📍 4B Shukla Market, Panki Road, Kalyanpur
   </p>
 
+  <p style="margin-top:8px">
+    📞 6392178984
+  </p>
+
 </footer>
+
+
+<div class="toast" id="toast"></div>
 
 
 <script>
 
-/* ==============================
+/* =========================================================
    SUPABASE
-============================== */
+========================================================= */
 
 const SUPABASE_URL =
   "https://vngxyvgtboinxuzxchey.supabase.co";
@@ -862,26 +1097,24 @@ const supabaseClient =
   );
 
 
-/* ==============================
-   SHOP DATA
-============================== */
+/* =========================================================
+   APP STATE
+========================================================= */
 
 let products = [];
-
 let cart = [];
-
 let selectedCategory = "All";
-
 let currentUser = null;
-
 let userLocation = null;
-
 let deliveryAddress = "";
+let authMode = "phone";
+let pendingPhone = "";
+let pendingEmail = "";
 
 
-/* ==============================
-   FALLBACK PRODUCTS
-============================== */
+/* =========================================================
+   DEMO FALLBACK PRODUCTS
+========================================================= */
 
 const demoProducts = [
 
@@ -968,9 +1201,33 @@ const demoProducts = [
 ];
 
 
-/* ==============================
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.innerText = message;
+  toast.style.display = "block";
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(() => {
+
+      toast.style.display = "none";
+
+    },3500);
+
+}
+
+
+/* =========================================================
    LOAD PRODUCTS
-============================== */
+========================================================= */
 
 async function loadProducts(){
 
@@ -990,7 +1247,7 @@ async function loadProducts(){
 
     if(error){
 
-      console.log(
+      console.error(
         "Supabase product error:",
         error
       );
@@ -1011,8 +1268,15 @@ async function loadProducts(){
 
           price:
             Number(
-              p.price ||
-              p.selling_price ||
+              p.price ??
+              p.selling_price ??
+              0
+            ),
+
+          mrp:
+            Number(
+              p.mrp ??
+              p.original_price ??
               0
             ),
 
@@ -1027,7 +1291,10 @@ async function loadProducts(){
           image:
             p.image ||
             p.image_url ||
-            ""
+            "",
+
+          stock:
+            p.stock ?? null
 
         }));
 
@@ -1039,7 +1306,7 @@ async function loadProducts(){
 
   }catch(error){
 
-    console.log(error);
+    console.error(error);
 
     products = demoProducts;
 
@@ -1050,9 +1317,9 @@ async function loadProducts(){
 }
 
 
-/* ==============================
+/* =========================================================
    DISPLAY PRODUCTS
-============================== */
+========================================================= */
 
 function displayProducts(list){
 
@@ -1076,12 +1343,30 @@ function displayProducts(list){
       product.image
       ?
       `<img
-        src="${product.image}"
+        src="${escapeHTML(product.image)}"
         style="width:100%;height:100%;object-fit:cover"
         onerror="this.style.display='none';this.parentElement.innerHTML='🎁'"
       >`
       :
-      product.emoji;
+      product.emoji || "🎁";
+
+    const hasMRP =
+      product.mrp &&
+      product.mrp > product.price;
+
+    const discount =
+      hasMRP
+      ?
+      Math.round(
+        ((product.mrp - product.price) /
+        product.mrp) * 100
+      )
+      :
+      0;
+
+    const outOfStock =
+      product.stock !== null &&
+      Number(product.stock) <= 0;
 
     container.innerHTML += `
 
@@ -1097,15 +1382,42 @@ function displayProducts(list){
             ${escapeHTML(product.name)}
           </h3>
 
+          ${
+            discount
+            ?
+            `<span class="discount">${discount}% OFF</span>`
+            :
+            ""
+          }
+
           <div class="price">
-            ₹${product.price}
+
+            ₹${Number(product.price)}
+
+            ${
+              hasMRP
+              ?
+              `<span class="mrp">
+                ₹${Number(product.mrp)}
+              </span>`
+              :
+              ""
+            }
+
           </div>
 
           <button
             class="add"
-            onclick="addToCart(${product.id})">
+            ${outOfStock ? "disabled" : ""}
+            onclick="addToCart(${JSON.stringify(product.id)})">
 
-            Add to Cart
+            ${
+              outOfStock
+              ?
+              "Out of Stock"
+              :
+              "Add to Cart"
+            }
 
           </button>
 
@@ -1120,28 +1432,32 @@ function displayProducts(list){
 }
 
 
-/* ==============================
+/* =========================================================
    SEARCH
-============================== */
+========================================================= */
 
 function searchProducts(){
 
-  const value =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase()
-    .trim();
+  const input =
+    document.getElementById("search");
 
-  let filtered = products;
+  const value =
+    input
+    ? input.value.toLowerCase().trim()
+    : "";
+
+  let filtered = [...products];
 
   if(selectedCategory !== "All"){
 
     filtered =
       filtered.filter(
         p =>
-        String(p.category).toLowerCase()
-        === selectedCategory.toLowerCase()
+        String(p.category || "")
+        .toLowerCase()
+        .includes(
+          selectedCategory.toLowerCase()
+        )
       );
 
   }
@@ -1151,13 +1467,13 @@ function searchProducts(){
     filtered =
       filtered.filter(product =>
 
-        String(product.name)
+        String(product.name || "")
         .toLowerCase()
         .includes(value)
 
         ||
 
-        String(product.category)
+        String(product.category || "")
         .toLowerCase()
         .includes(value)
 
@@ -1170,9 +1486,9 @@ function searchProducts(){
 }
 
 
-/* ==============================
+/* =========================================================
    CATEGORY
-============================== */
+========================================================= */
 
 function filterCategory(category,element){
 
@@ -1185,7 +1501,9 @@ function filterCategory(category,element){
     );
 
   if(element){
+
     element.classList.add("active");
+
   }
 
   searchProducts();
@@ -1193,9 +1511,9 @@ function filterCategory(category,element){
 }
 
 
-/* ==============================
+/* =========================================================
    CART
-============================== */
+========================================================= */
 
 function addToCart(id){
 
@@ -1232,9 +1550,41 @@ function addToCart(id){
 
   }
 
+  saveCart();
   updateCart();
+  showToast(product.name + " cart mein add ho gaya");
 
-  openCart();
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    "riddhi_cart",
+    JSON.stringify(cart)
+  );
+
+}
+
+
+function loadCart(){
+
+  try{
+
+    const saved =
+      localStorage.getItem("riddhi_cart");
+
+    if(saved){
+
+      cart = JSON.parse(saved);
+
+    }
+
+  }catch(e){
+
+    cart = [];
+
+  }
 
 }
 
@@ -1244,7 +1594,7 @@ function updateCart(){
   const count =
     cart.reduce(
       (sum,item) =>
-      sum + item.qty,
+      sum + Number(item.qty || 0),
       0
     );
 
@@ -1254,22 +1604,24 @@ function updateCart(){
     );
 
   if(bottomCount){
+
     bottomCount.innerText = count;
+
   }
-
-
-  /* Compatibility if old cartCount element exists */
 
   const oldCartCount =
     document.getElementById("cartCount");
 
   if(oldCartCount){
-    oldCartCount.innerText = count;
-  }
 
+    oldCartCount.innerText = count;
+
+  }
 
   const container =
     document.getElementById("cartItems");
+
+  if(!container) return;
 
   container.innerHTML = "";
 
@@ -1282,12 +1634,11 @@ function updateCart(){
 
   }
 
-
   cart.forEach(item => {
 
     total +=
-      Number(item.price) *
-      item.qty;
+      Number(item.price || 0) *
+      Number(item.qty || 0);
 
     container.innerHTML += `
 
@@ -1301,25 +1652,25 @@ function updateCart(){
 
           <br>
 
-          ₹${item.price}
+          ₹${Number(item.price || 0)}
           ×
-          ${item.qty}
+          ${Number(item.qty || 0)}
 
         </div>
 
         <div class="qty">
 
           <button
-            onclick="changeQty(${item.id},-1)">
+            onclick="changeQty(${JSON.stringify(item.id)},-1)">
             −
           </button>
 
           <b>
-            ${item.qty}
+            ${Number(item.qty || 0)}
           </b>
 
           <button
-            onclick="changeQty(${item.id},1)">
+            onclick="changeQty(${JSON.stringify(item.id)},1)">
             +
           </button>
 
@@ -1348,7 +1699,8 @@ function changeQty(id,change){
 
   if(!item) return;
 
-  item.qty += change;
+  item.qty =
+    Number(item.qty) + Number(change);
 
   if(item.qty <= 0){
 
@@ -1360,6 +1712,7 @@ function changeQty(id,change){
 
   }
 
+  saveCart();
   updateCart();
 
 }
@@ -1383,25 +1736,126 @@ function closeCart(){
 }
 
 
-/* ==============================
-   AUTH
-============================== */
+/* =========================================================
+   AUTH MODE
+========================================================= */
+
+function setAuthMode(mode){
+
+  authMode = mode;
+
+  const phoneTab =
+    document.getElementById("phoneTab");
+
+  const emailTab =
+    document.getElementById("emailTab");
+
+  const phoneAuth =
+    document.getElementById("phoneAuth");
+
+  const emailAuth =
+    document.getElementById("emailAuth");
+
+  if(mode === "phone"){
+
+    phoneTab.classList.add("active");
+    emailTab.classList.remove("active");
+
+    phoneAuth.style.display = "block";
+    emailAuth.style.display = "none";
+
+  }else{
+
+    phoneTab.classList.remove("active");
+    emailTab.classList.add("active");
+
+    phoneAuth.style.display = "none";
+    emailAuth.style.display = "block";
+
+  }
+
+}
+
+
+/* =========================================================
+   AUTH UI
+========================================================= */
 
 async function checkUser(){
 
-  const {
-    data
-  } =
-    await supabaseClient
-    .auth
-    .getSession();
+  try{
 
-  currentUser =
-    data.session
-    ? data.session.user
-    : null;
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+      .auth
+      .getSession();
+
+    if(error){
+
+      console.error(error);
+
+      currentUser = null;
+
+    }else{
+
+      currentUser =
+        data.session
+        ? data.session.user
+        : null;
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    currentUser = null;
+
+  }
 
   updateAccountUI();
+
+}
+
+
+function getUserDisplayName(){
+
+  if(!currentUser){
+
+    return "Login";
+
+  }
+
+  if(currentUser.user_metadata){
+
+    const name =
+      currentUser.user_metadata.full_name ||
+      currentUser.user_metadata.name;
+
+    if(name){
+
+      return name;
+
+    }
+
+  }
+
+  if(currentUser.phone){
+
+    return currentUser.phone;
+
+  }
+
+  if(currentUser.email){
+
+    return currentUser.email.split("@")[0];
+
+  }
+
+  return "Account";
 
 }
 
@@ -1411,18 +1865,14 @@ function updateAccountUI(){
   const account =
     document.getElementById("accountText");
 
-  if(currentUser){
+  if(!account) return;
 
-    account.innerText =
-      currentUser.email
-      ? currentUser.email.split("@")[0]
-      : "Account";
-
-  }else{
-
-    account.innerText = "Login";
-
-  }
+  account.innerText =
+    currentUser
+    ?
+    getUserDisplayName()
+    :
+    "Login";
 
 }
 
@@ -1447,39 +1897,42 @@ function closeLogin(){
 }
 
 
-let signupMode = false;
-
-
-function toggleSignup(){
-
-  signupMode =
-    !signupMode;
-
-  renderLogin();
-
-}
-
-
 function renderLogin(){
 
   const title =
     document.getElementById("loginTitle");
 
-  const button =
-    document.querySelector(
-      "#loginForm .primary-btn"
-    );
+  const loginForm =
+    document.getElementById("loginForm");
 
-  const switchText =
-    document.getElementById("switchText");
+  const userArea =
+    document.getElementById("userArea");
 
   if(currentUser){
 
-    document.getElementById("loginForm")
-      .style.display = "none";
+    loginForm.style.display = "none";
 
-    document.getElementById("userArea")
-      .innerHTML = `
+    let identity = "";
+
+    if(currentUser.phone){
+
+      identity =
+        "📱 " +
+        escapeHTML(currentUser.phone);
+
+    }else if(currentUser.email){
+
+      identity =
+        "📧 " +
+        escapeHTML(currentUser.email);
+
+    }else{
+
+      identity = "Customer";
+
+    }
+
+    userArea.innerHTML = `
 
       <div class="user-info">
 
@@ -1488,7 +1941,7 @@ function renderLogin(){
         </b>
 
         <p style="margin-top:8px">
-          ${escapeHTML(currentUser.email || "")}
+          ${identity}
         </p>
 
         <button
@@ -1503,179 +1956,493 @@ function renderLogin(){
 
     `;
 
-    title.innerText =
-      "My Account";
+    title.innerText = "My Account";
 
     return;
 
   }
 
+  loginForm.style.display = "block";
 
-  document.getElementById("loginForm")
-    .style.display = "block";
+  userArea.innerHTML = "";
 
-  document.getElementById("userArea")
-    .innerHTML = "";
+  title.innerText = "Login";
 
-  title.innerText =
-    signupMode
-    ? "Create Account"
-    : "Login";
-
-
-  button.innerText =
-    signupMode
-    ? "Create Account"
-    : "Login";
-
-
-  button.onclick =
-    signupMode
-    ? signupUser
-    : loginUser;
-
-
-  switchText.innerText =
-    signupMode
-    ? "Already have account? Login"
-    : "New customer? Create account";
+  setAuthMode(authMode);
 
 }
 
 
-async function signupUser(){
+/* =========================================================
+   PHONE HELPERS
+========================================================= */
 
-  const email =
-    document
-    .getElementById("email")
-    .value
-    .trim();
+function normalizeIndianPhone(value){
 
-  const password =
-    document
-    .getElementById("password")
-    .value;
+  let phone =
+    String(value || "")
+    .trim()
+    .replace(/\s+/g,"")
+    .replace(/-/g,"");
 
+  if(phone.startsWith("+91")){
 
-  if(!email || !password){
+    phone =
+      "+91" +
+      phone
+      .slice(3)
+      .replace(/\D/g,"");
 
-    alert("Email aur password bhariye.");
-    return;
+  }else{
+
+    phone =
+      phone.replace(/\D/g,"");
+
+    if(phone.length === 10){
+
+      phone = "+91" + phone;
+
+    }
 
   }
 
-  if(password.length < 6){
+  if(!/^\+91[6-9]\d{9}$/.test(phone)){
+
+    return null;
+
+  }
+
+  return phone;
+
+}
+
+
+/* =========================================================
+   SEND PHONE OTP
+========================================================= */
+
+async function sendPhoneOTP(){
+
+  const input =
+    document.getElementById("phone");
+
+  const button =
+    document.getElementById(
+      "sendPhoneOtpBtn"
+    );
+
+  const phone =
+    normalizeIndianPhone(
+      input.value
+    );
+
+  if(!phone){
 
     alert(
-      "Password kam se kam 6 characters ka hona chahiye."
+      "Valid 10 digit Indian mobile number daaliye."
     );
 
     return;
 
   }
 
+  button.disabled = true;
+  button.innerText = "OTP bheja ja raha hai...";
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-    .auth
-    .signUp({
+  try{
 
-      email,
-      password
+    const {
+      error
+    } =
+      await supabaseClient
+      .auth
+      .signInWithOtp({
 
-    });
+        phone:phone,
+
+        options:{
+          shouldCreateUser:true
+        }
+
+      });
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "OTP send nahi hua:\n\n" +
+        error.message
+      );
+
+      return;
+
+    }
+
+    pendingPhone = phone;
+
+    document
+      .getElementById("phoneOtpArea")
+      .style.display = "block";
+
+    showToast(
+      "📱 OTP aapke mobile number par bhej diya gaya."
+    );
+
+    document
+      .getElementById("phoneOtp")
+      .focus();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "OTP send karte waqt problem aa gayi."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.innerText = "Send OTP";
+
+  }
+
+}
 
 
-  if(error){
+/* =========================================================
+   VERIFY PHONE OTP
+========================================================= */
 
-    alert(error.message);
+async function verifyPhoneOTP(){
+
+  const otp =
+    document
+    .getElementById("phoneOtp")
+    .value
+    .trim();
+
+  const button =
+    document.getElementById(
+      "verifyPhoneBtn"
+    );
+
+  if(!pendingPhone){
+
+    alert("Pehle Send OTP dabaiye.");
+
     return;
 
   }
 
+  if(!otp){
 
-  if(data.user){
+    alert("OTP enter karein.");
+
+    return;
+
+  }
+
+  button.disabled = true;
+  button.innerText = "Verify ho raha hai...";
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+      .auth
+      .verifyOtp({
+
+        phone:pendingPhone,
+
+        token:otp,
+
+        type:"sms"
+
+      });
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "OTP verify nahi hua:\n\n" +
+        error.message
+      );
+
+      return;
+
+    }
 
     currentUser =
       data.user;
 
     updateAccountUI();
 
-    alert(
-      "Account create ho gaya. Agar email confirmation on hai to email verify karein."
+    showToast(
+      "🎉 Mobile login successful!"
     );
 
+    document
+      .getElementById("phoneOtpArea")
+      .style.display = "none";
+
+    document
+      .getElementById("phoneOtp")
+      .value = "";
+
+    pendingPhone = "";
+
     renderLogin();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "OTP verify karte waqt problem aa gayi."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.innerText = "Verify OTP & Login";
 
   }
 
 }
 
 
-async function loginUser(){
+/* =========================================================
+   SEND EMAIL OTP
+========================================================= */
+
+async function sendEmailOTP(){
+
+  const input =
+    document.getElementById("email");
+
+  const button =
+    document.getElementById(
+      "sendEmailOtpBtn"
+    );
 
   const email =
-    document
-    .getElementById("email")
-    .value
-    .trim();
+    input.value
+    .trim()
+    .toLowerCase();
 
-  const password =
-    document
-    .getElementById("password")
-    .value;
+  if(!email){
 
+    alert("Email address daaliye.");
 
-  if(!email || !password){
-
-    alert("Email aur password bhariye.");
     return;
 
   }
 
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+
+    alert("Valid email address daaliye.");
+
+    return;
+
+  }
+
+  button.disabled = true;
+  button.innerText = "OTP bheja ja raha hai...";
+
+  try{
+
+    const {
+      error
+    } =
+      await supabaseClient
+      .auth
+      .signInWithOtp({
+
+        email:email,
+
+        options:{
+          shouldCreateUser:true
+        }
+
+      });
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "Email OTP send nahi hua:\n\n" +
+        error.message
+      );
+
+      return;
+
+    }
+
+    pendingEmail = email;
+
+    document
+      .getElementById("emailOtpArea")
+      .style.display = "block";
+
+    showToast(
+      "📧 OTP aapke email par bhej diya gaya."
+    );
+
+    document
+      .getElementById("emailOtp")
+      .focus();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Email OTP send karte waqt problem aa gayi."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.innerText = "Send Email OTP";
+
+  }
+
+}
+
+
+/* =========================================================
+   VERIFY EMAIL OTP
+========================================================= */
+
+async function verifyEmailOTP(){
+
+  const otp =
+    document
+    .getElementById("emailOtp")
+    .value
+    .trim();
+
+  const button =
+    document.getElementById(
+      "verifyEmailBtn"
+    );
+
+  if(!pendingEmail){
+
+    alert("Pehle Send Email OTP dabaiye.");
+
+    return;
+
+  }
+
+  if(!otp){
+
+    alert("Email OTP enter karein.");
+
+    return;
+
+  }
+
+  button.disabled = true;
+  button.innerText = "Verify ho raha hai...";
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+      .auth
+      .verifyOtp({
+
+        email:pendingEmail,
+
+        token:otp,
+
+        type:"email"
+
+      });
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "Email OTP verify nahi hua:\n\n" +
+        error.message
+      );
+
+      return;
+
+    }
+
+    currentUser =
+      data.user;
+
+    updateAccountUI();
+
+    showToast(
+      "🎉 Email login successful!"
+    );
+
+    document
+      .getElementById("emailOtpArea")
+      .style.display = "none";
+
+    document
+      .getElementById("emailOtp")
+      .value = "";
+
+    pendingEmail = "";
+
+    renderLogin();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      "Email OTP verify karte waqt problem aa gayi."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.innerText = "Verify OTP & Login";
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutUser(){
 
   const {
-    data,
     error
   } =
     await supabaseClient
     .auth
-    .signInWithPassword({
-
-      email,
-      password
-
-    });
-
+    .signOut();
 
   if(error){
 
     alert(error.message);
+
     return;
 
   }
-
-
-  currentUser =
-    data.user;
-
-  updateAccountUI();
-
-  alert("Login successful.");
-
-  renderLogin();
-
-}
-
-
-async function logoutUser(){
-
-  await supabaseClient
-    .auth
-    .signOut();
 
   currentUser = null;
 
@@ -1685,12 +2452,14 @@ async function logoutUser(){
 
   closeOrders();
 
+  showToast("Logout successful.");
+
 }
 
 
-/* ==============================
+/* =========================================================
    GPS LOCATION
-============================== */
+========================================================= */
 
 function getLocation(){
 
@@ -1704,12 +2473,10 @@ function getLocation(){
 
   }
 
-
   document
     .getElementById("locationText")
     .innerText =
     "📍 GPS location detect ho rahi hai...";
-
 
   navigator.geolocation.getCurrentPosition(
 
@@ -1724,16 +2491,15 @@ function getLocation(){
       userLocation = {
 
         latitude:lat,
+
         longitude:lng
 
       };
-
 
       localStorage.setItem(
         "riddhi_location",
         JSON.stringify(userLocation)
       );
-
 
       if(deliveryAddress){
 
@@ -1747,13 +2513,12 @@ function getLocation(){
         document
           .getElementById("locationText")
           .innerText =
-          "📍 GPS location saved • Address add karein";
+          "📍 GPS saved • Address add karein";
 
       }
 
-
-      alert(
-        "GPS location mil gayi.\n\nAb delivery ke liye Address button se proper address bhi add kar sakte hain."
+      showToast(
+        "📍 GPS location save ho gayi."
       );
 
     },
@@ -1766,8 +2531,10 @@ function getLocation(){
         .getElementById("locationText")
         .innerText =
         deliveryAddress
-        ? "📍 " + deliveryAddress
-        : "Location permission nahi mili.";
+        ?
+        "📍 " + deliveryAddress
+        :
+        "Location permission nahi mili.";
 
       alert(
         "Location permission Allow karein, phir dobara try karein."
@@ -1778,7 +2545,9 @@ function getLocation(){
     {
 
       enableHighAccuracy:true,
+
       timeout:15000,
+
       maximumAge:0
 
     }
@@ -1788,9 +2557,9 @@ function getLocation(){
 }
 
 
-/* ==============================
+/* =========================================================
    MANUAL ADDRESS
-============================== */
+========================================================= */
 
 function enterAddress(){
 
@@ -1801,7 +2570,6 @@ function enterAddress(){
 
   if(house === null) return;
 
-
   const area =
     prompt(
       "Street / Area / Colony likhiye:"
@@ -1809,14 +2577,12 @@ function enterAddress(){
 
   if(area === null) return;
 
-
   const landmark =
     prompt(
       "Landmark likhiye (optional):"
     );
 
   if(landmark === null) return;
-
 
   const city =
     prompt(
@@ -1826,14 +2592,12 @@ function enterAddress(){
 
   if(city === null) return;
 
-
   const pincode =
     prompt(
       "Pincode:"
     );
 
   if(pincode === null) return;
-
 
   if(
     !house.trim() ||
@@ -1849,10 +2613,8 @@ function enterAddress(){
 
   }
 
-
   deliveryAddress =
     `${house.trim()}, ${area.trim()}`;
-
 
   if(landmark.trim()){
 
@@ -1861,10 +2623,8 @@ function enterAddress(){
 
   }
 
-
   deliveryAddress +=
     `, ${city.trim()}`;
-
 
   if(pincode.trim()){
 
@@ -1873,29 +2633,26 @@ function enterAddress(){
 
   }
 
-
   localStorage.setItem(
     "riddhi_delivery_address",
     deliveryAddress
   );
-
 
   document
     .getElementById("locationText")
     .innerText =
     "📍 " + deliveryAddress;
 
-
-  alert(
-    "Delivery address save ho gaya."
+  showToast(
+    "📍 Delivery address save ho gaya."
   );
 
 }
 
 
-/* ==============================
+/* =========================================================
    CHECKOUT
-============================== */
+========================================================= */
 
 async function checkout(){
 
@@ -1909,11 +2666,10 @@ async function checkout(){
 
   }
 
-
   if(!currentUser){
 
     alert(
-      "Order karne ke liye pehle Login / Sign Up karein."
+      "Order karne ke liye pehle Mobile OTP / Email OTP se Login karein."
     );
 
     closeCart();
@@ -1924,13 +2680,21 @@ async function checkout(){
 
   }
 
+  if(!deliveryAddress){
 
-  /*
-    Agar address pehle se saved hai
-    to use karega.
-  */
+    enterAddress();
 
-  if(deliveryAddress){
+    if(!deliveryAddress){
+
+      alert(
+        "Delivery address zaroori hai."
+      );
+
+      return;
+
+    }
+
+  }else{
 
     const changeAddress =
       confirm(
@@ -1941,25 +2705,20 @@ async function checkout(){
 
     if(changeAddress){
 
+      const oldAddress =
+        deliveryAddress;
+
       enterAddress();
+
+      if(!deliveryAddress){
+
+        deliveryAddress = oldAddress;
+
+      }
 
     }
 
-  }else{
-
-    alert(
-      "Order se pehle delivery address add kijiye."
-    );
-
-    enterAddress();
-
   }
-
-
-  /*
-    Agar user ne address nahi diya
-    to order rok do.
-  */
 
   if(
     !deliveryAddress ||
@@ -1975,20 +2734,38 @@ async function checkout(){
   }
 
 
+  /* PAYMENT */
+
   const payment =
     confirm(
-      "COD (Cash on Delivery) select karna hai?\n\nOK = COD\nCancel = Online Payment"
+      "Payment method:\n\n" +
+      "OK = Cash on Delivery\n" +
+      "Cancel = Online Payment"
     )
-    ? "COD"
-    : "ONLINE";
+    ?
+    "COD"
+    :
+    "ONLINE";
+
+
+  if(payment === "ONLINE"){
+
+    alert(
+      "Online payment gateway abhi connect nahi hai.\n\n" +
+      "Order ko COD se place karein, ya baad mein payment gateway connect kiya ja sakta hai."
+    );
+
+    return;
+
+  }
 
 
   const total =
     cart.reduce(
       (sum,item) =>
       sum +
-      Number(item.price) *
-      item.qty,
+      Number(item.price || 0) *
+      Number(item.qty || 0),
       0
     );
 
@@ -2000,21 +2777,81 @@ async function checkout(){
 
       name:item.name,
 
-      price:Number(item.price),
+      price:Number(item.price || 0),
 
-      qty:item.qty
+      qty:Number(item.qty || 0)
 
     }));
+
+
+  /*
+    Mobile OTP user ke paas email nahi bhi ho sakta.
+    Isliye mobile ko pehle use karenge.
+  */
+
+  let mobile =
+    currentUser.phone || "";
+
+
+  /*
+    Agar email login hua aur mobile nahi hai,
+    to customer se mobile number lenge.
+  */
+
+  if(!mobile){
+
+    const enteredMobile =
+      prompt(
+        "Delivery ke liye mobile number dijiye:"
+      );
+
+    if(!enteredMobile){
+
+      alert(
+        "Mobile number zaroori hai."
+      );
+
+      return;
+
+    }
+
+    mobile =
+      normalizeIndianPhone(
+        enteredMobile
+      );
+
+    if(!mobile){
+
+      alert(
+        "Valid 10 digit Indian mobile number dijiye."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  const customerName =
+    currentUser.user_metadata?.full_name ||
+    currentUser.user_metadata?.name ||
+    (
+      currentUser.email
+      ?
+      currentUser.email.split("@")[0]
+      :
+      "Customer"
+    );
 
 
   const orderData = {
 
     customer_name:
-      currentUser.email
-      ? currentUser.email.split("@")[0]
-      : "Customer",
+      customerName,
 
-    mobile:"",
+    mobile:
+      mobile,
 
     address:
       deliveryAddress.trim(),
@@ -2038,8 +2875,7 @@ async function checkout(){
 
 
   /*
-    GPS coordinates bhi save karne ki
-    koshish hogi.
+    GPS coordinates bhi save karne ki koshish.
   */
 
   if(userLocation){
@@ -2055,57 +2891,60 @@ async function checkout(){
 
   try{
 
-    const {
-      data,
-      error
-    } =
+    let result =
       await supabaseClient
       .from("Orders")
       .insert(orderData)
       .select();
 
 
-    if(error){
+    /*
+      Agar latitude/longitude columns nahi hain,
+      to automatically retry.
+    */
 
-      console.error(error);
+    if(result.error){
 
-      /*
-        Agar latitude/longitude columns
-        Orders table mein nahi hain,
-        to bina un columns ke retry.
-      */
+      console.log(
+        "First order insert failed:",
+        result.error
+      );
 
       delete orderData.latitude;
       delete orderData.longitude;
 
-
-      const retry =
+      result =
         await supabaseClient
         .from("Orders")
         .insert(orderData)
         .select();
 
+    }
 
-      if(retry.error){
 
-        alert(
-          "Order save nahi hua:\n\n" +
-          retry.error.message
-        );
+    if(result.error){
 
-        return;
+      console.error(result.error);
 
-      }
+      alert(
+        "Order save nahi hua:\n\n" +
+        result.error.message
+      );
+
+      return;
 
     }
 
 
     alert(
-      "🎉 Order successfully placed!"
+      "🎉 Order successfully placed!\n\n" +
+      "Aap My Orders mein order dekh sakte hain."
     );
 
 
     cart = [];
+
+    saveCart();
 
     updateCart();
 
@@ -2129,16 +2968,16 @@ async function checkout(){
 }
 
 
-/* ==============================
+/* =========================================================
    ORDERS
-============================== */
+========================================================= */
 
 function openOrders(){
 
   if(!currentUser){
 
     alert(
-      "My Orders dekhne ke liye Login karein."
+      "My Orders dekhne ke liye pehle Login karein."
     );
 
     openLogin();
@@ -2146,7 +2985,6 @@ function openOrders(){
     return;
 
   }
-
 
   document
     .getElementById("ordersBox")
@@ -2173,7 +3011,6 @@ async function loadOrders(){
 
   container.innerHTML =
     '<div class="loading">Orders load ho rahe hain...</div>';
-
 
   if(!currentUser){
 
@@ -2253,7 +3090,7 @@ async function loadOrders(){
         order.items
         .map(
           item =>
-          `${escapeHTML(item.name)} × ${item.qty}`
+          `${escapeHTML(item.name)} × ${Number(item.qty || 0)}`
         )
         .join("<br>");
 
@@ -2270,8 +3107,9 @@ async function loadOrders(){
     const date =
       order.created_at
       ?
-      new Date(order.created_at)
-      .toLocaleString("en-IN")
+      new Date(
+        order.created_at
+      ).toLocaleString("en-IN")
       :
       "";
 
@@ -2298,7 +3136,14 @@ async function loadOrders(){
 
         Payment:
         ${escapeHTML(
-          order.payment_method || ""
+          order.payment_method || "COD"
+        )}
+
+        <br>
+
+        Mobile:
+        ${escapeHTML(
+          order.mobile || ""
         )}
 
         <br><br>
@@ -2333,13 +3178,13 @@ async function loadOrders(){
 }
 
 
-/* ==============================
+/* =========================================================
    SECURITY HELPER
-============================== */
+========================================================= */
 
 function escapeHTML(value){
 
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -2349,9 +3194,9 @@ function escapeHTML(value){
 }
 
 
-/* ==============================
-   SAVED LOCATION + ADDRESS
-============================== */
+/* =========================================================
+   SAVED LOCATION
+========================================================= */
 
 function loadSavedLocation(){
 
@@ -2361,7 +3206,6 @@ function loadSavedLocation(){
       localStorage.getItem(
         "riddhi_location"
       );
-
 
     if(savedLocation){
 
@@ -2375,7 +3219,6 @@ function loadSavedLocation(){
       localStorage.getItem(
         "riddhi_delivery_address"
       );
-
 
     if(savedAddress){
 
@@ -2392,7 +3235,7 @@ function loadSavedLocation(){
       document
         .getElementById("locationText")
         .innerText =
-        "📍 GPS location saved • Address add karein";
+        "📍 GPS saved • Address add karein";
 
     }
 
@@ -2405,9 +3248,9 @@ function loadSavedLocation(){
 }
 
 
-/* ==============================
+/* =========================================================
    AUTH STATE LISTENER
-============================== */
+========================================================= */
 
 supabaseClient
 .auth
@@ -2416,31 +3259,45 @@ supabaseClient
 
     currentUser =
       session
-      ? session.user
-      : null;
+      ?
+      session.user
+      :
+      null;
 
     updateAccountUI();
+
+    if(
+      document
+      .getElementById("loginBox")
+      .classList
+      .contains("open")
+    ){
+
+      renderLogin();
+
+    }
 
   }
 );
 
 
-/* ==============================
+/* =========================================================
    START APP
-============================== */
+========================================================= */
 
 (async function(){
 
   loadSavedLocation();
 
+  loadCart();
+
+  updateCart();
+
   await checkUser();
 
   await loadProducts();
 
-  updateCart();
-
 })();
-
 </script>
 
 </body>
