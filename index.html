@@ -1528,6 +1528,175 @@ function addToCart(id){
     return;
 
   }
+  function buyNow(id){
+  addToCart(id);
+  openCart();
+}
+
+function openProductDetails(id){
+
+  const product = products.find(
+    p => String(p.id) === String(id)
+  );
+
+  if(!product) return;
+
+  const oldPopup =
+    document.querySelector(".product-details-popup");
+
+  if(oldPopup) oldPopup.remove();
+
+  const hasMRP =
+    product.mrp &&
+    product.mrp > product.price;
+
+  const discount =
+    hasMRP
+    ? Math.round(
+        ((product.mrp - product.price) /
+        product.mrp) * 100
+      )
+    : 0;
+
+  const imageHTML =
+    product.image
+    ?
+    `<img
+      src="${escapeHTML(product.image)}"
+      style="width:100%;height:100%;object-fit:contain"
+      onerror="this.style.display='none';this.parentElement.innerHTML='🎁'"
+    >`
+    :
+    (product.emoji || "🎁");
+
+  const popup =
+    document.createElement("div");
+
+  popup.className =
+    "product-details-popup";
+
+  popup.innerHTML = `
+
+    <div style="
+      background:white;
+      width:92%;
+      max-width:450px;
+      max-height:90vh;
+      overflow:auto;
+      border-radius:20px;
+      padding:18px;
+      position:relative;
+    ">
+
+      <button
+        onclick="this.closest('.product-details-popup').remove()"
+        style="
+          position:absolute;
+          right:12px;
+          top:12px;
+          border:0;
+          background:#eee;
+          width:35px;
+          height:35px;
+          border-radius:50%;
+          font-size:20px;
+          cursor:pointer;
+        "
+      >×</button>
+
+      <div style="
+        height:280px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#f8f8f8;
+        border-radius:15px;
+        font-size:80px;
+        overflow:hidden;
+      ">
+        ${imageHTML}
+      </div>
+
+      <h2 style="margin:18px 0 8px">
+        ${escapeHTML(product.name)}
+      </h2>
+
+      <div style="color:#666;margin-bottom:10px">
+        ${escapeHTML(product.category || "Party")}
+      </div>
+
+      <div style="font-size:24px;font-weight:bold;color:#5b21b6">
+        ₹${Number(product.price)}
+      </div>
+
+      ${
+        hasMRP
+        ?
+        `<div style="margin-top:5px">
+          <span style="text-decoration:line-through;color:#888">
+            ₹${Number(product.mrp)}
+          </span>
+          <span style="color:green;font-weight:bold;margin-left:8px">
+            ${discount}% OFF
+          </span>
+        </div>`
+        :
+        ""
+      }
+
+      <p style="
+        color:#555;
+        line-height:1.5;
+        margin-top:18px;
+      ">
+        Quality party supplies and gifts available at Riddhi Party Shop.
+      </p>
+
+      <div style="
+        display:flex;
+        gap:10px;
+        margin-top:20px;
+      ">
+
+        <button
+          onclick="addToCart(${JSON.stringify(product.id)}); this.closest('.product-details-popup').remove()"
+          style="
+            flex:1;
+            padding:14px;
+            border:2px solid #5b21b6;
+            color:#5b21b6;
+            background:white;
+            border-radius:10px;
+            font-weight:bold;
+            cursor:pointer;
+          "
+        >
+          Add to Cart
+        </button>
+
+        <button
+          onclick="buyNow(${JSON.stringify(product.id)}); this.closest('.product-details-popup').remove()"
+          style="
+            flex:1;
+            padding:14px;
+            border:0;
+            background:#5b21b6;
+            color:white;
+            border-radius:10px;
+            font-weight:bold;
+            cursor:pointer;
+          "
+        >
+          Buy Now
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+}
 
   const existing =
     cart.find(
