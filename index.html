@@ -770,10 +770,6 @@ textarea{
 
 <script>
 
-/* =========================================
-   SUPABASE
-========================================= */
-
 const SUPABASE_URL =
   "https://vngxyvgtboinxuzxchey.supabase.co";
 
@@ -786,10 +782,6 @@ const supabaseClient =
     SUPABASE_KEY
   );
 
-
-/* =========================================
-   GLOBAL DATA
-========================================= */
 
 let products = [];
 
@@ -804,10 +796,6 @@ let currentCategory = "all";
 
 let currentUser = null;
 
-
-/* =========================================
-   HELPERS
-========================================= */
 
 function escapeHTML(value){
 
@@ -863,10 +851,6 @@ function saveCart(){
 
 }
 
-
-/* =========================================
-   LOAD PRODUCTS
-========================================= */
 
 async function loadProducts(){
 
@@ -983,10 +967,6 @@ async function loadProducts(){
 
 }
 
-
-/* =========================================
-   DISPLAY PRODUCTS
-========================================= */
 
 function displayProducts(){
 
@@ -1125,10 +1105,6 @@ function displayProducts(){
 
 }
 
-
-/* =========================================
-   PRODUCT DETAILS
-========================================= */
 
 function openProductDetails(id){
 
@@ -1299,10 +1275,6 @@ function openProductDetails(id){
 }
 
 
-/* =========================================
-   ADD TO CART
-========================================= */
-
 function addToCart(id){
 
   const product =
@@ -1366,10 +1338,6 @@ function addToCart(id){
 }
 
 
-/* =========================================
-   BUY NOW
-========================================= */
-
 function buyNow(id){
 
   addToCart(id);
@@ -1378,10 +1346,6 @@ function buyNow(id){
 
 }
 
-
-/* =========================================
-   CART
-========================================= */
 
 function getCartTotal(){
 
@@ -1626,10 +1590,6 @@ function openCart(){
 }
 
 
-/* =========================================
-   CHECKOUT
-========================================= */
-
 function openCheckout(){
 
   if(!cart.length){
@@ -1828,7 +1788,8 @@ function openCheckout(){
 
 
 /* =========================================
-   PLACE ORDER
+   PLACE ORDER - FIXED
+   .select() REMOVED
 ========================================= */
 
 async function placeOrder(){
@@ -1932,11 +1893,14 @@ async function placeOrder(){
 
   try{
 
+    /* IMPORTANT:
+       .select() HATA DIYA HAI
+    */
+
     let result =
       await supabaseClient
         .from("orders")
-        .insert([orderData])
-        .select();
+        .insert([orderData]);
 
 
     if(result.error){
@@ -1959,8 +1923,7 @@ async function placeOrder(){
       result =
         await supabaseClient
           .from("orders")
-          .insert([orderData])
-          .select();
+          .insert([orderData]);
 
     }
 
@@ -1968,6 +1931,7 @@ async function placeOrder(){
     if(result.error){
 
       console.error(
+        "Final order error:",
         result.error
       );
 
@@ -2017,10 +1981,6 @@ async function placeOrder(){
 
 }
 
-
-/* =========================================
-   LOCATION
-========================================= */
 
 function saveLocation(address,lat="",lng=""){
 
@@ -2109,12 +2069,6 @@ function useMyLocation(){
       const lng =
         position.coords.longitude;
 
-
-      /*
-        GPS coordinates save kar rahe hain.
-        User baad mein manual address bhi
-        enter kar sakta hai.
-      */
 
       const address =
         `GPS Location: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
@@ -2223,10 +2177,6 @@ function manualLocation(){
 
 }
 
-
-/* =========================================
-   LOGIN
-========================================= */
 
 async function openLogin(){
 
@@ -2364,10 +2314,6 @@ async function openLogin(){
 }
 
 
-/* =========================================
-   SEND OTP
-========================================= */
-
 async function sendOTP(){
 
   const email =
@@ -2389,16 +2335,16 @@ async function sendOTP(){
     const {
       error
     } =
-      await supabaseClient.auth.signInWithOtp({
+    await supabaseClient.auth.signInWithOtp({
 
-        email:email,
+      email:email,
 
-        options:{
-          emailRedirectTo:
-            window.location.href
-        }
+      options:{
+        emailRedirectTo:
+          window.location.href
+      }
 
-      });
+    });
 
 
     if(error){
@@ -2431,10 +2377,6 @@ async function sendOTP(){
 }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
-
 async function logout(){
 
   await supabaseClient.auth.signOut();
@@ -2447,10 +2389,6 @@ async function logout(){
 
 }
 
-
-/* =========================================
-   ORDERS
-========================================= */
 
 async function openOrders(){
 
@@ -2703,10 +2641,6 @@ async function loadOrders(){
 }
 
 
-/* =========================================
-   SEARCH
-========================================= */
-
 function applyFilters(){
 
   const search =
@@ -2755,12 +2689,6 @@ function applyFilters(){
 
 }
 
-
-/* =========================================
-   EVENT DELEGATION
-   IMPORTANT:
-   ALL BUTTON CLICKS COME HERE
-========================================= */
 
 document.addEventListener(
   "click",
@@ -3011,13 +2939,6 @@ document.addEventListener(
     }
 
 
-    /*
-      BUTTON nahi tha.
-
-      Ab check karte hain ki user ne
-      product card par click kiya hai ya nahi.
-    */
-
     const productCard =
       event.target.closest(
         ".product[data-product-id]"
@@ -3038,10 +2959,6 @@ document.addEventListener(
 );
 
 
-/* =========================================
-   SEARCH EVENT
-========================================= */
-
 document
   .getElementById("searchInput")
   .addEventListener(
@@ -3049,10 +2966,6 @@ document
     applyFilters
   );
 
-
-/* =========================================
-   AUTH STATE
-========================================= */
 
 supabaseClient.auth.onAuthStateChange(
   function(event,session){
@@ -3064,10 +2977,6 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* =========================================
-   INITIAL AUTH
-========================================= */
-
 async function loadUser(){
 
   try{
@@ -3075,7 +2984,7 @@ async function loadUser(){
     const {
       data
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getSession();
 
 
     currentUser =
@@ -3090,16 +2999,7 @@ async function loadUser(){
 }
 
 
-/* =========================================
-   INITIAL LOCATION
-========================================= */
-
 updateLocation();
-
-
-/* =========================================
-   START
-========================================= */
 
 loadUser();
 
